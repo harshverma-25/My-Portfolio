@@ -1,12 +1,10 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { name: "Home", href: "#hero" },
   { name: "Projects", href: "#projects" },
   { name: "Skills", href: "#skills" },
   { name: "DSA", href: "#dsa" },
@@ -15,90 +13,97 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const { scrollY } = useScroll();
-  
-  const backgroundColor = useTransform(
-    scrollY,
-    [0, 50],
-    ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.4)"]
-  );
-  
-  const backdropBlur = useTransform(
-    scrollY,
-    [0, 50],
-    ["blur(0px)", "blur(12px)"]
-  );
 
-  const borderBottom = useTransform(
-    scrollY,
-    [0, 50],
-    ["1px solid rgba(255, 255, 255, 0)", "1px solid rgba(255, 255, 255, 0.1)"]
-  );
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  const containerVariants: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.06 } },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: -6 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+  };
 
   return (
-    <motion.nav
-      style={{
-        backgroundColor,
-        backdropFilter: backdropBlur,
-        borderBottom,
-      }}
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/[0.06]"
+          : "bg-transparent"
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold tracking-tighter group">
-          <span className="text-white group-hover:text-purple-400 transition-colors">PORT</span>
-          <span className="text-purple-500 group-hover:text-white transition-colors">FOLIO.</span>
+      <div className="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="text-sm font-semibold text-white hover:text-blue-400 transition-colors duration-200"
+        >
+          harsh<span className="text-blue-400">.</span>dev
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-sm font-medium text-zinc-400 hover:text-white transition-colors relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 transition-all duration-300 group-hover:w-full" />
-            </Link>
-          ))}
-          <Link
-            href="#contact"
-            className="px-5 py-2 bg-white text-black text-sm font-bold rounded-full hover:bg-purple-500 hover:text-white transition-all transform hover:scale-105"
-          >
-            Hire Me
-          </Link>
-        </div>
-
-        {/* Mobile Toggle */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-white hover:text-purple-400 transition-colors"
+        {/* Desktop nav */}
+        <motion.nav
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="hidden md:flex items-center gap-1"
         >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+          {navLinks.map((link) => (
+            <motion.div key={link.name} variants={itemVariants}>
+              <Link
+                href={link.href}
+                className="px-3 py-1.5 text-sm text-zinc-400 hover:text-white rounded-md hover:bg-white/[0.05] transition-all duration-200"
+              >
+                {link.name}
+              </Link>
+            </motion.div>
+          ))}
+        </motion.nav>
+
+        {/* Mobile burger */}
+        <button
+          id="mobile-menu-toggle"
+          aria-label="Toggle menu"
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden flex flex-col gap-1.5 p-2"
+        >
+          <span
+            className={`block w-5 h-px bg-zinc-400 transition-all duration-200 ${isOpen ? "rotate-45 translate-y-2" : ""}`}
+          />
+          <span
+            className={`block w-5 h-px bg-zinc-400 transition-all duration-200 ${isOpen ? "opacity-0" : ""}`}
+          />
+          <span
+            className={`block w-5 h-px bg-zinc-400 transition-all duration-200 ${isOpen ? "-rotate-45 -translate-y-2" : ""}`}
+          />
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      <motion.div
-        initial={false}
-        animate={isOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-        className="md:hidden bg-black/95 backdrop-blur-xl border-b border-white/10 overflow-hidden"
-      >
-        <div className="flex flex-col gap-4 p-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="text-lg font-medium text-zinc-400 hover:text-purple-400 transition-colors"
-            >
-              {link.name}
-            </Link>
-          ))}
+      {/* Mobile menu */}
+      {isOpen && (
+        <div className="md:hidden border-t border-white/[0.06] bg-[#0a0a0a]/95 backdrop-blur-md">
+          <div className="max-w-3xl mx-auto px-6 py-4 flex flex-col gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="py-2 px-3 text-sm text-zinc-400 hover:text-white rounded-md hover:bg-white/[0.05] transition-all"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
         </div>
-      </motion.div>
-    </motion.nav>
+      )}
+    </header>
   );
 }

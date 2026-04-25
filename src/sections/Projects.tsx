@@ -1,36 +1,44 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { projects } from "../data/projects";
 import ProjectCard from "../components/ProjectCard";
 
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 export default function Projects() {
   return (
-    <section id="projects" className="py-32 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section id="projects" className="py-20 border-t border-white/[0.06]">
+      <div className="section-container">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="mb-10"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-            Featured <span className="text-gradient">Projects</span>
-          </h2>
-          <p className="text-zinc-400 max-w-2xl mx-auto text-lg">
-            A selection of my favorite works, ranging from full-stack applications to intricate user interfaces.
+          <h2 className="section-heading mb-2">Projects</h2>
+          <p className="section-subtext">
+            A selection of things I&apos;ve built recently.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex flex-col gap-4">
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: index * 0.07 } as object}
             >
               <ProjectCard {...project} />
             </motion.div>

@@ -1,33 +1,48 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-primary: #a855f7;
-  --color-brand-secondary: #3b82f6;
-  --color-background: #030303;
-  --color-surface: #0a0a0a;
-  --color-surface-hover: #121212;
+  --color-accent: #60a5fa;
+  --color-accent-dim: #3b82f6;
+  --color-background: #0a0a0a;
+  --color-surface: #111111;
   --color-border: #1f1f1f;
 }
 
 @layer base {
   body {
     background-color: var(--color-background);
-    color: #fafafa;
+    color: #f4f4f5;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
 @layer utilities {
-  .glass {
-    @apply bg-black/40 backdrop-blur-md border border-white/10;
-  }
-  
-  .glass-hover {
-    @apply hover:bg-white/5 transition-all duration-300;
+  .section-container {
+    @apply max-w-3xl mx-auto px-6;
   }
 
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-blue-400 to-emerald-400;
+  .section-heading {
+    @apply text-2xl font-semibold tracking-tight text-white;
+  }
+
+  .section-subtext {
+    @apply text-sm text-zinc-400 leading-relaxed;
+  }
+
+  .card {
+    @apply bg-zinc-900/60 border border-white/[0.06] rounded-xl;
+  }
+
+  .card-hover {
+    @apply hover:border-white/[0.12] hover:bg-zinc-900/80 transition-all duration-200;
+  }
+
+  .accent {
+    color: var(--color-accent);
+  }
+
+  .tag {
+    @apply text-xs font-medium px-2.5 py-1 rounded-md bg-zinc-800 border border-white/[0.06] text-zinc-400;
   }
 }
 
@@ -36,12 +51,16 @@
   --foreground: 0 0% 98%;
 }
 
-* {
+html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background-color: rgba(96, 165, 250, 0.2);
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -50,7 +69,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: #27272a;
-  border-radius: 10px;
+  border-radius: 99px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

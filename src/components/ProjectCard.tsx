@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Terminal } from "lucide-react";
+import { HiExternalLink } from "react-icons/hi";
+import { FaGithub } from "react-icons/fa";
 
 type Project = {
   title: string;
@@ -19,55 +20,43 @@ export default function ProjectCard({
   live,
 }: Project) {
   return (
-    <motion.div
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.3 }}
-      className="group relative glass rounded-3xl p-8 flex flex-col h-full overflow-hidden"
-    >
-      {/* Glow effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      
-      <div className="relative z-10">
-        <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-purple-400 transition-colors">
+    <div className="group card card-hover p-5 flex flex-col sm:flex-row sm:items-start gap-4">
+      <div className="flex-1 min-w-0">
+        <h3 className="text-sm font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors duration-200">
           {title}
         </h3>
-
-        <p className="text-zinc-400 mb-6 leading-relaxed">
+        <p className="text-sm text-zinc-500 leading-relaxed mb-3">
           {description}
         </p>
-
-        <div className="flex flex-wrap gap-2 mb-8 mt-auto">
-          {tech.map((t, index) => (
-            <span
-              key={index}
-              className="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-300"
-            >
+        <div className="flex flex-wrap gap-1.5">
+          {tech.map((t, i) => (
+            <span key={i} className="tag">
               {t}
             </span>
           ))}
         </div>
-
-        <div className="flex gap-4 mt-auto">
-          <a 
-            href={github} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm font-bold text-zinc-300 hover:text-white transition-colors"
-          >
-            <Terminal size={18} />
-            Source
-          </a>
-          <a 
-            href={live} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm font-bold text-zinc-300 hover:text-white transition-colors"
-          >
-            <ExternalLink size={18} />
-            Visit Live
-          </a>
-        </div>
       </div>
-    </motion.div>
+
+      <div className="flex items-center sm:flex-col sm:items-end gap-3 shrink-0">
+        <a
+          href={github}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${title} GitHub`}
+          className="text-zinc-600 hover:text-zinc-300 transition-colors duration-200"
+        >
+          <FaGithub size={15} />
+        </a>
+        <a
+          href={live}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${title} live demo`}
+          className="text-zinc-600 hover:text-zinc-300 transition-colors duration-200"
+        >
+          <HiExternalLink size={15} />
+        </a>
+      </div>
+    </div>
   );
 }

@@ -1,104 +1,138 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { FileText, Send, Code, Terminal } from "lucide-react";
+import { FaGithub, FaLinkedin, FaFileAlt } from "react-icons/fa";
+import { HiArrowRight } from "react-icons/hi";
+import { contact } from "../data/contact";
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
 
 export default function Hero() {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1, 
-      transition: { 
-        duration: 0.6, 
-        ease: [0.22, 1, 0.36, 1] as any 
-      } 
-    },
-  };
-
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden pt-20">
-      {/* Background Decor */}
-      <div className="absolute top-0 left-0 w-full h-full -z-10">
-        <div className="absolute top-[20%] left-[10%] w-[300px] h-[300px] bg-purple-500/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[20%] right-[10%] w-[250px] h-[250px] bg-blue-500/10 rounded-full blur-[100px] animate-pulse delay-700" />
-      </div>
-
+    <section
+      id="hero"
+      className="min-h-screen flex flex-col justify-center section-container pt-20 pb-24"
+    >
+      {/* Availability pill */}
       <motion.div
-        variants={containerVariants}
+        custom={0}
+        variants={fadeUp}
         initial="hidden"
         animate="visible"
-        className="text-center max-w-3xl"
+        className="mb-8"
       >
-        <motion.div variants={itemVariants} className="mb-6 inline-block">
-          <span className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-semibold tracking-widest text-purple-400 uppercase">
-            Available for opportunities
-          </span>
-        </motion.div>
-
-        <motion.h1 
-          variants={itemVariants}
-          className="text-5xl md:text-8xl font-bold mb-6 tracking-tighter"
-        >
-          Building Digital <br />
-          <span className="text-gradient">Experiences.</span>
-        </motion.h1>
-
-        <motion.p 
-          variants={itemVariants}
-          className="text-xl md:text-2xl text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed"
-        >
-          I&apos;m <span className="text-white font-semibold">Harsh Verma</span>, a Full Stack Developer dedicated to crafting high-performance applications and solving complex problems through elegant code.
-        </motion.p>
-
-        <motion.div variants={itemVariants} className="flex justify-center gap-4 flex-wrap">
-          <a
-            href="https://github.com/harshverma-25"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-2xl hover:bg-neutral-200 transition-all transform hover:-translate-y-1 active:scale-95"
-          >
-            <Terminal size={20} />
-            GitHub
-          </a>
-
-          <a
-            href="/resume.pdf"
-            className="flex items-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-2xl hover:bg-white/10 transition-all transform hover:-translate-y-1 active:scale-95"
-          >
-            <FileText size={20} />
-            Resume
-          </a>
-
-          <a
-            href="#contact"
-            className="flex items-center gap-2 px-8 py-4 bg-purple-600 text-white font-bold rounded-2xl hover:bg-purple-500 transition-all transform hover:-translate-y-1 active:scale-95 shadow-lg shadow-purple-500/20"
-          >
-            <Send size={20} />
-            Contact
-          </a>
-        </motion.div>
+        <span className="inline-flex items-center gap-2 text-xs text-zinc-500 border border-white/[0.08] rounded-full px-3 py-1.5 bg-zinc-900/50">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          Available for opportunities
+        </span>
       </motion.div>
-      
-      {/* Scroll Indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+
+      {/* Name */}
+      <motion.h1
+        custom={0.1}
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4"
       >
-        <span className="text-[10px] uppercase tracking-widest text-zinc-500">Scroll Down</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-purple-500 to-transparent" />
+        Harsh Verma
+      </motion.h1>
+
+      {/* Role */}
+      <motion.p
+        custom={0.18}
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        className="text-xl text-blue-400 font-medium mb-5"
+      >
+        Full Stack Developer
+      </motion.p>
+
+      {/* Tagline */}
+      <motion.p
+        custom={0.26}
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        className="text-zinc-400 text-base leading-relaxed max-w-xl mb-10"
+      >
+        I build fast, accessible, and well-crafted web applications — from
+        clean UIs to scalable backends. Currently exploring distributed systems
+        and developer tooling.
+      </motion.p>
+
+      {/* CTAs */}
+      <motion.div
+        custom={0.34}
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        className="flex flex-wrap items-center gap-3 mb-12"
+      >
+        <a
+          href="#projects"
+          id="hero-view-projects"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-400 text-white text-sm font-medium transition-colors duration-200"
+        >
+          View Projects
+          <HiArrowRight size={14} />
+        </a>
+        <a
+          href="/resume.pdf"
+          id="hero-resume"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-white/[0.08] text-zinc-300 hover:text-white text-sm font-medium transition-all duration-200"
+        >
+          <FaFileAlt size={14} />
+          Resume
+        </a>
+      </motion.div>
+
+      {/* Social links */}
+      <motion.div
+        custom={0.42}
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        className="flex items-center gap-4"
+      >
+        <a
+          href={contact.github}
+          id="hero-github"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          className="text-zinc-500 hover:text-white transition-colors duration-200"
+        >
+          <FaGithub size={18} />
+        </a>
+        <a
+          href={contact.linkedin}
+          id="hero-linkedin"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          className="text-zinc-500 hover:text-white transition-colors duration-200"
+        >
+          <FaLinkedin size={18} />
+        </a>
+        <a
+          href={`mailto:${contact.email}`}
+          id="hero-email"
+          aria-label="Email"
+          className="text-zinc-500 text-sm hover:text-white transition-colors duration-200"
+        >
+          {contact.email}
+        </a>
       </motion.div>
     </section>
   );
