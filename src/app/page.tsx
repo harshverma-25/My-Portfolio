@@ -1,9 +1,10 @@
-import Hero from "./sections/Hero";
-import Projects from "./sections/Projects";
-import Skills from "./sections/Skills";
-import DSA from "./sections/DSA-leetcode";
-import Education from "./sections/Education";
-import Contact from "./sections/Contact";
+import Hero from "../sections/Hero";
+import Projects from "../sections/Projects";
+import Skills from "../sections/Skills";
+import DSA from "../sections/DSA-leetcode";
+import Education from "../sections/Education";
+import Contact from "../sections/Contact";
+import Footer from "../components/Footer";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <DSA />
       <Education />
       <Contact />
+      <Footer />
     </main>
   );
 }

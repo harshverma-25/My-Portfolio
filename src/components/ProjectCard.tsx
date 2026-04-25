@@ -1,3 +1,8 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { ExternalLink, Terminal } from "lucide-react";
+
 type Project = {
   title: string;
   description: string;
@@ -14,32 +19,55 @@ export default function ProjectCard({
   live,
 }: Project) {
   return (
-    <div className="border border-gray-800 rounded-xl p-6 hover:border-gray-600 transition">
+    <motion.div
+      whileHover={{ y: -5 }}
+      transition={{ duration: 0.3 }}
+      className="group relative glass rounded-3xl p-8 flex flex-col h-full overflow-hidden"
+    >
+      {/* Glow effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <div className="relative z-10">
+        <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-purple-400 transition-colors">
+          {title}
+        </h3>
 
-      <p className="text-gray-400 mb-4">{description}</p>
+        <p className="text-zinc-400 mb-6 leading-relaxed">
+          {description}
+        </p>
 
-      <div className="flex flex-wrap gap-2 mb-4">
-        {tech.map((t, index) => (
-          <span
-            key={index}
-            className="text-sm border border-gray-700 px-2 py-1 rounded"
+        <div className="flex flex-wrap gap-2 mb-8 mt-auto">
+          {tech.map((t, index) => (
+            <span
+              key={index}
+              className="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-300"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex gap-4 mt-auto">
+          <a 
+            href={github} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-sm font-bold text-zinc-300 hover:text-white transition-colors"
           >
-            {t}
-          </span>
-        ))}
+            <Terminal size={18} />
+            Source
+          </a>
+          <a 
+            href={live} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-sm font-bold text-zinc-300 hover:text-white transition-colors"
+          >
+            <ExternalLink size={18} />
+            Visit Live
+          </a>
+        </div>
       </div>
-
-      <div className="flex gap-4">
-        <a href={github} target="_blank" className="text-white underline">
-          GitHub
-        </a>
-        <a href={live} target="_blank" className="text-gray-400 underline">
-          Live
-        </a>
-      </div>
-
-    </div>
+    </motion.div>
   );
 }
