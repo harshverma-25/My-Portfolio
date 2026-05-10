@@ -1,259 +1,174 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
-import {
-  FaGithub,
-  FaLinkedin,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaFileAlt,
-  FaCode,
-  FaTwitter,
-} from "react-icons/fa";
-import { HiOutlineBriefcase, HiOutlineAcademicCap } from "react-icons/hi";
-import { SiLeetcode } from "react-icons/si";
-import { contact } from "../data/contact";
+import { motion } from "framer-motion";
+import { HiArrowRight, HiDownload } from "react-icons/hi";
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (delay = 0) => ({
+/* ─── Animation Variants ─── */
+const container = {
+  hidden: { opacity: 0 },
+  show: {
     opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] },
-  }),
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+  },
 };
 
-const infoItems = [
-  {
-    icon: <HiOutlineBriefcase size={15} />,
-    label: "Backend-focused Full-Stack Developer",
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
   },
-  {
-    icon: <HiOutlineAcademicCap size={15} />,
-    label: "B.Tech CSE · 2022–2026",
-  },
-  {
-    icon: <FaMapMarkerAlt size={13} />,
-    label: "India",
-  },
-  {
-    icon: <FaCode size={13} />,
-    label: "200+ DSA problems solved",
-  },
-  {
-    icon: <FaEnvelope size={13} />,
-    label: contact.email,
-    href: `mailto:${contact.email}`,
-  },
-  {
-    icon: <FaGithub size={14} />,
-    label: "github.com/harshverma-25",
-    href: contact.github,
-  },
+};
+
+/* ─── Data ─── */
+const techStack = [
+  "TypeScript",
+  "Node.js",
+  "React",
+  "PostgreSQL",
+  "Redis",
+  "Docker",
 ];
 
-const socials = [
-  { icon: <FaGithub size={17} />, href: contact.github, label: "GitHub" },
-  { icon: <FaLinkedin size={17} />, href: contact.linkedin, label: "LinkedIn" },
-  { icon: <FaTwitter size={17} />, href: contact.twitter, label: "Twitter" },
-  {
-    icon: <SiLeetcode size={17} />,
-    href: "https://leetcode.com/harshverma-25",
-    label: "LeetCode",
-  },
+const stats = [
+  { label: "LeetCode", value: "200+" },
+  { label: "Projects", value: "10+" },
+  { label: "Graduate", value: "2026" },
 ];
 
+/* ─── Component ─── */
 export default function Hero() {
   return (
     <section
-      id="hero"
-      className="min-h-screen flex items-center justify-center section-container pt-20 pb-24"
+      id="home"
+      className="relative min-h-screen flex items-center overflow-hidden"
     >
+      {/* ── Background ── */}
+      <div className="absolute inset-0 bg-black -z-20" />
+
+      {/* Fine grid */}
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:48px_48px]" />
+
+      {/* Single soft glow — very subtle */}
+      <div className="absolute -z-10 top-[20%] left-[10%] w-[520px] h-[520px] rounded-full bg-zinc-700/10 blur-[140px] pointer-events-none" />
+
+      {/* ── Content ── */}
       <motion.div
+        variants={container}
         initial="hidden"
-        animate="visible"
-        className="w-full max-w-2xl"
+        animate="show"
+        className="relative z-10 w-full max-w-3xl mx-auto px-6 sm:px-10 xl:px-0 pt-32 pb-20"
       >
-        {/* ── Card ── */}
-        <motion.div
-          custom={0}
-          variants={fadeUp}
-          className="hero-card rounded-2xl border border-white/[0.07] bg-zinc-900/60 backdrop-blur-md overflow-hidden"
-        >
-          {/* Top strip */}
-          <div className="hero-top-strip h-1 w-full bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-400" />
-
-          {/* Header block */}
-          <div className="px-7 pt-8 pb-6 flex items-start gap-5 border-b border-white/[0.06]">
-            {/* Avatar */}
-            <motion.div
-              custom={0.05}
-              variants={fadeUp}
-              className="hero-avatar flex-shrink-0 relative"
-            >
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-3xl font-bold text-white select-none shadow-lg shadow-blue-500/20">
-                HV
-              </div>
-              {/* Online dot */}
-              <span className="absolute bottom-1 right-1 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-zinc-900 shadow shadow-emerald-400/50" />
-            </motion.div>
-
-            {/* Name + tagline */}
-            <div className="flex-1 min-w-0">
-              <motion.div
-                custom={0.08}
-                variants={fadeUp}
-                className="flex items-center flex-wrap gap-2 mb-1"
-              >
-                <h1 className="text-2xl font-bold text-white tracking-tight">
-                  Harsh Verma
-                </h1>
-                {/* Open-to-work badge */}
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Open to work
-                </span>
-              </motion.div>
-
-              <motion.p
-                custom={0.12}
-                variants={fadeUp}
-                className="text-sm text-zinc-400 mb-3 font-mono"
-              >
-                Building systems that scale · he/him
-              </motion.p>
-
-              {/* Role chips */}
-              <motion.div
-                custom={0.16}
-                variants={fadeUp}
-                className="flex flex-wrap gap-2"
-              >
-                {["Node.js", "React", "TypeScript", "MongoDB", "DSA"].map(
-                  (tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-0.5 text-[11px] font-medium rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-300"
-                    >
-                      {tag}
-                    </span>
-                  )
-                )}
-              </motion.div>
-            </div>
-          </div>
-
-          {/* Bio */}
-          <motion.p
-            custom={0.2}
-            variants={fadeUp}
-            className="px-7 pt-5 pb-4 text-sm text-zinc-400 leading-relaxed border-b border-white/[0.06]"
-          >
-            I build full-stack web applications with a focus on backend
-            architecture and real-world problem solving. Passionate about clean
-            APIs, performant systems, and continuous improvement through DSA
-            practice.
-          </motion.p>
-
-          {/* Info grid */}
-          <motion.div
-            custom={0.26}
-            variants={fadeUp}
-            className="px-7 py-5 grid grid-cols-1 sm:grid-cols-2 gap-3 border-b border-white/[0.06]"
-          >
-            {infoItems.map((item, i) =>
-              item.href ? (
-                <a
-                  key={i}
-                  href={item.href}
-                  target={item.href.startsWith("http") ? "_blank" : undefined}
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2.5 text-sm text-zinc-400 hover:text-white group transition-colors"
-                >
-                  <span className="text-blue-400 group-hover:text-blue-300 transition-colors flex-shrink-0">
-                    {item.icon}
-                  </span>
-                  <span className="truncate">{item.label}</span>
-                </a>
-              ) : (
-                <div
-                  key={i}
-                  className="flex items-center gap-2.5 text-sm text-zinc-400"
-                >
-                  <span className="text-blue-400 flex-shrink-0">{item.icon}</span>
-                  <span>{item.label}</span>
-                </div>
-              )
-            )}
-          </motion.div>
-
-          {/* Footer: socials + CTAs */}
-          <motion.div
-            custom={0.34}
-            variants={fadeUp}
-            className="px-7 py-5 flex flex-wrap items-center justify-between gap-4"
-          >
-            {/* Social icons */}
-            <div className="flex items-center gap-1">
-              {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="p-2 rounded-lg text-zinc-500 hover:text-white hover:bg-white/[0.06] transition-all"
-                >
-                  {s.icon}
-                </a>
-              ))}
-            </div>
-
-            {/* CTA buttons */}
-            <div className="flex items-center gap-2">
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg border border-white/[0.1] bg-zinc-800/80 text-zinc-300 hover:text-white hover:bg-zinc-700/80 transition-all"
-              >
-                <FaFileAlt size={12} />
-                Resume
-              </a>
-              <a
-                href="#projects"
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow shadow-blue-500/20 transition-all"
-              >
-                View Projects
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-600/30 transition-all"
-              >
-                Hire Me
-              </a>
-            </div>
-          </motion.div>
+        {/* Availability pill */}
+        <motion.div variants={fadeUp} className="mb-10">
+          <span className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-[10px] font-medium uppercase tracking-widest text-zinc-500">
+            <span className="relative flex h-1.5 w-1.5 shrink-0">
+              <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-60" />
+              <span className="relative rounded-full h-1.5 w-1.5 bg-emerald-500" />
+            </span>
+            Open to internships &amp; full‑time roles
+          </span>
         </motion.div>
 
-        {/* Subtle stat pills below card */}
+        {/* ── Profile row ── */}
         <motion.div
-          custom={0.42}
           variants={fadeUp}
-          className="mt-5 flex flex-wrap items-center justify-center gap-3"
+          className="flex items-center gap-5 mb-8"
         >
-          {[
-            { val: "200+", desc: "DSA Problems" },
-            { val: "5+", desc: "Projects Built" },
-            { val: "2026", desc: "Graduating" },
-            { val: "Active", desc: "Learner" },
-          ].map((stat) => (
-            <div
-              key={stat.desc}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900/50 border border-white/[0.06] text-sm"
+          {/* Square card avatar — the visual anchor */}
+          <div className="relative flex-shrink-0">
+            <div className="w-[68px] h-[68px] rounded-xl bg-zinc-900 border border-yellow-500/50 flex items-center justify-center shadow-[0_0_24px_rgba(234,179,8,0.08)]">
+              <span className="text-lg font-bold font-mono text-yellow-400 select-none tracking-tight">
+                HV
+              </span>
+            </div>
+            {/* Online dot */}
+            <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-black" />
+          </div>
+
+          {/* Name + role stacked */}
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-none mb-1.5">
+              Harsh Verma
+            </h1>
+            <p className="text-xs text-zinc-500 font-medium tracking-wide">
+              Backend Engineer&nbsp;&nbsp;·&nbsp;&nbsp;B.Tech CSE&nbsp;&nbsp;·&nbsp;&nbsp;Class of 2026
+            </p>
+          </div>
+        </motion.div>
+
+        {/* ── Intro line ── */}
+        <motion.p
+          variants={fadeUp}
+          className="text-xl sm:text-2xl font-medium text-zinc-300 leading-snug mb-5 max-w-xl"
+        >
+          Love to build cool stuff, content creator &amp; polymath.
+        </motion.p>
+
+        {/* ── Technical description ── */}
+        <motion.p
+          variants={fadeUp}
+          className="text-sm sm:text-[15px] text-zinc-500 leading-relaxed max-w-md mb-9"
+        >
+          Specializing in backend systems and distributed architecture.
+          I craft robust, scalable applications focused on{" "}
+          <span className="text-zinc-300">performance</span>,{" "}
+          <span className="text-zinc-300">clean architecture</span>, and
+          great developer experience.
+        </motion.p>
+
+        {/* ── Tech stack ── */}
+        <motion.div
+          variants={fadeUp}
+          className="flex flex-wrap gap-2 mb-9"
+        >
+          {techStack.map((tech) => (
+            <span
+              key={tech}
+              className="px-3 py-1 rounded-md text-[10px] font-mono text-zinc-500 bg-white/[0.03] border border-white/[0.06] tracking-wide"
             >
-              <span className="font-semibold text-white">{stat.val}</span>
-              <span className="text-zinc-500">{stat.desc}</span>
+              {tech}
+            </span>
+          ))}
+        </motion.div>
+
+        {/* ── CTA buttons ── */}
+        <motion.div
+          variants={fadeUp}
+          className="flex items-center gap-3 mb-14"
+        >
+          <a
+            href="#projects"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-black text-sm font-semibold hover:bg-zinc-100 active:scale-[0.98] transition-all duration-150"
+          >
+            Projects
+            <HiArrowRight size={14} />
+          </a>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-800 text-zinc-400 text-sm font-medium hover:border-zinc-600 hover:text-zinc-200 transition-all duration-150"
+          >
+            <HiDownload size={14} />
+            Resume
+          </a>
+        </motion.div>
+
+        {/* ── Stats strip ── */}
+        <motion.div
+          variants={fadeUp}
+          className="inline-flex items-stretch divide-x divide-white/[0.06] border border-white/[0.06] rounded-xl overflow-hidden bg-white/[0.02]"
+        >
+          {stats.map((s) => (
+            <div key={s.label} className="flex flex-col items-center px-7 py-3.5">
+              <span className="text-sm font-bold text-white font-mono tracking-tight">
+                {s.value}
+              </span>
+              <span className="text-[9px] uppercase tracking-widest text-zinc-600 mt-0.5">
+                {s.label}
+              </span>
             </div>
           ))}
         </motion.div>
