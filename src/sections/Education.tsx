@@ -2,7 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import { education } from "../data/education";
-import { PiGraduationCapBold } from "react-icons/pi";
+import { PiGraduationCapBold, PiCalendarBold, PiMapPinBold } from "react-icons/pi";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 16 },
@@ -33,26 +33,68 @@ export default function Education() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="card card-hover p-6 flex items-start gap-4"
+          className="space-y-4"
         >
-          <div className="mt-0.5 shrink-0 w-9 h-9 rounded-lg bg-zinc-800 border border-white/[0.06] flex items-center justify-center">
-            <PiGraduationCapBold size={16} className="text-zinc-400" />
-          </div>
+          {/* Single education entry - or map if you have multiple */}
+          <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.02] p-6 hover:border-white/20 transition-all duration-300">
+            
+            {/* Subtle hover gradient */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            
+            <div className="flex items-start gap-4 relative z-10">
+              {/* Icon with subtle hover effect */}
+              <div className="mt-0.5 shrink-0 w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-white/20 group-hover:bg-white/10 transition-all duration-300">
+                <PiGraduationCapBold size={18} className="text-gray-400 group-hover:text-gray-300 transition-colors" />
+              </div>
 
-          <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap items-start justify-between gap-2 mb-1.5">
-              <h3 className="text-sm font-semibold text-white">
-                {education.degree}
-              </h3>
-              <span className="text-xs text-zinc-600 shrink-0">
-                {education.duration}
-              </span>
-            </div>
-            <p className="text-sm text-zinc-400 mb-3">{education.college}</p>
-            <div className="flex flex-wrap gap-3 text-xs text-zinc-500">
-              <span>CGPA: <span className="text-zinc-300">{education.cgpa}</span></span>
-              <span>·</span>
-              <span>Algorithms · DBMS · Web Engineering</span>
+              <div className="flex-1 min-w-0">
+                {/* Header row */}
+                <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+                  <h3 className="text-base font-semibold text-white">
+                    {education.degree}
+                  </h3>
+                  <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                    <PiCalendarBold size={12} />
+                    <span>{education.duration}</span>
+                  </div>
+                </div>
+                
+                {/* College with location */}
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-3">
+                  <p className="text-sm text-gray-400">{education.college}</p>
+                  {education.location && (
+                    <>
+                      <span className="text-gray-700">•</span>
+                      <div className="flex items-center gap-1 text-xs text-gray-600">
+                        <PiMapPinBold size={11} />
+                        <span>{education.location}</span>
+                      </div>
+                    </>
+                  )}
+                </div>
+                
+                {/* GPA and Courses row */}
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
+                  <span className="text-gray-500">
+                    CGPA: <span className="text-gray-300 font-medium">{education.cgpa}</span>
+                  </span>
+                  {education.courses && education.courses.length > 0 && (
+                    <>
+                      <span className="text-gray-700 hidden sm:inline">•</span>
+                      <div className="flex flex-wrap gap-2">
+                        {education.courses.slice(0, 3).map((course, i) => (
+                          <span key={i} className="text-gray-500">
+                            {course}{i < Math.min(education.courses.length, 3) - 1 ? "," : ""}
+                          </span>
+                        ))}
+                        {education.courses.length > 3 && (
+                          <span className="text-gray-600">+{education.courses.length - 3}</span>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>

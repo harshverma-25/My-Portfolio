@@ -1,6 +1,8 @@
 export const education = {
-  degree: "Bachelor of Technology in Computer Science",
-  college: "Your Prestigious Engineering College",
-  duration: "2022 — 2026",
-  cgpa: "9.2",
+  degree: "B.Tech in Computer Science",
+  college: "XYZ University",
+  duration: "2021 — 2025",
+  cgpa: "8.9/10",
+  location: "Delhi NCR, India", 
+  courses: ["DSA", "DBMS", "Web Dev", "OS", "CN"],
 };
