@@ -35,8 +35,11 @@ export default function FloatingNavbar() {
 
   // Close mobile menu on route change
   useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
+    if (isMobileMenuOpen) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIsMobileMenuOpen(false);
+    }
+  }, [pathname, isMobileMenuOpen]);
 
   // Close mobile menu when clicking outside
   useEffect(() => {

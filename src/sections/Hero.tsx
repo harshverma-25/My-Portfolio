@@ -17,7 +17,7 @@ const fadeUp = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
@@ -32,7 +32,7 @@ const techStack = [
 ];
 
 const stats = [
-  { label: "LeetCode", value: "200+" },
+  { label: "Commits", value: "500+" },
   { label: "Projects", value: "10+" },
   { label: "Graduate", value: "2026" },
 ];
