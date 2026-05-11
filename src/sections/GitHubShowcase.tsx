@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { GitHubCalendar } from "react-github-calendar";
 import { 
   FaGithub, 
@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa6";
 import { GitHubStats } from "../lib/github";
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -25,12 +25,12 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
   },
 };
 

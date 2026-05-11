@@ -95,7 +95,7 @@ export default function Contact() {
           </h2>
           
           <p className="text-gray-500 max-w-md mx-auto">
-            Have a project in mind? Let's collaborate.
+            Have a project in mind? Let&apos;s collaborate.
           </p>
         </motion.div>
 
@@ -255,7 +255,7 @@ export default function Contact() {
               </button>
 
               <p className="text-center text-xs text-gray-600">
-                I'll get back to you within 24-48 hours
+                I&apos;ll get back to you within 24-48 hours
               </p>
             </form>
           </motion.div>

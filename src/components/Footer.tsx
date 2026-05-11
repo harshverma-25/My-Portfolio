@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiHeart } from "react-icons/fi";
-import Link from "next/link";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
