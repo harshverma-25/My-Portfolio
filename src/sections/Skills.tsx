@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { skills, skillCategories } from "../data/skills";
+import { skills, skillCategories, bottomStats } from "../data/skills";
 import {
   SiReact, SiNextdotjs, SiTypescript, SiJavascript, SiTailwindcss,
   SiNodedotjs, SiPython, SiGo, SiExpress, SiFastapi,
@@ -167,11 +167,7 @@ export default function Skills() {
           transition={{ delay: 0.4 }}
           className="mt-10 pt-8 border-t border-white/[0.06] flex flex-wrap gap-8 justify-center"
         >
-          {[
-            { value: "20+", label: "Technologies" },
-            { value: "3+",  label: "Years learning" },
-            { value: "∞",   label: "Still learning" },
-          ].map(({ value, label }) => (
+          {bottomStats.map(({ value, label }) => (
             <div key={label} className="flex items-center gap-3">
               <span className="text-xl font-bold text-white font-mono">{value}</span>
               <span className="text-xs text-zinc-600">{label}</span>

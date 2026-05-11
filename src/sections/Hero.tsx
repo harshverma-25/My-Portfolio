@@ -2,6 +2,8 @@
 
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
+import { siteConfig } from "../data/site";
+import { contact } from "../data/contact";
 import { FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
 import { HiArrowRight, HiDownload } from "react-icons/hi";
 
@@ -28,16 +30,12 @@ const slideLeft: Variants = {
 
 /* ─── Data ─── */
 const socials = [
-  { icon: FiGithub,   label: "GitHub",   href: "https://github.com/harshverma-25" },
-  { icon: FiLinkedin, label: "LinkedIn",  href: "https://linkedin.com/in/harshverma-25" },
-  { icon: FiTwitter,  label: "Twitter",   href: "https://twitter.com/harshverma_25" },
+  { icon: FiGithub,   label: "GitHub",   href: contact.socials.github.url },
+  { icon: FiLinkedin, label: "LinkedIn",  href: contact.socials.linkedin.url },
+  { icon: FiTwitter,  label: "Twitter",   href: contact.socials.twitter.url },
 ];
 
-const stats = [
-  { value: "500+", label: "Commits" },
-  { value: "12+",  label: "Projects" },
-  { value: "3+",   label: "Yrs Exp" },
-];
+const stats = siteConfig.stats;
 
 export default function Hero() {
   return (
@@ -75,18 +73,18 @@ export default function Hero() {
             {/* Name - increased size slightly */}
             <motion.div variants={fadeUp} className="mb-4">
               <h1 className="text-[3.2rem] sm:text-[4rem] lg:text-[4.2rem] font-bold tracking-tight leading-[1.1]">
-                <span className="block text-white">Harsh Verma</span>
+                <span className="block text-white">{siteConfig.name}</span>
               </h1>
             </motion.div>
 
             {/* Role line */}
             <motion.div variants={fadeUp} className="mb-10">
               <p className="text-base font-mono text-zinc-500 tracking-wide">
-                <span className="text-zinc-400">Backend Engineer</span>
+                <span className="text-zinc-400">{siteConfig.role}</span>
                 <span className="mx-2 text-zinc-700">/</span>
-                <span>B.Tech CSE &apos;26</span>
+                <span>{siteConfig.college}</span>
                 <span className="mx-2 text-zinc-700">/</span>
-                <span>India</span>
+                <span>{siteConfig.location}</span>
               </p>
             </motion.div>
 
@@ -95,12 +93,7 @@ export default function Hero() {
               variants={fadeUp}
               className="mb-10 max-w-md text-[16px] leading-relaxed text-zinc-400"
             >
-              I build{" "}
-              <span className="text-zinc-200 font-medium">scalable backend systems</span>{" "}
-              and{" "}
-              <span className="text-zinc-200 font-medium">distributed architectures</span>{" "}
-              that power great products. Passionate about clean code, performance, and
-              the full development lifecycle from database to UI.
+              {siteConfig.bio}
             </motion.p>
 
             {/* CTA buttons */}
@@ -113,7 +106,7 @@ export default function Hero() {
                 <HiArrowRight className="transition-transform duration-200 group-hover:translate-x-0.5" />
               </a>
               <a
-                href="/resume.pdf"
+                href={siteConfig.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl border border-zinc-800 bg-white/[0.02] px-7 py-3.5 text-sm font-medium text-zinc-300 transition-all duration-200 hover:border-zinc-600 hover:text-white hover:bg-white/[0.04]"

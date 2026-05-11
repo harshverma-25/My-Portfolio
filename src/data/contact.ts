@@ -1,6 +1,9 @@
 export const contact = {
   email: "hv.harshverma025@gmail.com",
-  web3FormsKey: "e8bccf5f-91d2-4485-a6a2-5afd8cea2fa6", // Get yours at https://web3forms.com/
+  web3FormsKey: "e8bccf5f-91d2-4485-a6a2-5afd8cea2fa6", 
+
+  title: "Get In Touch",
+  description: "Have a project in mind? Let's collaborate.",
 
   socials: {
     github: {
@@ -11,13 +14,13 @@ export const contact = {
 
     linkedin: {
       name: "LinkedIn",
-      url: "https://linkedin.com/in/harshverma-25",
+      url: "https://linkedin.com/in/harshverma616",
       username: "harshverma-25",
     },
 
     twitter: {
       name: "Twitter",
-      url: "https://twitter.com/harshverma_25",
+      url: "https://twitter.com/_harshverma08",
       username: "harshverma_25",
     },
 

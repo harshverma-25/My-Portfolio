@@ -91,11 +91,11 @@ export default function Contact() {
           </div>
           
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-white to-purple-400 bg-clip-text text-transparent mb-3">
-            Get In Touch
+            {contact.title}
           </h2>
           
           <p className="text-gray-500 max-w-md mx-auto">
-            Have a project in mind? Let&apos;s collaborate.
+            {contact.description}
           </p>
         </motion.div>
 

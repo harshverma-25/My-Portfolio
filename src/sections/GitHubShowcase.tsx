@@ -13,6 +13,7 @@ import {
   FaFire,
   FaCode
 } from "react-icons/fa6";
+import { siteConfig } from "../data/site";
 import { GitHubStats } from "../lib/github";
 
 const containerVariants: Variants = {
@@ -47,7 +48,7 @@ export default function GitHubShowcase() {
     async function fetchStats() {
       try {
         setLoading(true);
-        const res = await fetch("/api/github?username=harshverma-25");
+        const res = await fetch(`/api/github?username=${siteConfig.githubUsername}`);
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         setStats(data);
@@ -234,7 +235,7 @@ export default function GitHubShowcase() {
             <div className="min-w-[650px] flex justify-center">
               {mounted && (
                 <GitHubCalendar 
-                  username="harshverma-25" 
+                  username={siteConfig.githubUsername} 
                   theme={calendarTheme}
                   fontSize={10}
                   blockSize={11}

@@ -4,27 +4,14 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HiHome, HiCode, HiClipboardList, HiMail, HiMenu, HiX, HiArrowRight } from "react-icons/hi";
-import { FaGithub, FaXTwitter, FaLinkedinIn } from "react-icons/fa6";
+import { HiMenu, HiX, HiArrowRight } from "react-icons/hi";
+import { navLinks, socialLinks } from "../data/navigation";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-
-const navLinks = [
-  { name: "Home", href: "#home", icon: HiHome },
-  { name: "Projects", href: "#projects", icon: HiCode },
-  { name: "Skills", href: "#skills", icon: HiClipboardList },
-  { name: "Contact", href: "#contact", icon: HiMail },
-];
-
-const socialLinks = [
-  { name: "GitHub", href: "https://github.com/harshverma-25", icon: FaGithub },
-  { name: "X", href: "https://twitter.com/harshverma_25", icon: FaXTwitter },
-  { name: "LinkedIn", href: "https://linkedin.com/in/harshverma-25", icon: FaLinkedinIn },
-];
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

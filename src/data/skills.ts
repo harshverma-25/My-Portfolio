@@ -75,3 +75,9 @@ export const categories: { key: keyof typeof skills; label: string }[] = [
   { key: "database", label: "Database" },
   { key: "tools", label: "Tools" },
 ];
+
+export const bottomStats = [
+  { value: "20+", label: "Technologies" },
+  { value: "3+",  label: "Years learning" },
+  { value: "∞",   label: "Still learning" },
+];

@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiHeart } from "react-icons/fi";
+import { siteConfig } from "../data/site";
+import { contact } from "../data/contact";
 
 export default function Footer() {
   const [currentYear, setCurrentYear] = useState<number | null>(null);
@@ -12,10 +14,10 @@ export default function Footer() {
   }, []);
   
   const socialLinks = [
-    { icon: FiGithub, href: "https://github.com/harshverma-25", label: "GitHub" },
-    { icon: FiLinkedin, href: "https://linkedin.com/in/harshverma25", label: "LinkedIn" },
-    { icon: FiTwitter, href: "https://twitter.com/harshverma25", label: "Twitter" },
-    { icon: FiMail, href: "mailto:harshverma25@example.com", label: "Email" },
+    { icon: FiGithub, href: contact.socials.github.url, label: "GitHub" },
+    { icon: FiLinkedin, href: contact.socials.linkedin.url, label: "LinkedIn" },
+    { icon: FiTwitter, href: contact.socials.twitter.url, label: "Twitter" },
+    { icon: FiMail, href: `mailto:${contact.email}`, label: "Email" },
   ];
 
   return (
@@ -30,7 +32,7 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
             className="text-xs text-gray-600 hover:text-gray-500 transition-colors duration-300"
           >
-            © {currentYear ?? "——"} Harsh Verma
+            © {currentYear ?? "——"} {siteConfig.name}
           </motion.p>
 
           {/* Social Links */}
