@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FiExternalLink, FiGithub } from "react-icons/fi";
+import { FiExternalLink, FiGithub, FiStar } from "react-icons/fi";
 import Image from "next/image";
 
 export type Project = {
@@ -29,109 +29,104 @@ export default function ProjectCard({
   index = 0,
 }: ProjectCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
+    <motion.article
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      whileHover={{ y: -2 }}
-      className="group"
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="group relative h-full"
     >
-      <div className="rounded-xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm overflow-hidden hover:border-purple-500/30 transition-all duration-400 hover:shadow-lg hover:shadow-purple-500/5">
+      {/* Glow effect */}
+      <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500/0 via-emerald-500/0 to-emerald-500/0 rounded-2xl blur-xl transition-all duration-500 group-hover:from-emerald-500/20 group-hover:via-emerald-500/10 group-hover:to-emerald-500/0" />
+      
+      <div className="relative rounded-2xl border border-white/[0.08] bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-sm overflow-hidden transition-all duration-500 group-hover:border-white/[0.12] group-hover:shadow-2xl h-full flex flex-col">
         
-        {/* HORIZONTAL LAYOUT: Flex row with image left */}
-        <div className="flex flex-col sm:flex-row gap-4 p-4">
-          
-          {/* LEFT SIDE: Image */}
-          <div className="relative sm:w-36 md:w-48 flex-shrink-0">
-            <div className="relative h-32 sm:h-full w-full rounded-lg overflow-hidden bg-gradient-to-br from-purple-900/20 to-pink-900/20">
-              {image ? (
+        {/* Image Section - Full width at top */}
+        <div className="relative w-full aspect-video overflow-hidden">
+          <div className="relative w-full h-full bg-gradient-to-br from-zinc-800/50 to-zinc-900/50">
+            {image ? (
+              <>
                 <Image
                   src={image}
                   alt={title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                  className="object-cover transition-all duration-700 group-hover:scale-110"
                 />
-              ) : (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-500/20 to-pink-500/20 flex items-center justify-center">
-                    <span className="text-2xl">🎨</span>
-                  </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-zinc-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </>
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-emerald-500/20 to-teal-500/20 flex items-center justify-center">
+                  <span className="text-3xl">⚡</span>
                 </div>
-              )}
-              
-              {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
-          </div>
-          
-          {/* RIGHT SIDE: Content */}
-          <div className="flex-1 flex flex-col">
-            {/* Title Row */}
-            <div className="flex items-start justify-between gap-2 mb-2">
-              <h3 className="text-base md:text-lg font-semibold text-white group-hover:text-purple-400 transition-colors duration-300">
-                {title}
-              </h3>
-              
-              {/* Action Buttons */}
-              <div className="flex gap-1.5 flex-shrink-0">
-                <a
-                  href={github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-1.5 rounded-md bg-white/5 text-gray-400 hover:text-white hover:bg-purple-500/70 transition-all duration-200"
-                  aria-label={`${title} GitHub`}
-                >
-                  <FiGithub size={14} />
-                </a>
-                <a
-                  href={live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-1.5 rounded-md bg-white/5 text-gray-400 hover:text-white hover:bg-purple-500/70 transition-all duration-200"
-                  aria-label={`${title} Live Demo`}
-                >
-                  <FiExternalLink size={14} />
-                </a>
-              </div>
-            </div>
-            
-            {/* Featured Badge */}
-            {featured && (
-              <div className="mb-2">
-                <span className="text-[9px] px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium">
-                  Featured
-                </span>
               </div>
             )}
-            
-            {/* Description */}
-            <p className="text-xs md:text-sm text-gray-500 leading-relaxed mb-3 line-clamp-2">
-              {description}
-            </p>
-            
-            {/* Tech Stack */}
-            <div className="flex flex-wrap gap-1.5">
-              {tech.slice(0, 5).map((t, i) => (
-                <span
-                  key={i}
-                  className="text-[9px] px-2 py-0.5 rounded bg-white/5 text-gray-400 border border-white/10"
-                >
-                  {t}
-                </span>
-              ))}
-              {tech.length > 5 && (
-                <span className="text-[9px] px-2 py-0.5 rounded bg-white/5 text-gray-500">
-                  +{tech.length - 5}
-                </span>
-              )}
-            </div>
+          </div>
+          
+          {/* Action Buttons - Overlay on image */}
+          <div className="absolute top-3 right-3 flex gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg bg-black/80 backdrop-blur-md border border-white/[0.1] text-zinc-300 hover:text-white hover:bg-emerald-500/80 hover:border-emerald-500/30 transition-all duration-300"
+              aria-label={`${title} GitHub`}
+            >
+              <FiGithub size={15} />
+            </a>
+            <a
+              href={live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg bg-black/80 backdrop-blur-md border border-white/[0.1] text-zinc-300 hover:text-white hover:bg-emerald-500/80 hover:border-emerald-500/30 transition-all duration-300"
+              aria-label={`${title} Live Demo`}
+            >
+              <FiExternalLink size={15} />
+            </a>
           </div>
         </div>
         
-        {/* Hover Border Effect */}
-        <div className="absolute inset-0 rounded-xl border border-transparent group-hover:border-purple-500/30 transition-all duration-400 pointer-events-none" />
+        {/* Content Section */}
+        <div className="flex-1 flex flex-col p-5">
+          {/* Header */}
+          <div className="mb-3">
+            <div className="flex items-start justify-between gap-2">
+              <h3 className="text-lg font-semibold text-white group-hover:text-emerald-400 transition-colors duration-300 line-clamp-1">
+                {title}
+              </h3>
+              {featured && (
+                <FiStar className="w-4 h-4 text-emerald-400 fill-emerald-400 flex-shrink-0 mt-0.5" />
+              )}
+            </div>
+          </div>
+          
+          {/* Description */}
+          <p className="text-sm text-zinc-400 leading-relaxed mb-4 line-clamp-3">
+            {description}
+          </p>
+          
+          {/* Tech Stack */}
+          <div className="flex flex-wrap gap-2 mt-auto">
+            {tech.slice(0, 3).map((t, i) => (
+              <span
+                key={i}
+                className="text-[10px] font-mono px-2.5 py-1 rounded-md bg-white/[0.03] text-zinc-500 border border-white/[0.05] group-hover:border-emerald-500/20 transition-colors duration-300"
+              >
+                {t}
+              </span>
+            ))}
+            {tech.length > 3 && (
+              <span className="text-[10px] font-mono px-2.5 py-1 rounded-md bg-white/[0.02] text-zinc-600">
+                +{tech.length - 3}
+              </span>
+            )}
+          </div>
+        </div>
+        
+        {/* Bottom accent line */}
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
-    </motion.div>
+    </motion.article>
   );
 }

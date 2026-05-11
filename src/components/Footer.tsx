@@ -1,10 +1,15 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiHeart } from "react-icons/fi";
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
   
   const socialLinks = [
     { icon: FiGithub, href: "https://github.com/harshverma-25", label: "GitHub" },
@@ -15,7 +20,7 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-white/[0.06] bg-gradient-to-b from-transparent to-black/50">
-      <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-8">
+      <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-24 py-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           
           {/* Copyright */}
@@ -25,7 +30,7 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
             className="text-xs text-gray-600 hover:text-gray-500 transition-colors duration-300"
           >
-            © {currentYear} Harsh Verma
+            © {currentYear ?? "——"} Harsh Verma
           </motion.p>
 
           {/* Social Links */}

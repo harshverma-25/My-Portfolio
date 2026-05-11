@@ -43,7 +43,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden bg-[#080808]"
+      className="relative min-h-screen flex items-center overflow-hidden bg-[#080808] px-6 md:px-12 lg:px-24"
     >
       {/* ── Ambient background ── */}
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -57,10 +57,12 @@ export default function Hero() {
         <div className="absolute -left-40 top-1/4 h-[520px] w-[520px] rounded-full bg-emerald-500/8 blur-[130px]" />
         {/* glow right */}
         <div className="absolute -right-40 bottom-1/4 h-[460px] w-[460px] rounded-full bg-violet-500/8 blur-[130px]" />
+        {/* bottom fade to blend into next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
       </div>
 
       {/* ── Layout ── */}
-      <div className="w-full max-w-5xl mx-auto px-6 sm:px-8 py-28 lg:py-32">
+      <div className="w-full max-w-5xl mx-auto py-28 lg:py-32">
         <div className="grid lg:grid-cols-[1fr_auto] gap-6 lg:gap-10 items-center">
 
           {/* ════ LEFT COLUMN ════ */}

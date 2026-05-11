@@ -5,12 +5,13 @@ import GitHubShowcase from "../sections/GitHubShowcase";
 import Education from "../sections/Education";
 import Contact from "../sections/Contact";
 import Footer from "../components/Footer";
+import { projects } from "@/data/projects";
 
 export default function Home() {
   return (
-    <main>
+    <main id="home">
       <Hero />
-      <Projects />
+      <Projects projects={projects} />
       <Skills />
       <GitHubShowcase />
       <Education />
