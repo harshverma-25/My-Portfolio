@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import { GitHubCalendar } from "react-github-calendar";
+import Image from "next/image";
 import { 
   FaGithub, 
   FaStar, 
@@ -165,12 +166,15 @@ export default function GitHubShowcase() {
             </div>
           ) : (
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src={stats?.user.avatar_url} 
-                alt="Profile" 
-                className="w-14 h-14 rounded-xl border border-white/10"
-              />
+              <div className="relative w-14 h-14 rounded-xl border border-white/10 overflow-hidden flex-shrink-0">
+                <Image 
+                  src={stats?.user.avatar_url || ""} 
+                  alt={stats?.user.name || "GitHub Profile"} 
+                  fill
+                  sizes="56px"
+                  className="object-cover"
+                />
+              </div>
               <div className="flex-1 w-full">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
                   <div>

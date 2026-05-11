@@ -5,7 +5,7 @@ export const projects = [
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Convex", "Clerk", "OpenAI API"],
     github: "https://github.com/harshverma-25/ai-canvas",
     live: "https://ai-canvas-demo.vercel.app",
-    image: "/projects/ai-canvas.jpg", // Add your actual image path
+    image: "/projects/ai-canvas.png", // Add your actual image path
     featured: true,
   },
   {
@@ -14,7 +14,7 @@ export const projects = [
     tech: ["React", "Node.js", "Hono.js", "Drizzle ORM", "PostgreSQL", "Chart.js"],
     github: "https://github.com/harshverma-25/financeflow",
     live: "https://financeflow-demo.vercel.app",
-    image: "/projects/financeflow.jpg",
+    image: "/projects/financeflow.png",
     featured: false,
   },
   {
@@ -23,7 +23,7 @@ export const projects = [
     tech: ["Next.js", "Prisma", "MongoDB", "Framer Motion", "Shadcn UI", "NextAuth"],
     github: "https://github.com/harshverma-25/devquest",
     live: "https://devquest-demo.vercel.app",
-    image: "/projects/devquest.jpg",
+    image: "/projects/devquest.png",
     featured: true,
   },
   {
@@ -32,7 +32,7 @@ export const projects = [
     tech: ["Go", "React", "AWS", "Prometheus", "Grafana"],
     github: "https://github.com/harshverma-25/cloudmonitor",
     live: "https://cloudmonitor-demo.vercel.app",
-    image: "/projects/cloudmonitor.jpg",
+    image: "/projects/cloudmonitor.png",
     featured: false,
   },
   {
@@ -41,7 +41,7 @@ export const projects = [
     tech: ["Next.js", "WebRTC", "Socket.io", "Node.js", "MongoDB"],
     github: "https://github.com/harshverma-25/meetease",
     live: "https://meetease-demo.vercel.app",
-    image: "/projects/meetease.jpg",
+    image: "/projects/meetease.png",
     featured: false,
   },
   {
@@ -50,7 +50,7 @@ export const projects = [
     tech: ["Three.js", "React Three Fiber", "Next.js", "Framer Motion"],
     github: "https://github.com/harshverma-25/portfolio-3d",
     live: "https://portfolio-3d-demo.vercel.app",
-    image: "/projects/portfolio-3d.jpg",
+    image: "/projects/portfolio-3d.png",
     featured: false,
   },
 ];

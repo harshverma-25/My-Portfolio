@@ -29,8 +29,8 @@ const slideLeft: Variants = {
 /* ─── Data ─── */
 const socials = [
   { icon: FiGithub,   label: "GitHub",   href: "https://github.com/harshverma-25" },
-  { icon: FiLinkedin, label: "LinkedIn",  href: "https://linkedin.com/in/harshverma25" },
-  { icon: FiTwitter,  label: "Twitter",   href: "https://twitter.com/harshverma25" },
+  { icon: FiLinkedin, label: "LinkedIn",  href: "https://linkedin.com/in/harshverma-25" },
+  { icon: FiTwitter,  label: "Twitter",   href: "https://twitter.com/harshverma_25" },
 ];
 
 const stats = [
