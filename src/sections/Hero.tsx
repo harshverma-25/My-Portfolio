@@ -81,10 +81,6 @@ export default function Hero() {
             <motion.div variants={fadeUp} className="mb-10">
               <p className="text-base font-mono text-zinc-500 tracking-wide">
                 <span className="text-zinc-400">{siteConfig.role}</span>
-                <span className="mx-2 text-zinc-700">/</span>
-                <span>{siteConfig.college}</span>
-                <span className="mx-2 text-zinc-700">/</span>
-                <span>{siteConfig.location}</span>
               </p>
             </motion.div>
 
