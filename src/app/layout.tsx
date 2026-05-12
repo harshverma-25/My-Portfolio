@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "Harsh Verma Portfolio",
     images: [
       {
-        url: "/og-image.png",
+        url: "/HV.png",
         width: 1200,
         height: 630,
         alt: "Harsh Verma Portfolio",
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Harsh Verma | Full Stack Developer",
-    description: "Portfolio of Harsh Verma, a Backend Engineer specializing in scalable systems.",
+    description: "Portfolio of Harsh Verma, a Full Stack Developer specializing in scalable systems.",
     creator: "@harshverma25",
-    images: ["/og-image.png"],
+    images: ["/HV.png"],
   },
   icons: {
     icon: "/HV.png",

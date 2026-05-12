@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://harshverma.dev/sitemap.xml',
+    sitemap: 'https://harshverma25.vercel.app/sitemap.xml',
   };
 }
