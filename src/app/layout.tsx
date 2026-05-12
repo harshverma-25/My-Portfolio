@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import Navbar from "../components/Navbar";
 import ScrollProgress from "../components/ScrollProgress";
 import { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/next";
 
 const geist = Geist({
   variable: "--font-geist-sans",
@@ -93,6 +94,7 @@ export default function RootLayout({
             },
           }}
         />
+        <Analytics />
       </body>
     </html>
   );
