@@ -8,5 +8,5 @@ export const siteConfig = {
     { value: "5+",  label: "Projects" },
     // { value: "3+",   label: "Yrs Exp" },
   ],
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/Harsh Verma Resume.pdf",
 };

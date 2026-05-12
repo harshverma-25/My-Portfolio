@@ -11,18 +11,18 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Harsh Verma | Backend Engineer & Full Stack Developer",
+  title: "Harsh Verma | Full Stack Developer",
   description:
-    "Portfolio of Harsh Verma, a Backend Engineer specializing in scalable systems, distributed architectures, and modern web technologies.",
-  keywords: ["Harsh Verma", "Backend Engineer", "Full Stack Developer", "Portfolio", "Software Engineer", "India"],
+    "Portfolio of Harsh Verma, a Full Stack Developer specializing in scalable systems, distributed architectures, and modern web technologies.",
+  keywords: ["Harsh Verma", "Full Stack Developer", "Portfolio", "Software Engineer", "India"],
   authors: [{ name: "Harsh Verma" }],
   creator: "Harsh Verma",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://harshverma.dev",
-    title: "Harsh Verma | Backend Engineer & Full Stack Developer",
-    description: "Portfolio of Harsh Verma, a Backend Engineer specializing in scalable systems and modern web technologies.",
+    url: "https://harshverma25.vercel.app",
+    title: "Harsh Verma | Full Stack Developer",
+    description: "Portfolio of Harsh Verma, a Full Stack Developer specializing in scalable systems and modern web technologies.",
     siteName: "Harsh Verma Portfolio",
     images: [
       {
@@ -35,14 +35,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Harsh Verma | Backend Engineer & Full Stack Developer",
+    title: "Harsh Verma | Full Stack Developer",
     description: "Portfolio of Harsh Verma, a Backend Engineer specializing in scalable systems.",
     creator: "@harshverma25",
     images: ["/og-image.png"],
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: "/HV.png",
+    apple: "/HV.png",
   },
   themeColor: "#09090b",
 };
@@ -62,9 +62,9 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Harsh Verma",
-              "url": "https://harshverma.dev",
-              "jobTitle": "Backend Engineer",
-              "description": "Backend Engineer specializing in scalable systems and modern web technologies.",
+              "url": "https://harshverma25.vercel.app",
+              "jobTitle": "Full Stack Developer",
+              "description": "Full Stack Developer specializing in scalable systems and modern web technologies.",
               "sameAs": [
                 "https://github.com/harshverma-25",
                 "https://linkedin.com/in/harshverma25",

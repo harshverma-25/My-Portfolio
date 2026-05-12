@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Harsh Verma Portfolio',
     short_name: 'Harsh Verma',
-    description: 'Portfolio of Harsh Verma, a Backend Engineer specializing in scalable systems.',
+    description: 'Portfolio of Harsh Verma, a Full Stack Developer specializing in scalable systems.',
     start_url: '/',
     display: 'standalone',
     background_color: '#09090b',
