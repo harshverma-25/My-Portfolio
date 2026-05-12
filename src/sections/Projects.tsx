@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import ProjectCard from "@/components/ProjectCard";
-import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 export type Project = {
   title: string;
@@ -16,92 +17,174 @@ export type Project = {
 
 interface ProjectsProps {
   projects: Project[];
+  autoPlayInterval?: number;
 }
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  },
-};
+export default function Projects({ projects, autoPlayInterval = 8000 }: ProjectsProps) {
+  const [current, setCurrent] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [direction, setDirection] = useState(0);
 
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
+  const nextProject = useCallback(() => {
+    setDirection(1);
+    setCurrent((prev) => (prev + 1) % projects.length);
+  }, [projects.length]);
+
+  const prevProject = useCallback(() => {
+    setDirection(-1);
+    setCurrent((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
+  }, [projects.length]);
+
+  // Auto-play functionality
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    
+    const interval = setInterval(nextProject, autoPlayInterval);
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, nextProject, autoPlayInterval]);
+
+  const handleUserInteraction = useCallback(() => {
+    setIsAutoPlaying(false);
+    const timeout = setTimeout(() => setIsAutoPlaying(true), 15000);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  const slideVariants: Variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 500 : -500,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeInOut",
+      },
     },
-  },
-};
+    exit: (direction: number) => ({
+      x: direction > 0 ? -500 : 500,
+      opacity: 0,
+      transition: {
+        duration: 0.4,
+      },
+    }),
+  };
 
-export default function Projects({ projects }: ProjectsProps) {
   return (
-    <section id="projects" className="relative py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-gradient-to-b from-black via-zinc-950 to-black">
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
-      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl" />
+    <section
+      id="projects"
+      className="relative overflow-hidden bg-gradient-to-b from-black via-zinc-950 to-black py-20 px-6 md:px-12 lg:px-24"
+    >
+      {/* Animated Background Grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]">
+        <motion.div
+          className="absolute inset-0"
+          animate={{
+            backgroundPosition: ["0px 0px", "50px 50px"],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "linear",
+          }}
+        />
+      </div>
 
-      <div className="relative max-w-5xl mx-auto">
+      <div className="relative mx-auto max-w-5xl">
         {/* Header */}
         <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12"
+          className="mb-12 text-center"
         >
-          <div className="flex justify-center mb-4">
-            <div className="w-12 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent" />
-          </div>
-
-          <h2 className="text-3xl font-bold tracking-tight text-white mb-3 text-center">
-            Featured Projects
-          </h2>
-
-          <p className="text-zinc-500 text-sm text-center">
-            A selection of my recent work — exploring AI, finance, and developer tools.
+          <p className="mb-4 text-xs uppercase tracking-[0.4em] text-emerald-500 font-medium">
+            Featured Work
           </p>
+
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
+            Selected{" "}
+            <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+              Projects
+            </span>
+          </h2>
         </motion.div>
 
-        {/* Projects Grid */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {projects.map((project, index) => (
-            <ProjectCard
-              key={project.title}
-              {...project}
-              index={index}
-            />
-          ))}
-        </motion.div>
+        {/* Project Slider */}
+        <div className="relative">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={current}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              onMouseEnter={() => setIsAutoPlaying(false)}
+              onMouseLeave={() => setIsAutoPlaying(true)}
+            >
+              <ProjectCard project={projects[current]} />
+            </motion.div>
+          </AnimatePresence>
 
-        {/* View All Link */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mt-12 text-center"
-        >
-          <a
-            href="https://github.com/harshverma-25"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-gray-400 hover:text-white border border-white/10 rounded-full hover:border-emerald-500/50 hover:bg-white/5 transition-all duration-300"
-          >
-            <span>View all on GitHub</span>
-            <HiOutlineArrowNarrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-          </a>
-        </motion.div>
+          {/* Navigation Controls */}
+          <div className="mt-8 flex items-center justify-between">
+            <div className="flex items-center gap-6">
+              <motion.div
+                key={current}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="text-xs font-mono text-zinc-500"
+              >
+                <span className="text-emerald-500 font-bold">{String(current + 1).padStart(2, "0")}</span>
+                <span className="mx-2 opacity-20">/</span>
+                <span>{String(projects.length).padStart(2, "0")}</span>
+              </motion.div>
+
+              <div className="hidden md:flex gap-1.5">
+                {projects.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      setDirection(idx > current ? 1 : -1);
+                      setCurrent(idx);
+                      handleUserInteraction();
+                    }}
+                    className={`h-1 rounded-full transition-all duration-500 ${
+                      idx === current ? "w-8 bg-emerald-500" : "w-2 bg-zinc-800"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  prevProject();
+                  handleUserInteraction();
+                }}
+                className="group flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.05] bg-white/[0.02] text-white hover:bg-emerald-500 hover:text-black transition-all"
+                aria-label="Previous project"
+              >
+                <FiChevronLeft size={18} />
+              </button>
+
+              <button
+                onClick={() => {
+                  nextProject();
+                  handleUserInteraction();
+                }}
+                className="group flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.05] bg-white/[0.02] text-white hover:bg-emerald-500 hover:text-black transition-all"
+                aria-label="Next project"
+              >
+                <FiChevronRight size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

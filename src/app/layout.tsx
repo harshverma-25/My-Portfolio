@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import "../styles/globals.css";
 import Navbar from "../components/Navbar";
 import ScrollProgress from "../components/ScrollProgress";
+import { Toaster } from "react-hot-toast";
 
 const geist = Geist({
   variable: "--font-geist-sans",
@@ -81,6 +82,17 @@ export default function RootLayout({
         <ScrollProgress />
         <Navbar />
         {children}
+        <Toaster 
+          position="bottom-right"
+          reverseOrder={false}
+          toastOptions={{
+            style: {
+              background: '#18181b',
+              color: '#fff',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+            },
+          }}
+        />
       </body>
     </html>
   );

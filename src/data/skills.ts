@@ -5,17 +5,12 @@ export const skills = {
     "TypeScript",
     "JavaScript",
     "Tailwind CSS",
-    "HTML/CSS",
     "Redux",
-    "Framer Motion",
+
   ],
   backend: [
     "Node.js",
-    "Python",
-    "Go",
     "Express",
-    "FastAPI",
-    "GraphQL",
     "REST APIs",
     "WebSocket",
   ],
@@ -24,20 +19,14 @@ export const skills = {
     "MongoDB",
     "Redis",
     "MySQL",
-    "Prisma",
-    "Drizzle ORM",
     "Firebase",
   ],
   tools: [
-    "Docker",
-    "Kubernetes",
     "Git",
-    "GitHub Actions",
-    "AWS",
+    "Postman",
     "Vercel",
     "Figma",
-    "Jest",
-    "Webpack",
+
   ],
 };
 

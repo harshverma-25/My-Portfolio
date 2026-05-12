@@ -157,7 +157,7 @@ export default function Hero() {
                     {/* Gradient overlay */}
                     <div className="absolute inset-0 z-10 bg-gradient-to-t from-zinc-900/60 via-transparent to-transparent" />
                     <Image
-                      src="/avatar.png"
+                      src="/HV.png"
                       alt="Harsh Verma"
                       fill
                       className="object-cover object-center scale-105"
@@ -173,7 +173,7 @@ export default function Hero() {
                 </div>
 
                 {/* Minimal stats row */}
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 gap-4">
                   {stats.map((s) => (
                     <div
                       key={s.label}

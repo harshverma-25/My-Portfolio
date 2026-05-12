@@ -158,22 +158,7 @@ export default function Skills() {
           ))}
         </div>
 
-        {/* Bottom stats strip */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-10 pt-8 border-t border-white/[0.06] flex flex-wrap gap-8 justify-center"
-        >
-          {bottomStats.map(({ value, label }) => (
-            <div key={label} className="flex items-center gap-3">
-              <span className="text-xl font-bold text-white font-mono">{value}</span>
-              <span className="text-xs text-zinc-600">{label}</span>
-            </div>
-          ))}
-        </motion.div>
+     
 
       </div>
     </section>

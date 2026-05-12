@@ -15,13 +15,13 @@ export const contact = {
     linkedin: {
       name: "LinkedIn",
       url: "https://linkedin.com/in/harshverma616",
-      username: "harshverma-25",
+      username: "harshverma616",
     },
 
     twitter: {
       name: "Twitter",
       url: "https://twitter.com/_harshverma08",
-      username: "harshverma_25",
+      username: "_harshverma08",
     },
 
     devto: {

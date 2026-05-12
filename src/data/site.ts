@@ -6,9 +6,9 @@ export const siteConfig = {
   bio: "I build scalable backend systems and distributed architectures that power great products. Passionate about clean code, performance, and the full development lifecycle from database to UI.",
   githubUsername: "harshverma-25",
   stats: [
-    { value: "500+", label: "Commits" },
-    { value: "12+",  label: "Projects" },
-    { value: "3+",   label: "Yrs Exp" },
+    { value: "300+", label: "Commits" },
+    { value: "5+",  label: "Projects" },
+    // { value: "3+",   label: "Yrs Exp" },
   ],
   resumeUrl: "/resume.pdf",
 };
