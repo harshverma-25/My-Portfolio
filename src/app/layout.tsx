@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "Harsh Verma Portfolio",
     images: [
       {
-        url: "/HV.png",
+        url: "/HV.png?v=1",
         width: 1200,
         height: 630,
         alt: "Harsh Verma Portfolio",
@@ -39,11 +39,11 @@ export const metadata: Metadata = {
     title: "Harsh Verma | Full Stack Developer",
     description: "Portfolio of Harsh Verma, a Full Stack Developer specializing in scalable systems.",
     creator: "@harshverma25",
-    images: ["/HV.png"],
+    images: ["/HV.png?v=1"],
   },
   icons: {
-    icon: "/HV.png",
-    apple: "/HV.png",
+    icon: "/HV.png?v=1",
+    apple: "/HV.png?v=1",
   },
   themeColor: "#09090b",
 };
