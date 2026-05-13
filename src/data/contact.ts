@@ -24,10 +24,5 @@ export const contact = {
       username: "_harshverma08",
     },
 
-    devto: {
-      name: "Dev.to",
-      url: "https://dev.to/harshverma-25",
-      username: "harshverma-25",
-    },
   },
 };
