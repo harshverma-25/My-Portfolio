@@ -32,7 +32,7 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
             className="text-xs text-gray-600 hover:text-gray-500 transition-colors duration-300"
           >
-            © {currentYear ?? "——"} {siteConfig.name}
+            © {currentYear ?? "——"} {siteConfig.name} ({siteConfig.handle}). All rights reserved.
           </motion.p>
 
           {/* Social Links */}

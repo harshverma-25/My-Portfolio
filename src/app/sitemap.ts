@@ -1,13 +1,12 @@
-import { MetadataRoute } from 'next';
+import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://harshverma25.vercel.app',
+      url: "https://harshverma25.vercel.app",
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1,
+      changeFrequency: "weekly",
+      priority: 1.0,
     },
-    // Add other routes here if you have them
   ];
 }

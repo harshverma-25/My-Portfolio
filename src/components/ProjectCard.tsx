@@ -65,7 +65,7 @@ export default function ProjectShowcase({ project }: Props) {
 
             <Image
               src={project.image || "/projects/fallback.png"}
-              alt={project.title}
+              alt={`${project.title} - Project by Harsh Verma (harshverma25)`}
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"

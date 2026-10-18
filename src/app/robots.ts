@@ -1,11 +1,14 @@
-import { MetadataRoute } from 'next';
+import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-    },
-    sitemap: 'https://harshverma25.vercel.app/sitemap.xml',
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+      },
+    ],
+    sitemap: "https://harshverma25.vercel.app/sitemap.xml",
+    host: "https://harshverma25.vercel.app",
   };
 }

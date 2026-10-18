@@ -1,20 +1,26 @@
-import { MetadataRoute } from 'next';
+import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Harsh Verma Portfolio',
-    short_name: 'Harsh Verma',
-    description: 'Portfolio of Harsh Verma, a Full Stack Developer specializing in scalable systems.',
-    start_url: '/',
-    display: 'standalone',
-    background_color: '#09090b',
-    theme_color: '#09090b',
+    name: "Harsh Verma (harshverma25) Portfolio",
+    short_name: "harshverma25",
+    description:
+      "Official portfolio of Harsh Verma (harshverma25) — Full Stack Developer specializing in scalable backend systems and modern web technologies.",
+    start_url: "/",
+    display: "standalone",
+    background_color: "#09090b",
+    theme_color: "#09090b",
     icons: [
       {
-        src: '/favicon.ico',
-        sizes: 'any',
-        type: 'image/x-icon',
+        src: "/HV.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        src: "/HV.png",
+        sizes: "512x512",
+        type: "image/png",
       },
     ],
   };
-}   
+}

@@ -79,6 +79,8 @@ export default function Navbar() {
           href="#home" 
           onClick={(e) => handleSmoothScroll(e, "#home")}
           className="text-sm font-bold text-white tracking-tighter"
+          aria-label="Harsh Verma (harshverma25) Portfolio"
+          title="Harsh Verma (harshverma25) - Full Stack Developer"
         >
           harsh<span className="opacity-40">.dev</span>
         </Link>

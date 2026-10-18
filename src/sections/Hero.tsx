@@ -70,6 +70,14 @@ export default function Hero() {
             animate="show"
             className="flex flex-col"
           >
+            {/* Handle badge for entity & search matching */}
+            <motion.div variants={fadeUp} className="mb-3">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1 text-xs font-mono text-zinc-300">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                @{siteConfig.handle}
+              </span>
+            </motion.div>
+
             {/* Name - increased size slightly */}
             <motion.div variants={fadeUp} className="mb-4">
               <h1 className="text-[3.2rem] sm:text-[4rem] lg:text-[4.2rem] font-bold tracking-tight leading-[1.1]">
@@ -154,7 +162,7 @@ export default function Hero() {
                     <div className="absolute inset-0 z-10 bg-gradient-to-t from-zinc-900/60 via-transparent to-transparent" />
                     <Image
                       src="/HV.png"
-                      alt="Harsh Verma"
+                      alt="Harsh Verma (harshverma25) - Full Stack Developer"
                       fill
                       className="object-cover object-center scale-105"
                       priority
