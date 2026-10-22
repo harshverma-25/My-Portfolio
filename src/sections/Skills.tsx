@@ -1,13 +1,14 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { skills, skillCategories, bottomStats } from "../data/skills";
+import { skills, skillCategories } from "../data/skills";
 import {
   SiReact, SiNextdotjs, SiTypescript, SiJavascript, SiTailwindcss,
   SiNodedotjs, SiPython, SiGo, SiExpress, SiFastapi,
   SiPostgresql, SiMongodb, SiPrisma, SiRedis, SiMysql,
   SiDocker, SiKubernetes, SiGit, SiGithubactions, SiVercel,
   SiFigma, SiFramer, SiJest, SiWebpack,
+  SiRedux, SiPostman, SiFirebase, SiSocketdotio,
 } from "react-icons/si";
 import { IconType } from "react-icons";
 
@@ -57,6 +58,10 @@ const iconMap: Record<string, { Icon: IconType; color: string }> = {
   "Framer Motion":  { Icon: SiFramer,          color: "#0055FF" },
   Jest:             { Icon: SiJest,            color: "#C21325" },
   Webpack:          { Icon: SiWebpack,         color: "#8DD6F9" },
+  Redux:            { Icon: SiRedux,           color: "#764ABC" },
+  Postman:          { Icon: SiPostman,         color: "#FF6C37" },
+  Firebase:         { Icon: SiFirebase,        color: "#FFCA28" },
+  WebSocket:        { Icon: SiSocketdotio,     color: "#010101" },
 };
 
 /* category accent colors */

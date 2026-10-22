@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { motion, Variants } from "framer-motion";
 import { GitHubCalendar } from "react-github-calendar";
 import Image from "next/image";
@@ -14,7 +14,7 @@ import {
   FaCode
 } from "react-icons/fa6";
 import { siteConfig } from "../data/site";
-import { GitHubStats } from "../lib/github";
+import { GitHubStats, MOCK_GITHUB_STATS } from "../lib/github";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -36,13 +36,16 @@ const itemVariants: Variants = {
   },
 };
 
+const emptySubscribe = () => () => {};
+
 export default function GitHubShowcase() {
   const [stats, setStats] = useState<GitHubStats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => { setMounted(true); }, []);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   useEffect(() => {
     async function fetchStats() {
@@ -53,16 +56,14 @@ export default function GitHubShowcase() {
         const data = await res.json();
         setStats(data);
       } catch (err) {
-        console.error(err);
-        setError(true);
+        console.error("GitHub fetch error:", err);
+        setStats(MOCK_GITHUB_STATS);
       } finally {
         setLoading(false);
       }
     }
     fetchStats();
   }, []);
-
-  if (error) return null;
 
   const calendarTheme = {
     dark: ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
@@ -264,23 +265,29 @@ export default function GitHubShowcase() {
               Language Distribution
             </h4>
             <div className="space-y-4">
-              {stats?.languages.slice(0, 5).map((lang) => (
-                <div key={lang.name} className="space-y-1.5">
-                  <div className="flex justify-between text-[11px] font-mono">
-                    <span className="text-zinc-300">{lang.name}</span>
-                    <span className="text-zinc-500">{Math.round((lang.count / stats.user.public_repos) * 100)}%</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                    <motion.div 
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${(lang.count / stats.user.public_repos) * 100}%` }}
-                      transition={{ duration: 0.8, ease: "easeOut" }}
-                      className="h-full rounded-full"
-                      style={{ backgroundColor: lang.color }}
-                    />
-                  </div>
-                </div>
-              ))}
+              {(() => {
+                const totalLang = stats?.languages.reduce((acc, l) => acc + l.count, 0) || (stats?.user.public_repos || 1);
+                return stats?.languages.slice(0, 5).map((lang) => {
+                  const pct = Math.min(100, Math.round((lang.count / totalLang) * 100));
+                  return (
+                    <div key={lang.name} className="space-y-1.5">
+                      <div className="flex justify-between text-[11px] font-mono">
+                        <span className="text-zinc-300">{lang.name}</span>
+                        <span className="text-zinc-500">{pct}%</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                        <motion.div 
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${pct}%` }}
+                          transition={{ duration: 0.8, ease: "easeOut" }}
+                          className="h-full rounded-full"
+                          style={{ backgroundColor: lang.color }}
+                        />
+                      </div>
+                    </div>
+                  );
+                });
+              })()}
             </div>
           </motion.div>
 

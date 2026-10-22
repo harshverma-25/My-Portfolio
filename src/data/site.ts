@@ -7,8 +7,7 @@ export const siteConfig = {
   bio: "I build scalable backend systems and distributed architectures that power great products. Passionate about clean code, performance, and the full development lifecycle from database to UI.",
   stats: [
     { value: "300+", label: "Commits" },
-    { value: "5+",  label: "Projects" },
-    // { value: "3+",   label: "Yrs Exp" },
+    { value: "3+",  label: "Projects" },
   ],
-  resumeUrl: "/Harsh Verma Resume.pdf",
+  resumeUrl: "/Harsh_Verma_Resume.pdf",
 };

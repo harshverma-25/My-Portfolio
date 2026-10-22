@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { HiMenu, HiX, HiArrowRight } from "react-icons/hi";
 import { navLinks, socialLinks } from "../data/navigation";
 import { clsx, type ClassValue } from "clsx";
@@ -16,8 +15,6 @@ function cn(...inputs: ClassValue[]) {
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const pathname = usePathname();
-  const menuRef = useRef<HTMLDivElement>(null);
 
   // Close mobile menu on scroll or click
   useEffect(() => {

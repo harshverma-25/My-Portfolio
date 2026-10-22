@@ -23,6 +23,7 @@ export interface GitHubRepo {
   description: string;
   stargazers_count: number;
   forks_count: number;
+  fork?: boolean;
   language: string;
   updated_at: string;
 }
@@ -95,7 +96,7 @@ export async function getGitHubStats(username: string): Promise<GitHubStats | nu
 
     // Recent repos (last 3 updated)
     const recentActivity = [...allRepos]
-      .filter((r) => !r.forks_count) // only original repos
+      .filter((r) => !r.fork) // only original repos
       .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime())
       .slice(0, 3);
 

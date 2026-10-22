@@ -19,7 +19,6 @@ interface Props {
 }
 
 export default function ProjectShowcase({ project }: Props) {
-  const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
   const handleShare = async () => {
@@ -44,8 +43,6 @@ export default function ProjectShowcase({ project }: Props) {
       className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br from-zinc-900/50 to-black/50 backdrop-blur-xl"
       whileHover={{ scale: 1.01 }}
       transition={{ duration: 0.3 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] min-h-[400px]">
         {/* LEFT IMAGE SECTION - Landscape optimized */}

@@ -9,7 +9,7 @@ import { projects } from "@/data/projects";
 
 export default function Home() {
   return (
-    <main id="home">
+    <main className="flex-1">
       <Hero />
       <Projects projects={projects} />
       <Skills />

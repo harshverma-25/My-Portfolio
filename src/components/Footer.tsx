@@ -1,17 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiHeart } from "react-icons/fi";
 import { siteConfig } from "../data/site";
 import { contact } from "../data/contact";
 
 export default function Footer() {
-  const [currentYear, setCurrentYear] = useState<number | null>(null);
-
-  useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
-  }, []);
+  const currentYear = new Date().getFullYear();
   
   const socialLinks = [
     { icon: FiGithub, href: contact.socials.github.url, label: "GitHub" },
