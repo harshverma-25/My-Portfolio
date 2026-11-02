@@ -10,9 +10,10 @@ import { Project } from "@/data/projects";
 
 interface Props {
   project: Project;
+  reversed?: boolean;
 }
 
-export default function ProjectShowcase({ project }: Props) {
+export default function ProjectShowcase({ project, reversed = false }: Props) {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleShare = async () => {
@@ -38,9 +39,9 @@ export default function ProjectShowcase({ project }: Props) {
       whileHover={{ scale: 1.01 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] min-h-[400px]">
+      <div className={`grid grid-cols-1 ${reversed ? "lg:grid-cols-[1fr_1.2fr]" : "lg:grid-cols-[1.2fr_1fr]"} min-h-[400px]`}>
         {/* LEFT IMAGE SECTION - Landscape optimized */}
-        <div className="relative group bg-zinc-950/50 flex items-center justify-center p-4 lg:p-8">
+        <div className={`relative group bg-zinc-950/50 flex items-center justify-center p-4 lg:p-8 ${reversed ? "lg:order-2" : "lg:order-1"}`}>
           <motion.div 
             className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10"
             initial={{ opacity: 0, y: 20 }}
@@ -68,7 +69,7 @@ export default function ProjectShowcase({ project }: Props) {
 
           {/* Featured Badge */}
           {project.featured && (
-            <div className="absolute left-6 top-6 lg:left-10 lg:top-10 z-20">
+            <div className={`absolute ${reversed ? "right-6 lg:right-10" : "left-6 lg:left-10"} top-6 lg:top-10 z-20`}>
               <div className="flex items-center gap-2 rounded-full border border-emerald-500/20 bg-black/60 px-3 py-1 backdrop-blur-md">
                 <FiStar className="text-emerald-400 fill-emerald-400" size={10} />
                 <span className="text-[10px] uppercase tracking-[0.2em] text-emerald-300 font-medium">
@@ -79,8 +80,8 @@ export default function ProjectShowcase({ project }: Props) {
           )}
         </div>
 
-        {/* RIGHT CONTENT SECTION */}
-        <div className="flex flex-col justify-center p-6 md:p-8 lg:p-10 bg-gradient-to-br from-transparent to-black/20">
+        {/* CONTENT SECTION */}
+        <div className={`flex flex-col justify-center p-6 md:p-8 lg:p-10 bg-gradient-to-br from-transparent to-black/20 ${reversed ? "lg:order-1" : "lg:order-2"}`}>
           <div className="mb-4 flex items-center justify-between">
             <span className="text-[10px] uppercase tracking-[0.3em] text-emerald-500/80 font-semibold">
               Project Case Study
