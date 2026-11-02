@@ -6,16 +6,10 @@ import { motion } from "framer-motion";
 import { FiGithub, FiExternalLink, FiHeart, FiShare2, FiStar } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 
+import { Project } from "@/data/projects";
+
 interface Props {
-  project: {
-    title: string;
-    description: string;
-    tech: string[];
-    github: string;
-    live: string;
-    image?: string;
-    featured?: boolean;
-  };
+  project: Project;
 }
 
 export default function ProjectShowcase({ project }: Props) {
