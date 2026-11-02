@@ -6,10 +6,8 @@ import ProjectCard from "@/components/ProjectCard";
 import { 
   FiChevronDown, 
   FiFolder, 
-  FiGithub, 
   FiExternalLink,
-  FiStar,
-  FiPlus
+  FiStar
 } from "react-icons/fi";
 import { Project } from "@/data/projects";
 
@@ -27,7 +25,7 @@ export default function Projects({ projects }: ProjectsProps) {
   const { displayMain, moreProjects } = useMemo(() => {
     const isMain = (p: Project) => p["main-project"] === true || p.mainProject === true;
     const mains = projects.filter(isMain);
-    // Showcase up to 3 main projects directly on the page (fallback to first 3 if none flagged)
+    // Showcase up to 3 main projects in the top grid (fallback to first 3 if none flagged)
     const mainList = mains.length > 0 ? mains.slice(0, 3) : projects.slice(0, 3);
     const moreList = projects.filter((p) => !mainList.includes(p));
     return { displayMain: mainList, moreProjects: moreList };
@@ -54,13 +52,13 @@ export default function Projects({ projects }: ProjectsProps) {
         />
       </div>
 
-      <div className="relative mx-auto max-w-5xl">
+      <div className="relative mx-auto max-w-6xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-14 text-center"
+          className="mb-12 text-center"
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-3.5 py-1 mb-4">
             <FiStar className="text-emerald-400 fill-emerald-400" size={12} />
@@ -76,32 +74,33 @@ export default function Projects({ projects }: ProjectsProps) {
             </span>
           </h2>
           <p className="mt-3 text-sm text-zinc-400 max-w-lg mx-auto">
-            Featured full-stack applications and platforms built with production-grade architectures.
+            A selection of my primary full-stack applications and distributed systems built for scale.
           </p>
         </motion.div>
 
-        {/* 3 Main Projects Listed Directly on the Page */}
-        <div className="flex flex-col gap-10 lg:gap-14">
+        {/* 3 Main Projects in a 3-Column Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayMain.map((project, idx) => (
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
+              className="h-full"
             >
-              <ProjectCard project={project} reversed={idx % 2 === 1} />
+              <ProjectCard project={project} badge={`Main 0${idx + 1}`} />
             </motion.div>
           ))}
         </div>
 
         {/* More Projects Section / Button */}
-        <div className="mt-16 flex flex-col items-center">
+        <div className="mt-14 flex flex-col items-center">
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setShowMore((prev) => !prev)}
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] px-8 py-4 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-emerald-500/50 hover:bg-emerald-500/[0.08] hover:shadow-[0_0_35px_rgba(16,185,129,0.2)] active:scale-95"
+            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-emerald-500/50 hover:bg-emerald-500/[0.08] hover:shadow-[0_0_35px_rgba(16,185,129,0.2)] active:scale-95"
             id="more-projects-btn"
           >
             <FiFolder className="text-emerald-400 group-hover:scale-110 transition-transform" size={18} />
@@ -132,7 +131,7 @@ export default function Projects({ projects }: ProjectsProps) {
                 <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/5 pb-4">
                   <div>
                     <p className="text-xs uppercase tracking-[0.3em] text-emerald-500 font-semibold mb-1">
-                      Archive & Additional Work
+                      Archive & Additional Works
                     </p>
                     <h3 className="text-2xl font-bold text-white tracking-tight">
                       More Projects
@@ -157,58 +156,9 @@ export default function Projects({ projects }: ProjectsProps) {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, delay: idx * 0.05 }}
-                        className="group relative flex flex-col justify-between rounded-2xl border border-white/[0.08] bg-zinc-900/40 p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/40 hover:bg-zinc-900/60 hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
+                        className="h-full"
                       >
-                        <div>
-                          <div className="mb-4 flex items-center justify-between">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-emerald-400 group-hover:border-emerald-500/30 group-hover:scale-105 transition-all">
-                              <FiFolder size={18} />
-                            </div>
-                            <div className="flex items-center gap-3 text-zinc-400">
-                              {project.github && (
-                                <a
-                                  href={project.github}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="hover:text-emerald-400 transition-colors"
-                                  aria-label={`${project.title} GitHub repository`}
-                                >
-                                  <FiGithub size={16} />
-                                </a>
-                              )}
-                              {project.live && (
-                                <a
-                                  href={project.live}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="hover:text-emerald-400 transition-colors"
-                                  aria-label={`${project.title} Live Preview`}
-                                >
-                                  <FiExternalLink size={16} />
-                                </a>
-                              )}
-                            </div>
-                          </div>
-
-                          <h4 className="mb-2 text-lg font-bold text-white group-hover:text-emerald-400 transition-colors line-clamp-1">
-                            {project.title}
-                          </h4>
-
-                          <p className="mb-6 text-xs leading-relaxed text-zinc-400 font-light line-clamp-3">
-                            {project.description}
-                          </p>
-                        </div>
-
-                        <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/5">
-                          {project.tech.map((tech, tIdx) => (
-                            <span
-                              key={tIdx}
-                              className="rounded-md border border-white/[0.05] bg-white/[0.02] px-2 py-0.5 text-[10px] font-mono text-zinc-400"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
+                        <ProjectCard project={project} />
                       </motion.div>
                     ))}
                   </div>
