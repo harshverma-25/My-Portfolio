@@ -11,6 +11,7 @@ import {
   SiRedux, SiPostman, SiFirebase, SiSocketdotio,
 } from "react-icons/si";
 import { IconType } from "react-icons";
+import { FiCpu } from "react-icons/fi";
 
 /* ─── Variants ─── */
 const fadeUp: Variants = {
@@ -24,12 +25,12 @@ const fadeUp: Variants = {
 
 const stagger: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.06 } },
+  visible: { transition: { staggerChildren: 0.05 } },
 };
 
 const pill: Variants = {
-  hidden: { opacity: 0, scale: 0.85 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.25 } },
 };
 
 /* ─── Icon map ─── */
@@ -66,45 +67,52 @@ const iconMap: Record<string, { Icon: IconType; color: string }> = {
 
 /* category accent colors */
 const categoryAccent: Record<string, string> = {
-  frontend: "from-blue-500/20 to-cyan-500/20 border-blue-500/20",
-  backend:  "from-emerald-500/20 to-teal-500/20 border-emerald-500/20",
-  database: "from-orange-500/20 to-amber-500/20 border-orange-500/20",
-  tools:    "from-purple-500/20 to-violet-500/20 border-purple-500/20",
+  frontend: "from-cyan-500/20 to-blue-500/20",
+  backend:  "from-emerald-500/20 to-teal-500/20",
+  database: "from-amber-500/20 to-orange-500/20",
+  tools:    "from-teal-500/20 to-emerald-500/20",
 };
 
 const categoryDot: Record<string, string> = {
-  frontend: "bg-blue-400",
+  frontend: "bg-cyan-400",
   backend:  "bg-emerald-400",
-  database: "bg-orange-400",
-  tools:    "bg-purple-400",
+  database: "bg-amber-400",
+  tools:    "bg-teal-400",
 };
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-24 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-zinc-950 to-black">
+    <section id="skills" className="py-24 px-6 md:px-12 lg:px-24 relative overflow-hidden">
       <div className="max-w-5xl mx-auto">
 
-        {/* Header — mirrors Contact / Projects */}
+        {/* Header */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mb-12"
+          className="mb-14 text-center"
         >
-          <div className="flex justify-center mb-4">
-            <div className="w-12 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 mb-4 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+            <FiCpu className="text-emerald-400" size={13} />
+            <span className="text-xs uppercase tracking-[0.3em] text-emerald-400 font-medium">
+              Technical Arsenal
+            </span>
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-white text-center mb-3">
-            Tech Stack
+
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-3">
+            Core{" "}
+            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+              Skills & Stack
+            </span>
           </h2>
-          <p className="text-zinc-500 text-sm text-center">
-            Tools and technologies I specialize in.
+          <p className="text-zinc-400 text-sm max-w-md mx-auto font-light">
+            Modern technologies and tools I specialize in to build production systems.
           </p>
         </motion.div>
 
-        {/* Skill categories — 2-col grid on md+ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {/* Skill categories — 2-col grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {skillCategories.map(({ key, label, description, icon }, i) => (
             <motion.div
               key={key}
@@ -113,21 +121,23 @@ export default function Skills() {
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: i * 0.08 }}
-              className="group relative rounded-2xl border border-white/[0.07] bg-gradient-to-br from-zinc-900/60 to-zinc-950/60 backdrop-blur-sm p-5 hover:border-white/[0.12] transition-all duration-400"
+              className="group relative rounded-[28px] border border-white/[0.08] bg-zinc-950/60 backdrop-blur-xl p-6 hover:border-emerald-500/30 hover:bg-zinc-900/60 transition-all duration-300 shadow-xl overflow-hidden"
             >
               {/* Subtle corner accent glow */}
-              <div className={`absolute top-0 right-0 w-24 h-24 rounded-full blur-2xl opacity-30 bg-gradient-to-br ${categoryAccent[key]}`} />
+              <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-20 bg-gradient-to-br ${categoryAccent[key]}`} />
 
               {/* Category header */}
-              <div className="flex items-center gap-2.5 mb-4">
-                <span className={`h-2 w-2 rounded-full flex-shrink-0 ${categoryDot[key]}`} />
+              <div className="flex items-center gap-3 mb-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03] text-lg">
+                  {icon}
+                </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-base">{icon}</span>
-                    <h3 className="text-sm font-semibold text-white tracking-wide">{label}</h3>
+                    <h3 className="text-base font-semibold text-white tracking-wide">{label}</h3>
+                    <span className={`h-1.5 w-1.5 rounded-full ${categoryDot[key]}`} />
                   </div>
                   {description && (
-                    <p className="text-[11px] text-zinc-600 mt-0.5">{description}</p>
+                    <p className="text-xs text-zinc-500 mt-0.5 font-light">{description}</p>
                   )}
                 </div>
               </div>
@@ -146,15 +156,15 @@ export default function Skills() {
                     <motion.span
                       key={skill}
                       variants={pill}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium
-                        bg-white/[0.03] border border-white/[0.06] text-zinc-400
-                        hover:bg-white/[0.07] hover:border-white/[0.14] hover:text-zinc-200
-                        hover:scale-[1.04] transition-all duration-200 cursor-default"
+                      className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium
+                        bg-white/[0.03] border border-white/[0.06] text-zinc-300
+                        hover:bg-white/[0.08] hover:border-emerald-500/40 hover:text-white
+                        hover:scale-[1.03] transition-all duration-200 cursor-default"
                     >
                       {entry && (
                         <entry.Icon className="w-3.5 h-3.5 flex-shrink-0" style={{ color: entry.color }} />
                       )}
-                      {skill}
+                      <span>{skill}</span>
                     </motion.span>
                   );
                 })}
@@ -162,9 +172,6 @@ export default function Skills() {
             </motion.div>
           ))}
         </div>
-
-     
-
       </div>
     </section>
   );

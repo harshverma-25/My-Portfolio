@@ -81,27 +81,34 @@ export default function GitHubShowcase() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12"
+          className="mb-14 text-center"
         >
-          <div className="flex justify-center mb-4">
-            <div className="w-12 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 mb-4 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+            <FaGithub className="text-emerald-400" size={13} />
+            <span className="text-xs uppercase tracking-[0.3em] text-emerald-400 font-medium">
+              Open Source
+            </span>
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-white text-center mb-3">
-            GitHub Activity
+
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-3">
+            GitHub{" "}
+            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+              Activity & Metrics
+            </span>
           </h2>
-          <p className="text-zinc-500 text-sm text-center">
-            My open source contributions and activity on GitHub.
+          <p className="text-zinc-400 text-sm max-w-md mx-auto font-light">
+            Live contributions, repository metrics, and code activity on GitHub.
           </p>
           
           {stats?.user.html_url && (
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center mt-5">
               <a
                 href={stats.user.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-emerald-400 transition-colors duration-300 group"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs text-zinc-400 hover:border-emerald-500/40 hover:text-emerald-300 hover:bg-white/[0.06] transition-all duration-300 group"
               >
-                <FaGithub size={14} className="text-emerald-500" />
+                <FaGithub size={14} className="text-emerald-400" />
                 <span className="font-mono">@{stats.user.login}</span>
                 <FaArrowUpRightFromSquare size={10} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
@@ -117,36 +124,44 @@ export default function GitHubShowcase() {
           viewport={{ once: true }}
           className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
         >
-          <motion.div variants={itemVariants} className="group p-5 rounded-xl border border-white/[0.06] bg-gradient-to-br from-white/[0.02] to-transparent hover:border-emerald-500/30 hover:bg-emerald-500/[0.02] transition-all duration-300">
+          <motion.div variants={itemVariants} className="group p-5 rounded-[24px] border border-white/[0.08] bg-zinc-950/60 backdrop-blur-xl hover:border-amber-500/40 hover:bg-zinc-900/60 transition-all duration-300 shadow-lg">
             <div className="flex items-center justify-between mb-3">
-              <FaStar className="text-yellow-500/70 group-hover:text-yellow-500 transition-colors" size={16} />
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/20">
+                <FaStar className="text-amber-400" size={15} />
+              </div>
             </div>
             <div className="text-2xl font-bold text-white font-mono tracking-tight">{loading ? "..." : stats?.totalStars}</div>
-            <div className="text-[10px] text-zinc-600 uppercase tracking-wider mt-1">Stars Received</div>
+            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1 font-mono">Stars Received</div>
           </motion.div>
           
-          <motion.div variants={itemVariants} className="group p-5 rounded-xl border border-white/[0.06] bg-gradient-to-br from-white/[0.02] to-transparent hover:border-emerald-500/30 hover:bg-emerald-500/[0.02] transition-all duration-300">
+          <motion.div variants={itemVariants} className="group p-5 rounded-[24px] border border-white/[0.08] bg-zinc-950/60 backdrop-blur-xl hover:border-emerald-500/40 hover:bg-zinc-900/60 transition-all duration-300 shadow-lg">
             <div className="flex items-center justify-between mb-3">
-              <FaCodeFork className="text-emerald-500/70 group-hover:text-emerald-500 transition-colors" size={16} />
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                <FaCodeFork className="text-emerald-400" size={15} />
+              </div>
             </div>
             <div className="text-2xl font-bold text-white font-mono tracking-tight">{loading ? "..." : stats?.totalForks}</div>
-            <div className="text-[10px] text-zinc-600 uppercase tracking-wider mt-1">Repository Forks</div>
+            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1 font-mono">Repository Forks</div>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="group p-5 rounded-xl border border-white/[0.06] bg-gradient-to-br from-white/[0.02] to-transparent hover:border-emerald-500/30 hover:bg-emerald-500/[0.02] transition-all duration-300">
+          <motion.div variants={itemVariants} className="group p-5 rounded-[24px] border border-white/[0.08] bg-zinc-950/60 backdrop-blur-xl hover:border-orange-500/40 hover:bg-zinc-900/60 transition-all duration-300 shadow-lg">
             <div className="flex items-center justify-between mb-3">
-              <FaFire className="text-orange-500/70 group-hover:text-orange-500 transition-colors" size={16} />
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-500/10 border border-orange-500/20">
+                <FaFire className="text-orange-400" size={15} />
+              </div>
             </div>
             <div className="text-2xl font-bold text-white font-mono tracking-tight">365+</div>
-            <div className="text-[10px] text-zinc-600 uppercase tracking-wider mt-1">Day Streak</div>
+            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1 font-mono">Day Streak</div>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="group p-5 rounded-xl border border-white/[0.06] bg-gradient-to-br from-white/[0.02] to-transparent hover:border-emerald-500/30 hover:bg-emerald-500/[0.02] transition-all duration-300">
+          <motion.div variants={itemVariants} className="group p-5 rounded-[24px] border border-white/[0.08] bg-zinc-950/60 backdrop-blur-xl hover:border-cyan-500/40 hover:bg-zinc-900/60 transition-all duration-300 shadow-lg">
             <div className="flex items-center justify-between mb-3">
-              <FaCode className="text-blue-500/70 group-hover:text-blue-500 transition-colors" size={16} />
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-500/10 border border-cyan-500/20">
+                <FaCode className="text-cyan-400" size={15} />
+              </div>
             </div>
-            <div className="text-2xl font-bold text-white font-mono tracking-tight truncate">{stats?.languages[0]?.name || "TS"}</div>
-            <div className="text-[10px] text-zinc-600 uppercase tracking-wider mt-1">Primary Language</div>
+            <div className="text-2xl font-bold text-white font-mono tracking-tight truncate">{stats?.languages[0]?.name || "TypeScript"}</div>
+            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1 font-mono">Top Language</div>
           </motion.div>
         </motion.div>
 
@@ -156,19 +171,19 @@ export default function GitHubShowcase() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="p-6 rounded-xl border border-white/[0.06] bg-gradient-to-br from-white/[0.03] to-transparent backdrop-blur-sm mb-8"
+          className="p-6 rounded-[28px] border border-white/[0.08] bg-zinc-950/60 backdrop-blur-xl mb-8 shadow-xl"
         >
           {loading ? (
             <div className="animate-pulse flex items-center gap-5">
-              <div className="w-14 h-14 bg-white/10 rounded-xl" />
+              <div className="w-14 h-14 bg-white/10 rounded-2xl" />
               <div className="flex-1">
-                <div className="w-40 h-5 bg-white/10 rounded mb-2" />
-                <div className="w-28 h-3 bg-white/10 rounded" />
+                <div className="w-40 h-5 bg-white/10 rounded-lg mb-2" />
+                <div className="w-28 h-3 bg-white/10 rounded-lg" />
               </div>
             </div>
           ) : (
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-              <div className="relative w-14 h-14 rounded-xl border border-white/10 overflow-hidden flex-shrink-0">
+              <div className="relative w-14 h-14 rounded-2xl border border-white/10 overflow-hidden flex-shrink-0 shadow-md">
                 <Image 
                   src={stats?.user.avatar_url || ""} 
                   alt={stats?.user.name || "GitHub Profile"} 
@@ -181,24 +196,24 @@ export default function GitHubShowcase() {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
                   <div>
                     <h3 className="text-lg font-bold text-white">{stats?.user.name || "Harsh Verma"}</h3>
-                    <p className="text-xs text-zinc-500 font-mono">@{stats?.user.login}</p>
+                    <p className="text-xs text-emerald-400 font-mono">@{stats?.user.login}</p>
                   </div>
                   <div className="flex gap-6">
                     <div>
-                      <div className="text-[9px] text-zinc-600 uppercase tracking-wider">Repositories</div>
-                      <div className="text-base font-bold text-white">{stats?.user.public_repos}</div>
+                      <div className="text-[9px] text-zinc-500 uppercase tracking-wider font-mono">Repositories</div>
+                      <div className="text-base font-bold text-white font-mono">{stats?.user.public_repos}</div>
                     </div>
                     <div>
-                      <div className="text-[9px] text-zinc-600 uppercase tracking-wider">Followers</div>
-                      <div className="text-base font-bold text-white">{stats?.user.followers}</div>
+                      <div className="text-[9px] text-zinc-500 uppercase tracking-wider font-mono">Followers</div>
+                      <div className="text-base font-bold text-white font-mono">{stats?.user.followers}</div>
                     </div>
                     <div>
-                      <div className="text-[9px] text-zinc-600 uppercase tracking-wider">Following</div>
-                      <div className="text-base font-bold text-white">{stats?.user.following}</div>
+                      <div className="text-[9px] text-zinc-500 uppercase tracking-wider font-mono">Following</div>
+                      <div className="text-base font-bold text-white font-mono">{stats?.user.following}</div>
                     </div>
                   </div>
                 </div>
-                <p className="text-sm text-zinc-400 line-clamp-2">
+                <p className="text-sm text-zinc-400 font-light line-clamp-2">
                   {stats?.user.bio || "Full-stack developer focused on building scalable backend systems and distributed architectures."}
                 </p>
               </div>
@@ -212,15 +227,15 @@ export default function GitHubShowcase() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="p-6 rounded-xl border border-white/[0.06] bg-gradient-to-br from-white/[0.02] to-transparent mb-8 overflow-x-auto"
+          className="p-6 rounded-[28px] border border-white/[0.08] bg-zinc-950/60 backdrop-blur-xl mb-8 overflow-x-auto shadow-xl"
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
-            <h4 className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <h4 className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               Contribution Graph
             </h4>
             <div className="flex items-center gap-2">
-              <span className="text-[8px] text-zinc-600">Less</span>
+              <span className="text-[9px] text-zinc-500 font-mono">Less</span>
               <div className="flex gap-1">
                 <span className="w-2.5 h-2.5 rounded-sm bg-[#161b22]" />
                 <span className="w-2.5 h-2.5 rounded-sm bg-[#0e4429]" />
@@ -228,7 +243,7 @@ export default function GitHubShowcase() {
                 <span className="w-2.5 h-2.5 rounded-sm bg-[#26a641]" />
                 <span className="w-2.5 h-2.5 rounded-sm bg-[#39d353]" />
               </div>
-              <span className="text-[8px] text-zinc-600">More</span>
+              <span className="text-[9px] text-zinc-500 font-mono">More</span>
             </div>
           </div>
 
@@ -244,7 +259,7 @@ export default function GitHubShowcase() {
                 />
               )}
               {!mounted && (
-                <div className="h-[112px] w-full animate-pulse rounded-lg bg-white/[0.02]" />
+                <div className="h-[112px] w-full animate-pulse rounded-2xl bg-white/[0.02]" />
               )}
             </div>
           </div>
@@ -258,10 +273,10 @@ export default function GitHubShowcase() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="p-6 rounded-xl border border-white/[0.06] bg-gradient-to-br from-white/[0.02] to-transparent"
+            className="p-6 rounded-[28px] border border-white/[0.08] bg-zinc-950/60 backdrop-blur-xl shadow-xl"
           >
-            <h4 className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mb-5 flex items-center gap-2">
-              <FaCode size={12} className="text-emerald-500" />
+            <h4 className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider mb-5 flex items-center gap-2">
+              <FaCode size={12} className="text-emerald-400" />
               Language Distribution
             </h4>
             <div className="space-y-4">
@@ -297,10 +312,10 @@ export default function GitHubShowcase() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="p-6 rounded-xl border border-white/[0.06] bg-gradient-to-br from-white/[0.02] to-transparent"
+            className="p-6 rounded-[28px] border border-white/[0.08] bg-zinc-950/60 backdrop-blur-xl shadow-xl"
           >
-            <h4 className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mb-5 flex items-center gap-2">
-              <FaBookBookmark size={12} className="text-emerald-500" />
+            <h4 className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider mb-5 flex items-center gap-2">
+              <FaBookBookmark size={12} className="text-emerald-400" />
               Recent Activity
             </h4>
             <div className="space-y-2.5">
@@ -310,21 +325,21 @@ export default function GitHubShowcase() {
                   href={repo.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 rounded-lg bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 hover:bg-emerald-500/[0.02] transition-all group"
+                  className="flex items-center justify-between p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 hover:bg-emerald-500/[0.03] transition-all group"
                 >
                   <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                    <FaBookBookmark size={11} className="text-emerald-500/60 flex-shrink-0" />
-                    <span className="text-sm font-medium text-white group-hover:text-emerald-400 transition-colors truncate">
+                    <FaBookBookmark size={11} className="text-emerald-400 flex-shrink-0" />
+                    <span className="text-sm font-medium text-white group-hover:text-emerald-300 transition-colors truncate">
                       {repo.name}
                     </span>
                   </div>
                   <div className="flex items-center gap-2 text-[10px] text-zinc-500 font-mono">
                     <span className="flex items-center gap-1">
-                      <FaStar size={9} className="text-yellow-500/60" />
+                      <FaStar size={9} className="text-amber-400" />
                       {repo.stargazers_count}
                     </span>
                     <span className="text-zinc-700">•</span>
-                    <span className="text-zinc-500">{repo.language || "N/A"}</span>
+                    <span className="text-zinc-400">{repo.language || "N/A"}</span>
                   </div>
                 </a>
               ))}

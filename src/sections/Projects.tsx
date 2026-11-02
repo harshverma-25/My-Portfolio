@@ -25,7 +25,7 @@ export default function Projects({ projects }: ProjectsProps) {
   const { displayMain, moreProjects } = useMemo(() => {
     const isMain = (p: Project) => p["main-project"] === true || p.mainProject === true;
     const mains = projects.filter(isMain);
-    // Showcase up to 3 main projects in the top grid (fallback to first 3 if none flagged)
+    // Showcase top 3 main projects (fallback to first 3 if none flagged)
     const mainList = mains.length > 0 ? mains.slice(0, 3) : projects.slice(0, 3);
     const moreList = projects.filter((p) => !mainList.includes(p));
     return { displayMain: mainList, moreProjects: moreList };
@@ -34,33 +34,17 @@ export default function Projects({ projects }: ProjectsProps) {
   return (
     <section
       id="projects"
-      className="relative overflow-hidden bg-gradient-to-b from-black via-zinc-950 to-black py-20 px-6 md:px-12 lg:px-24"
+      className="relative overflow-hidden py-24 px-6 md:px-12 lg:px-24"
     >
-      {/* Animated Background Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]">
-        <motion.div
-          className="absolute inset-0"
-          animate={{
-            backgroundPosition: ["0px 0px", "50px 50px"],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "linear",
-          }}
-        />
-      </div>
-
       <div className="relative mx-auto max-w-6xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12 text-center"
+          className="mb-14 text-center"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-3.5 py-1 mb-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 mb-4 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
             <FiStar className="text-emerald-400 fill-emerald-400" size={12} />
             <span className="text-xs uppercase tracking-[0.3em] text-emerald-400 font-medium">
               Featured Work
@@ -69,11 +53,11 @@ export default function Projects({ projects }: ProjectsProps) {
 
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
             Main{" "}
-            <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
               Projects
             </span>
           </h2>
-          <p className="mt-3 text-sm text-zinc-400 max-w-lg mx-auto">
+          <p className="mt-3 text-sm text-zinc-400 max-w-lg mx-auto font-light">
             A selection of my primary full-stack applications and distributed systems built for scale.
           </p>
         </motion.div>
@@ -100,7 +84,7 @@ export default function Projects({ projects }: ProjectsProps) {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setShowMore((prev) => !prev)}
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-emerald-500/50 hover:bg-emerald-500/[0.08] hover:shadow-[0_0_35px_rgba(16,185,129,0.2)] active:scale-95"
+            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-white/10 bg-white/[0.04] px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-emerald-500/50 hover:bg-emerald-500/[0.08] hover:shadow-[0_0_35px_rgba(16,185,129,0.2)] active:scale-95"
             id="more-projects-btn"
           >
             <FiFolder className="text-emerald-400 group-hover:scale-110 transition-transform" size={18} />
@@ -163,7 +147,7 @@ export default function Projects({ projects }: ProjectsProps) {
                     ))}
                   </div>
                 ) : (
-                  <div className="rounded-2xl border border-dashed border-white/10 p-8 text-center">
+                  <div className="rounded-[28px] border border-dashed border-white/10 p-8 text-center bg-white/[0.01]">
                     <p className="text-zinc-500 text-sm">
                       Upload or add more projects with <code className="text-emerald-400 font-mono text-xs">&quot;main-project&quot;: false</code> in <code className="text-zinc-300 font-mono text-xs">src/data/projects.ts</code> to display them here.
                     </p>

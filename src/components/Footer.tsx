@@ -16,8 +16,8 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="border-t border-white/[0.06] bg-gradient-to-b from-transparent to-black/50">
-      <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-24 py-8">
+    <footer className="border-t border-white/[0.06] bg-black/40 backdrop-blur-md">
+      <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-24 py-10">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           
           {/* Copyright */}
@@ -25,13 +25,13 @@ export default function Footer() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="text-xs text-gray-600 hover:text-gray-500 transition-colors duration-300"
+            className="text-xs text-zinc-500 font-light"
           >
-            © {currentYear ?? "——"} {siteConfig.name} ({siteConfig.handle}). All rights reserved.
+            © {currentYear} <span className="text-zinc-300 font-medium">{siteConfig.name}</span> ({siteConfig.handle}). All rights reserved.
           </motion.p>
 
           {/* Social Links */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {socialLinks.map((social, idx) => (
               <motion.a
                 key={social.label}
@@ -41,10 +41,11 @@ export default function Footer() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: idx * 0.05 }}
-                className="p-2 rounded-lg text-gray-600 hover:text-gray-300 hover:bg-white/5 transition-all duration-300 group"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/5 bg-white/[0.02] text-zinc-500 hover:text-emerald-400 hover:border-emerald-500/30 hover:bg-white/[0.05] transition-all duration-300"
                 aria-label={social.label}
+                title={social.label}
               >
-                <social.icon className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+                <social.icon className="w-4 h-4" />
               </motion.a>
             ))}
           </div>
@@ -54,12 +55,12 @@ export default function Footer() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex items-center gap-1 text-xs text-gray-700"
+            className="flex items-center gap-1.5 text-xs text-zinc-500 font-mono"
           >
-            <span>Built with</span>
-            <FiHeart className="w-3 h-3 text-red-500/70 animate-pulse" />
-            <span>using</span>
-            <span className="text-gray-500">Next.js · Framer · Tailwind</span>
+            <span>Crafted with</span>
+            <FiHeart className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+            <span>by</span>
+            <span className="text-emerald-400 font-semibold">{siteConfig.handle}</span>
           </motion.div>
         </div>
       </div>

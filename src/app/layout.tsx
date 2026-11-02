@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import "../styles/globals.css";
 import Navbar from "../components/Navbar";
 import ScrollProgress from "../components/ScrollProgress";
+import AmbientBackground from "../components/AmbientBackground";
 import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/next";
 import { contact } from "../data/contact";
@@ -185,10 +186,11 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="min-h-full flex flex-col"
+        className="min-h-full flex flex-col bg-[#080808] text-[#f4f4f5]"
         style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif" }}
         suppressHydrationWarning
       >
+        <AmbientBackground />
         <ScrollProgress />
         <Navbar />
         {children}
