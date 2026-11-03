@@ -91,11 +91,11 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-auto flex items-center justify-between w-full max-w-[680px] bg-black/60 backdrop-blur-2xl border border-white/10 rounded-full px-5 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
+        className="pointer-events-auto flex items-center justify-between w-full max-w-[680px] bg-black/65 backdrop-blur-2xl border border-white/10 rounded-full px-5 py-2.5 shadow-[0_15px_40px_rgba(0,0,0,0.6)]"
       >
         {/* Logo */}
         <Link 
-          href="#home" 
+          href="/#home" 
           onClick={(e) => handleSmoothScroll(e, "#home")}
           className="text-sm font-bold text-white tracking-tight flex items-center gap-1.5 group"
           aria-label="Harsh Verma Portfolio"
@@ -197,7 +197,9 @@ export default function Navbar() {
                   <span className="text-sm font-medium">{link.name}</span>
                 </Link>
               ))}
+              
               <div className="h-px bg-white/10 my-1 mx-2" />
+              
               <div className="flex items-center justify-around py-2">
                 {socialLinks.map((link) => (
                   <a
