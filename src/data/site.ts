@@ -9,5 +9,5 @@ export const siteConfig = {
     { value: "300+", label: "Commits" },
     { value: "3+",  label: "Projects" },
   ],
-  resumeUrl: "/Harsh_Verma_Resume.pdf",
+  resumeUrl: "https://drive.google.com/file/d/1NK8J7b2ZsK5BAcP_opKesxO-6Ityzf9g/view?usp=sharing",
 };

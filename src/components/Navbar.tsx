@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { HiMenu, HiX, HiArrowRight } from "react-icons/hi";
 import { navLinks, socialLinks } from "../data/navigation";
 import { clsx, type ClassValue } from "clsx";
@@ -13,8 +14,19 @@ function cn(...inputs: ClassValue[]) {
 }
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState(
+    pathname === "/projects" ? "projects" : "home"
+  );
+
+  // Sync active section when on /projects
+  useEffect(() => {
+    if (pathname === "/projects") {
+      setActiveSection("projects");
+    }
+  }, [pathname]);
 
   // Close mobile menu on scroll
   useEffect(() => {
@@ -25,8 +37,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMobileMenuOpen]);
 
-  // Active section highlighting with IntersectionObserver
+  // Active section highlighting with IntersectionObserver (only on home)
   useEffect(() => {
+    if (pathname !== "/") return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -44,9 +58,16 @@ export default function Navbar() {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (pathname !== "/") {
+      e.preventDefault();
+      setIsMobileMenuOpen(false);
+      router.push("/" + href);
+      return;
+    }
+
     e.preventDefault();
     const element = document.getElementById(href.slice(1));
     if (element) {

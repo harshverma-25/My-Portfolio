@@ -1,0 +1,64 @@
+"use client";
+
+import { motion } from "framer-motion";
+import Link from "next/link";
+import ProjectCard from "@/components/ProjectCard";
+import Footer from "@/components/Footer";
+import { FiArrowLeft } from "react-icons/fi";
+import { Project } from "@/data/projects";
+
+interface AllProjectsClientProps {
+  projects: Project[];
+}
+
+export default function AllProjectsClient({ projects }: AllProjectsClientProps) {
+  const isMain = (p: Project) => p["main-project"] === true || p.mainProject === true;
+
+  return (
+    <div className="min-h-screen flex flex-col justify-between pt-28 md:pt-32">
+      <main className="flex-1 px-6 md:px-12 lg:px-24 max-w-6xl mx-auto w-full pb-20">
+        
+        {/* Navigation Back Link */}
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+          className="mb-8"
+        >
+          <Link
+            href="/#projects"
+            className="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-emerald-400 transition-colors group"
+          >
+            <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+            <span>Back to Overview</span>
+          </Link>
+        </motion.div>
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project, idx) => {
+            const mainFlag = isMain(project);
+            return (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: idx * 0.05 }}
+                className="h-full"
+              >
+                <ProjectCard
+                  project={project}
+                  badge={mainFlag ? `Main 0${idx + 1}` : undefined}
+                />
+              </motion.div>
+            );
+          })}
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+

@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useMemo } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
 import ProjectCard from "@/components/ProjectCard";
 import { 
-  FiChevronDown, 
   FiFolder, 
-  FiExternalLink,
   FiStar
 } from "react-icons/fi";
+import { HiArrowRight } from "react-icons/hi";
 import { Project } from "@/data/projects";
 
 export type { Project };
@@ -19,16 +19,13 @@ interface ProjectsProps {
 }
 
 export default function Projects({ projects }: ProjectsProps) {
-  const [showMore, setShowMore] = useState(false);
-
   // Filter projects based on main-project flag
-  const { displayMain, moreProjects } = useMemo(() => {
+  const { displayMain } = useMemo(() => {
     const isMain = (p: Project) => p["main-project"] === true || p.mainProject === true;
     const mains = projects.filter(isMain);
     // Showcase top 3 main projects (fallback to first 3 if none flagged)
     const mainList = mains.length > 0 ? mains.slice(0, 3) : projects.slice(0, 3);
-    const moreList = projects.filter((p) => !mainList.includes(p));
-    return { displayMain: mainList, moreProjects: moreList };
+    return { displayMain: mainList };
   }, [projects]);
 
   return (
@@ -78,84 +75,23 @@ export default function Projects({ projects }: ProjectsProps) {
           ))}
         </div>
 
-        {/* More Projects Section / Button */}
+        {/* More Projects Section / Button -> navigates to /projects */}
         <div className="mt-14 flex flex-col items-center">
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setShowMore((prev) => !prev)}
+          <Link
+            href="/projects"
             className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-white/10 bg-white/[0.04] px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-emerald-500/50 hover:bg-emerald-500/[0.08] hover:shadow-[0_0_35px_rgba(16,185,129,0.2)] active:scale-95"
             id="more-projects-btn"
           >
             <FiFolder className="text-emerald-400 group-hover:scale-110 transition-transform" size={18} />
-            <span>{showMore ? "Show Fewer Projects" : "More Projects"}</span>
-            {moreProjects.length > 0 && (
-              <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 font-mono text-xs text-emerald-400 font-medium">
-                +{moreProjects.length}
-              </span>
-            )}
-            <FiChevronDown
-              className={`transition-transform duration-300 text-zinc-400 group-hover:text-white ${
-                showMore ? "rotate-180" : ""
-              }`}
+            <span>More Projects</span>
+            <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 font-mono text-xs text-emerald-400 font-medium">
+              View All ({projects.length})
+            </span>
+            <HiArrowRight
+              className="text-zinc-400 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all duration-300"
               size={16}
             />
-          </motion.button>
-
-          {/* Expandable More Projects Grid */}
-          <AnimatePresence>
-            {showMore && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.45, ease: "easeInOut" }}
-                className="w-full mt-12 overflow-hidden"
-              >
-                <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/5 pb-4">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.3em] text-emerald-500 font-semibold mb-1">
-                      Archive & Additional Works
-                    </p>
-                    <h3 className="text-2xl font-bold text-white tracking-tight">
-                      More Projects
-                    </h3>
-                  </div>
-                  <a
-                    href="https://github.com/harshverma-25?tab=repositories"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-emerald-400 transition-colors"
-                  >
-                    <span>View all repositories on GitHub</span>
-                    <FiExternalLink size={12} />
-                  </a>
-                </div>
-
-                {moreProjects.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {moreProjects.map((project, idx) => (
-                      <motion.div
-                        key={project.title + idx}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: idx * 0.05 }}
-                        className="h-full"
-                      >
-                        <ProjectCard project={project} />
-                      </motion.div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="rounded-[28px] border border-dashed border-white/10 p-8 text-center bg-white/[0.01]">
-                    <p className="text-zinc-500 text-sm">
-                      Upload or add more projects with <code className="text-emerald-400 font-mono text-xs">&quot;main-project&quot;: false</code> in <code className="text-zinc-300 font-mono text-xs">src/data/projects.ts</code> to display them here.
-                    </p>
-                  </div>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
+          </Link>
         </div>
       </div>
     </section>
