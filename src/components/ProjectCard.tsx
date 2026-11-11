@@ -142,20 +142,30 @@ export default function ProjectCard({ project, badge, onSelectProject }: Props) 
           {/* ════ RIGHT: Minimal Project Details ════ */}
           <div className="md:col-span-7 flex flex-col justify-between min-h-[140px]">
             <div>
-              {/* Header: Badge & Quick External Links */}
+              {/* Header: Live Badge & Quick External Links */}
               <div className="mb-2 flex items-center justify-between">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 font-medium">
-                  {badge || "Project"}
-                </span>
+                <div className="flex items-center gap-2">
+                  {badge && (
+                    <span className="text-[11px] font-mono font-medium text-zinc-500">
+                      {badge}
+                    </span>
+                  )}
+                  {project.live && (
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Live Platform
+                    </span>
+                  )}
+                </div>
 
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1">
                   {project.github && (
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
                       data-external="true"
-                      className="p-1.5 rounded-lg text-zinc-500 hover:text-white hover:bg-white/[0.06] transition-colors"
+                      className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.08] transition-colors"
                       aria-label={`${project.title} GitHub`}
                       title="GitHub Repository"
                     >
@@ -168,7 +178,7 @@ export default function ProjectCard({ project, badge, onSelectProject }: Props) 
                       target="_blank"
                       rel="noopener noreferrer"
                       data-external="true"
-                      className="p-1.5 rounded-lg text-zinc-500 hover:text-white hover:bg-white/[0.06] transition-colors"
+                      className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.08] transition-colors"
                       aria-label={`${project.title} Live Preview`}
                       title="Live Preview"
                     >
@@ -178,23 +188,34 @@ export default function ProjectCard({ project, badge, onSelectProject }: Props) 
                 </div>
               </div>
 
-              {/* Title & Subtitle */}
+              {/* Title & Subtitle in Instrument Serif */}
               <div className="mb-2">
-                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white group-hover:text-zinc-200 transition-colors flex items-center gap-1.5">
+                <h3
+                  className="text-xl sm:text-2xl font-normal tracking-wide text-white group-hover:text-zinc-200 transition-colors flex items-center gap-2 font-serif"
+                  style={{ fontFamily: "var(--font-serif)" }}
+                >
                   <span>{mainTitle}</span>
-                  <FiArrowUpRight className="text-zinc-500 group-hover:text-white transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" size={16} />
+                  <FiArrowUpRight className="text-zinc-500 group-hover:text-white transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" size={17} />
                 </h3>
                 {subtitle && (
-                  <p className="text-xs text-zinc-400 font-normal">
+                  <p className="text-xs text-zinc-400 font-sans font-normal mt-0.5">
                     {subtitle}
                   </p>
                 )}
               </div>
 
               {/* Concise 1-2 Line Overview */}
-              <p className="text-xs text-zinc-400 font-light leading-relaxed line-clamp-2 mb-3">
+              <p className="text-xs text-zinc-400 font-light leading-relaxed line-clamp-2 mb-2.5">
                 {project.description}
               </p>
+
+              {/* Architecture Highlight Tag */}
+              {project.highlight && (
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.06] text-[11px] font-mono text-zinc-300 mb-3 w-fit">
+                  <span className="text-zinc-500">⚡</span>
+                  <span className="truncate max-w-[280px] sm:max-w-[340px]">{project.highlight}</span>
+                </div>
+              )}
             </div>
 
             {/* Bottom: Minimal Tech Stack & Inspect Link */}
@@ -216,7 +237,7 @@ export default function ProjectCard({ project, badge, onSelectProject }: Props) 
               </div>
 
               <span className="text-[11px] font-mono text-zinc-500 group-hover:text-zinc-300 transition-colors flex-shrink-0 flex items-center gap-1">
-                <span>Details</span>
+                <span>Architecture</span>
                 <span>→</span>
               </span>
             </div>

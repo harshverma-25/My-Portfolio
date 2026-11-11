@@ -118,25 +118,27 @@ export default function ProjectDetailsModal({ project, onClose }: Props) {
 
             {/* Thumbnail with browser chrome */}
             {project.image && (
-              <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-8 border border-white/10 bg-zinc-900 shadow-xl">
-                <div className="absolute top-0 left-0 right-0 h-6 bg-zinc-900/90 backdrop-blur-md flex items-center justify-between px-3 z-10 border-b border-white/5">
+              <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-8 border border-white/10 bg-zinc-900 shadow-xl flex flex-col">
+                <div className="h-7 bg-zinc-900/95 backdrop-blur-md flex items-center justify-between px-3.5 z-10 border-b border-white/[0.06] shrink-0">
                   <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-zinc-600" />
-                    <div className="w-2 h-2 rounded-full bg-zinc-600" />
-                    <div className="w-2 h-2 rounded-full bg-zinc-600" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-zinc-600" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-zinc-600" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-zinc-600" />
                   </div>
-                  <span className="text-[10px] font-mono text-zinc-500 truncate max-w-[200px]">
+                  <span className="text-[11px] font-mono text-zinc-400 truncate max-w-[240px]">
                     {project.live ? new URL(project.live).hostname : "system-preview"}
                   </span>
                   <div className="w-6" />
                 </div>
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 768px"
-                  className="object-cover object-top pt-6"
-                />
+                <div className="relative flex-1 w-full overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 768px"
+                    className="object-cover object-top"
+                  />
+                </div>
               </div>
             )}
 

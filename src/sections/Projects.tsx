@@ -74,7 +74,7 @@ export default function Projects({ projects }: ProjectsProps) {
             >
               <ProjectCard 
                 project={project} 
-                badge={`Main 0${idx + 1}`}
+                badge={`0${idx + 1}`}
                 onSelectProject={setSelectedProject}
               />
             </motion.div>
