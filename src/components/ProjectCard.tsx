@@ -59,9 +59,9 @@ export default function ProjectCard({ project, badge, onSelectProject }: Props) 
     }
   };
 
-  // Split title and subtitle if formatted as "Name — Subtitle"
-  const titleParts = project.title.split("—");
-  const mainTitle = titleParts[0].trim();
+  // Split title and subtitle if formatted as "Name — Subtitle" or "Name - Subtitle"
+  const titleParts = project.title.split(/\s+[—–-]\s+/);
+  const mainTitle = titleParts[0]?.trim() || project.title;
   const subtitle = titleParts[1]?.trim();
 
   // Extract clean domain for top bar
@@ -100,9 +100,9 @@ export default function ProjectCard({ project, badge, onSelectProject }: Props) 
           {/* ════ LEFT: Clean Image Preview ════ */}
           <div className="md:col-span-5 flex-shrink-0">
             {project.image ? (
-              <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-white/[0.08] bg-zinc-900/60 shadow-sm transition-all duration-300 group-hover:border-white/20">
+              <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-white/[0.08] bg-zinc-900/60 shadow-sm transition-all duration-300 group-hover:border-white/20 flex flex-col">
                 {/* Subtle macOS Dot Bar */}
-                <div className="absolute top-0 left-0 right-0 h-5 bg-zinc-950/80 backdrop-blur-sm flex items-center justify-between px-2.5 z-10 border-b border-white/[0.05]">
+                <div className="h-6 bg-zinc-950/90 backdrop-blur-sm flex items-center justify-between px-2.5 z-10 border-b border-white/[0.05] shrink-0">
                   <div className="flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 group-hover:bg-zinc-400 transition-colors" />
                     <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 group-hover:bg-zinc-400 transition-colors" />
@@ -114,13 +114,15 @@ export default function ProjectCard({ project, badge, onSelectProject }: Props) 
                   <div className="w-3" />
                 </div>
 
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 360px"
-                  className="object-cover object-top pt-5 transition-transform duration-500 ease-out group-hover:scale-105"
-                />
+                <div className="relative flex-1 w-full overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 360px"
+                    className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
+                  />
+                </div>
 
                 {/* Subtle Hover Action Pill */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center p-2 z-20 backdrop-blur-[1px]">

@@ -74,8 +74,8 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-16 px-5 sm:px-8 border-t border-zinc-800/80 relative">
-      <div className="max-w-3xl mx-auto">
+    <section id="contact" className="w-full px-5 sm:px-8 relative">
+      <div className="max-w-3xl mx-auto border-t border-zinc-800/80 pt-8 sm:pt-9 pb-10 sm:pb-12">
         {/* Header - Matching Reference Style */}
         <motion.div
           variants={fadeUp}
@@ -95,10 +95,11 @@ export default function Contact() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl text-white mb-3 font-serif tracking-tight">
-            Let&apos;s build something amazing.
+            Got something to build?<br />
+            <span className="text-zinc-400 font-normal text-2xl sm:text-3xl">Let&apos;s talk.</span>
           </h2>
           <p className="text-zinc-400 text-sm leading-relaxed max-w-xl font-sans">
-            I am always open to discussing open-source integrations, scalable backend architectures, full-stack opportunities, or engineering collaborations. Drop a note below.
+            Open to freelance projects, full-time roles, and interesting engineering collaborations. I respond fast — usually within a day.
           </p>
         </motion.div>
 

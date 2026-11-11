@@ -33,27 +33,33 @@ export default function Projects({ projects }: ProjectsProps) {
   return (
     <section
       id="projects"
-      className="relative py-16 px-5 sm:px-8 border-t border-zinc-800/80"
+      className="w-full px-5 sm:px-8"
     >
-      <div className="relative mx-auto max-w-3xl">
-        {/* Header - Clean Serif & Monospace Link */}
-        <div className="mb-8 flex items-center justify-between">
+      <div className="relative mx-auto max-w-3xl border-t border-zinc-800/80 pt-8 sm:pt-9 pb-8 sm:pb-9">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mb-8 flex items-end justify-between"
+        >
           <div>
-            <h2 className="text-2xl font-normal text-white font-serif tracking-wide">
-              Selected Deployments
+            <h2 className="text-2xl font-normal text-white tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>
+              Projects
             </h2>
-            <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest mt-1 block">
-              Full-Stack & Distributed Architecture
-            </span>
+            <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest mt-1">
+              Shipped to production
+            </p>
           </div>
           <Link
             href="/projects"
             className="text-xs font-mono text-zinc-400 hover:text-white transition-colors inline-flex items-center gap-1 group"
           >
-            <span>View All ({projects.length})</span>
+            <span>All ({projects.length})</span>
             <HiArrowRight className="group-hover:translate-x-0.5 transition-transform" size={13} />
           </Link>
-        </div>
+        </motion.div>
 
         {/* Main Projects List (Full-Width Horizontal Cards) */}
         <div className="flex flex-col gap-6">

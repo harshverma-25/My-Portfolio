@@ -16,8 +16,8 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="border-t border-zinc-800/80 bg-transparent">
-      <div className="max-w-3xl mx-auto px-5 sm:px-8 py-8">
+    <footer className="w-full px-5 sm:px-8 bg-transparent">
+      <div className="max-w-3xl mx-auto border-t border-zinc-800/80 py-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           
           {/* Copyright */}

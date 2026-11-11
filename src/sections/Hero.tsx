@@ -1,106 +1,189 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { siteConfig } from "../data/site";
 import { contact } from "../data/contact";
-import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiArrowUpRight, FiFileText } from "react-icons/fi";
+import { education } from "../data/education";
+import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiArrowUpRight, FiDownload } from "react-icons/fi";
+
+const roles = [
+  "Full Stack Developer",
+  "Backend & Systems Engineer",
+  "Distributed Architectures",
+  "Product Builder",
+];
 
 export default function Hero() {
+  const [displayText, setDisplayText] = useState("");
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = roles[roleIndex];
+    let timer: NodeJS.Timeout;
+    if (!isDeleting) {
+      if (displayText.length < current.length) {
+        timer = setTimeout(() => setDisplayText(current.slice(0, displayText.length + 1)), 65);
+      } else {
+        timer = setTimeout(() => setIsDeleting(true), 2400);
+      }
+    } else {
+      if (displayText.length > 0) {
+        timer = setTimeout(() => setDisplayText(current.slice(0, displayText.length - 1)), 32);
+      } else {
+        timer = setTimeout(() => {
+          setIsDeleting(false);
+          setRoleIndex((prev) => (prev + 1) % roles.length);
+        }, 280);
+      }
+    }
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, roleIndex]);
+
   const socials = [
-    { icon: FiGithub, href: contact.socials.github.url, label: "GitHub" },
+    { icon: FiGithub,   href: contact.socials.github.url,   label: "GitHub" },
     { icon: FiLinkedin, href: contact.socials.linkedin.url, label: "LinkedIn" },
-    { icon: FiTwitter, href: contact.socials.twitter.url, label: "Twitter" },
-    { icon: FiMail, href: `mailto:${contact.email}`, label: "Email" },
+    { icon: FiTwitter,  href: contact.socials.twitter.url,  label: "Twitter" },
+    { icon: FiMail,     href: `mailto:${contact.email}`,    label: "Email" },
   ];
 
   return (
-    <section id="home" className="w-full pt-28 sm:pt-36 pb-12 px-5 sm:px-8">
-      <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between w-full gap-8 md:gap-10">
-        
-        {/* ── LEFT COLUMN: Portrait, Name, Location ── */}
-        <div className="flex flex-col items-center md:items-start shrink-0 text-center md:text-left">
-          <div className="relative w-28 h-36 sm:w-32 sm:h-40 rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-lg bg-zinc-900 shrink-0 mb-4 group">
-            <Image
-              src="/avatar.png"
-              alt={siteConfig.name}
-              fill
-              priority
-              sizes="(max-width: 640px) 112px, 128px"
-              className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-            />
-          </div>
-          <h1 className="text-2xl sm:text-3xl tracking-wide text-white italic font-serif">
-            {siteConfig.name}
-          </h1>
-          <span className="text-[11px] font-mono tracking-widest text-zinc-400 uppercase mt-1">
-            Based in India
-          </span>
-        </div>
+    <section id="home" className="w-full pt-28 sm:pt-36 pb-10 sm:pb-12 px-5 sm:px-8">
+      <div className="max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col sm:flex-row items-center sm:items-start gap-8 sm:gap-11"
+        >
+          {/* ── LEFT: Avatar Card + Name + Location ── */}
+          <div className="flex flex-col items-center sm:items-start shrink-0 text-center sm:text-left">
+            <motion.div
+              whileHover={{ scale: 1.025, y: -2 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-28 h-36 sm:w-32 sm:h-40 rounded-2xl overflow-hidden mb-3 border border-white/10 bg-zinc-900/50 shadow-[0_12px_40px_rgba(0,0,0,0.65)]"
+            >
+              <Image
+                src="/avatar.png"
+                alt={siteConfig.name}
+                fill
+                priority
+                sizes="(max-width: 640px) 112px, 128px"
+                className="object-cover object-top"
+              />
+              {/* Subtle glass gradient sheen */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            </motion.div>
 
-        {/* ── RIGHT COLUMN: Role, Bio, Education Note, Socials & Resume ── */}
-        <div className="flex flex-col justify-start min-w-0 w-full pt-1">
-          <div className="flex items-center gap-3 mb-2.5">
-            <h2 className="text-zinc-100 tracking-wider text-lg sm:text-xl font-light uppercase font-mono">
-              {siteConfig.role} & Product Builder
-            </h2>
-          </div>
+            {/* Name in Instrument Serif italic */}
+            <h1
+              className="text-2xl sm:text-[28px] text-white tracking-wide leading-tight font-serif"
+              style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontWeight: 400 }}
+            >
+              {siteConfig.name}
+            </h1>
 
-          <p className="text-[14px] leading-relaxed text-zinc-400 font-sans tracking-wide text-left mb-4">
-            {siteConfig.bio}
-          </p>
-
-          {/* Education / Status Box */}
-          <div className="text-[12px] font-mono text-zinc-400 bg-zinc-900/40 p-3 rounded-xl border border-zinc-800/80 mb-6 flex items-center justify-between gap-2 shadow-2xs">
-            <div>
-              <span className="text-zinc-200 font-semibold">Education:</span> B.Tech in Information Technology | ITM Gwalior (2022 – 2026)
+            {/* Location pill */}
+            <div className="flex items-center gap-1.5 mt-1.5 text-[11px] font-mono tracking-widest text-zinc-500 uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Based in India</span>
             </div>
-            <span className="hidden sm:inline-flex text-[10px] font-mono text-emerald-400 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 whitespace-nowrap">
-              • Active
-            </span>
           </div>
 
-          {/* Socials & CTAs Row */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full gap-4">
-            <div className="flex items-center gap-2">
-              {socials.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
+          {/* ── RIGHT: Role, Headline, Bio, Education, Actions ── */}
+          <div className="flex flex-col justify-start min-w-0 w-full pt-0.5">
+
+            {/* Role typewriter pill */}
+            <div className="flex items-center gap-2 mb-2.5">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-[11px] font-mono text-zinc-300 tracking-wider uppercase">
+                  {displayText}
+                  <span className="inline-block w-1.5 h-3 bg-white/70 ml-1 align-middle animate-pulse" />
+                </span>
+              </div>
+            </div>
+
+            {/* Headline in Instrument Serif */}
+            <h2
+              className="text-2xl sm:text-3xl text-zinc-100 font-light tracking-wide mb-3 leading-snug"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              Full-Stack Developer
+              
+            </h2>
+
+            {/* Bio description */}
+            <p className="text-[13px] sm:text-[14px] leading-relaxed text-zinc-400 font-sans tracking-normal mb-5 max-w-xl">
+              I build scalable backend systems, robust distributed architectures, and intuitive web products. 
+              Passionate about clean code, high-throughput systems, and engineering software that performs reliably at scale.
+            </p>
+
+            {/* Education minimal bar */}
+            <div className="text-[12px] font-mono text-zinc-400 bg-zinc-900/30 p-2.5 sm:p-3 rounded-xl border border-zinc-800/70 mb-5 flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center flex-wrap gap-1.5">
+                <span className="text-zinc-200 font-medium">Education:</span>
+                <span className="text-zinc-300">{education.degree}</span>
+                <span className="text-zinc-600">|</span>
+                <span className="text-zinc-400">ITM Gwalior ({education.duration.replace("—", "–")})</span>
+              </div>
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
+                Active
+              </span>
+            </div>
+
+            {/* Socials & CTA Buttons Row */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              {/* Social icons */}
+              <div className="flex items-center gap-2">
+                {socials.map((social) => (
+                  <motion.a
+                    key={social.label}
+                    href={social.href}
+                    target={social.label !== "Email" ? "_blank" : undefined}
+                    rel={social.label !== "Email" ? "noopener noreferrer" : undefined}
+                    aria-label={social.label}
+                    title={social.label}
+                    whileHover={{ y: -2 }}
+                    className="p-2.5 rounded-xl border border-white/10 bg-white/[0.03] text-zinc-400 hover:text-white hover:border-white/25 hover:bg-white/[0.07] transition-all shadow-xs"
+                  >
+                    <social.icon size={15} />
+                  </motion.a>
+                ))}
+              </div>
+
+              {/* CTAs */}
+              <div className="flex items-center gap-2.5">
+                <motion.a
+                  href={siteConfig.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={social.label}
-                  title={social.label}
-                  className="p-2.5 rounded-xl border border-zinc-800 bg-zinc-900/60 text-zinc-400 hover:text-white hover:border-zinc-700 hover:bg-zinc-800 transition-all shadow-xs"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.08] hover:border-white/25 text-zinc-200 hover:text-white text-[12px] font-medium transition-all shadow-xs"
                 >
-                  <social.icon size={15} />
-                </a>
-              ))}
+                  <FiDownload size={13} className="text-zinc-400" />
+                  <span>Resume</span>
+                  <FiArrowUpRight size={12} className="text-zinc-500" />
+                </motion.a>
+
+                <motion.a
+                  href="#projects"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white text-zinc-950 hover:bg-zinc-200 text-[12px] font-semibold transition-all shadow-xs"
+                >
+                  <span>View Projects</span>
+                  <span className="text-[11px]">↓</span>
+                </motion.a>
+              </div>
             </div>
 
-            <div className="flex items-center gap-2.5">
-              <a
-                href={siteConfig.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-zinc-800 bg-zinc-900/60 text-zinc-300 hover:text-white hover:border-zinc-700 hover:bg-zinc-800 transition-all font-mono text-xs"
-              >
-                <FiFileText size={13} className="text-zinc-400 group-hover:text-white" />
-                <span>Resume</span>
-                <FiArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
-
-              <a
-                href="#projects"
-                className="group inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-black hover:bg-zinc-200 transition-all font-sans font-medium text-xs shadow-sm"
-              >
-                <span>Projects</span>
-                <span>↓</span>
-              </a>
-            </div>
           </div>
-
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );

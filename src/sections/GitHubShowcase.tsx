@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useSyncExternalStore } from "react";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { GitHubCalendar } from "react-github-calendar";
 import Image from "next/image";
 import { 
@@ -15,26 +15,6 @@ import {
 } from "react-icons/fa6";
 import { siteConfig } from "../data/site";
 import { GitHubStats, MOCK_GITHUB_STATS } from "../lib/github";
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-  },
-};
 
 const emptySubscribe = () => () => {};
 
@@ -70,88 +50,95 @@ export default function GitHubShowcase() {
   };
 
   return (
-    <section id="github" className="relative py-16 px-5 sm:px-8 border-t border-zinc-800/80">
-      <div className="max-w-3xl mx-auto relative z-10">
-        {/* Header - Clean Serif & Monospace Link */}
-        <div className="mb-8 flex items-center justify-between">
+    <section id="github" className="w-full px-5 sm:px-8">
+      <div className="max-w-3xl mx-auto border-t border-zinc-800/80 pt-8 sm:pt-9 pb-8 sm:pb-9 relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mb-5 flex items-end justify-between"
+        >
           <div>
-            <h2 className="text-2xl font-normal text-white font-serif tracking-wide">
-              Open Source Foundations
+            <h2 className="text-2xl font-normal text-white tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>
+              GitHub
             </h2>
-            <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest mt-1 block">
-              Public Activity & Contributions
-            </span>
+            <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest mt-1">
+              Contributions & open-source activity
+            </p>
           </div>
           {stats?.user.html_url && (
             <a
               href={stats.user.html_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/60 px-3.5 py-1.5 text-xs text-zinc-400 hover:border-zinc-700 hover:text-white transition-all group font-mono"
+              className="inline-flex items-center gap-2 rounded-xl px-3.5 py-1.5 text-xs text-zinc-400 hover:text-white transition-all group font-mono"
+              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}
             >
               <FaGithub size={13} className="text-white" />
               <span className="text-[11px]">@{stats.user.login}</span>
               <FaArrowUpRightFromSquare size={9} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
           )}
-        </div>
+        </motion.div>
 
         {/* Stats Grid - 4 column layout */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mb-6"
+          transition={{ duration: 0.35 }}
+          className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3.5"
         >
-          <motion.div variants={itemVariants} className="group p-5 rounded-[24px] border border-white/10 bg-zinc-950/40 backdrop-blur-xl hover:border-white/25 hover:bg-zinc-900/40 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/[0.05] border border-white/10 text-white group-hover:scale-105 transition-transform">
-                <FaStar size={15} />
+          <div className="group p-3.5 sm:p-4 rounded-2xl border border-white/10 bg-zinc-950/40 backdrop-blur-xl hover:border-white/25 hover:bg-zinc-900/40 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/[0.05] border border-white/10 text-white group-hover:scale-105 transition-transform">
+                <FaStar size={14} />
               </div>
             </div>
-            <div className="text-2xl font-bold text-white font-mono tracking-tight">{loading ? "..." : stats?.totalStars}</div>
-            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1 font-mono">Stars Received</div>
-          </motion.div>
+            <div className="text-xl sm:text-2xl font-bold text-white font-mono tracking-tight">{loading ? "..." : stats?.totalStars}</div>
+            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-0.5 font-mono">Stars Received</div>
+          </div>
           
-          <motion.div variants={itemVariants} className="group p-5 rounded-[24px] border border-white/10 bg-zinc-950/40 backdrop-blur-xl hover:border-white/25 hover:bg-zinc-900/40 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/[0.05] border border-white/10 text-white group-hover:scale-105 transition-transform">
-                <FaCodeFork size={15} />
+          <div className="group p-3.5 sm:p-4 rounded-2xl border border-white/10 bg-zinc-950/40 backdrop-blur-xl hover:border-white/25 hover:bg-zinc-900/40 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/[0.05] border border-white/10 text-white group-hover:scale-105 transition-transform">
+                <FaCodeFork size={14} />
               </div>
             </div>
-            <div className="text-2xl font-bold text-white font-mono tracking-tight">{loading ? "..." : stats?.totalForks}</div>
-            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1 font-mono">Repository Forks</div>
-          </motion.div>
+            <div className="text-xl sm:text-2xl font-bold text-white font-mono tracking-tight">{loading ? "..." : stats?.totalForks}</div>
+            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-0.5 font-mono">Repository Forks</div>
+          </div>
 
-          <motion.div variants={itemVariants} className="group p-5 rounded-[24px] border border-white/10 bg-zinc-950/40 backdrop-blur-xl hover:border-white/25 hover:bg-zinc-900/40 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/[0.05] border border-white/10 text-white group-hover:scale-105 transition-transform">
-                <FaFire size={15} />
+          <div className="group p-3.5 sm:p-4 rounded-2xl border border-white/10 bg-zinc-950/40 backdrop-blur-xl hover:border-white/25 hover:bg-zinc-900/40 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/[0.05] border border-white/10 text-white group-hover:scale-105 transition-transform">
+                <FaFire size={14} />
               </div>
             </div>
-            <div className="text-2xl font-bold text-white font-mono tracking-tight">365+</div>
-            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1 font-mono">Day Streak</div>
-          </motion.div>
+            <div className="text-xl sm:text-2xl font-bold text-white font-mono tracking-tight">365+</div>
+            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-0.5 font-mono">Day Streak</div>
+          </div>
 
-          <motion.div variants={itemVariants} className="group p-5 rounded-[24px] border border-white/10 bg-zinc-950/40 backdrop-blur-xl hover:border-white/25 hover:bg-zinc-900/40 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/[0.05] border border-white/10 text-white group-hover:scale-105 transition-transform">
-                <FaCode size={15} />
+          <div className="group p-3.5 sm:p-4 rounded-2xl border border-white/10 bg-zinc-950/40 backdrop-blur-xl hover:border-white/25 hover:bg-zinc-900/40 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/[0.05] border border-white/10 text-white group-hover:scale-105 transition-transform">
+                <FaCode size={14} />
               </div>
             </div>
-            <div className="text-2xl font-bold text-white font-mono tracking-tight truncate">{stats?.languages[0]?.name || "TypeScript"}</div>
-            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1 font-mono">Top Language</div>
-          </motion.div>
+            <div className="text-xl sm:text-2xl font-bold text-white font-mono tracking-tight truncate">{stats?.languages[0]?.name || "TypeScript"}</div>
+            <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-0.5 font-mono">Top Language</div>
+          </div>
         </motion.div>
 
         {/* Profile Card */}
         <motion.div 
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="p-6 rounded-[28px] border border-white/10 bg-zinc-950/40 backdrop-blur-xl mb-8 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]"
+          transition={{ duration: 0.35, delay: 0.05 }}
+          className="p-4 sm:p-5 rounded-2xl border border-white/10 bg-zinc-950/40 backdrop-blur-xl mb-3.5 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]"
         >
           {loading ? (
             <div className="animate-pulse flex items-center gap-5">
@@ -203,13 +190,13 @@ export default function GitHubShowcase() {
 
         {/* Contribution Calendar */}
         <motion.div 
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="p-5 sm:p-6 rounded-[28px] border border-white/10 bg-zinc-950/40 backdrop-blur-xl mb-8 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]"
+          transition={{ duration: 0.35, delay: 0.1 }}
+          className="p-4 sm:p-5 rounded-2xl border border-white/10 bg-zinc-950/40 backdrop-blur-xl mb-3.5 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]"
         >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
             <h4 className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#39d353] animate-pulse" />
               Contribution Graph
@@ -229,7 +216,7 @@ export default function GitHubShowcase() {
 
           {/* Smooth touch container: touch-pan-y prevents vertical scroll trap on mobile */}
           <div 
-            className="overflow-x-auto pb-3 pt-1 scrollbar-thin scrollbar-thumb-white/10 [touch-action:pan-y] [-webkit-overflow-scrolling:touch]"
+            className="overflow-x-auto pb-2 pt-1 scrollbar-thin scrollbar-thumb-white/10 [touch-action:pan-y] [-webkit-overflow-scrolling:touch]"
           >
             <div className="min-w-[650px] flex justify-center">
               {mounted && (
@@ -248,26 +235,26 @@ export default function GitHubShowcase() {
           </div>
 
           {/* Mobile swipe hint */}
-          <div className="sm:hidden flex items-center justify-center gap-1.5 pt-2 text-[10px] font-mono text-zinc-500">
+          <div className="sm:hidden flex items-center justify-center gap-1.5 pt-1.5 text-[10px] font-mono text-zinc-500">
             <span>⇄ Swipe horizontally to view 12-month timeline</span>
           </div>
         </motion.div>
 
         {/* Languages and Recent Repos - Two column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
           {/* Languages distribution */}
           <motion.div 
-            variants={itemVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="p-6 rounded-[28px] border border-white/10 bg-zinc-950/40 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]"
+            transition={{ duration: 0.35, delay: 0.15 }}
+            className="p-4 sm:p-5 rounded-2xl border border-white/10 bg-zinc-950/40 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]"
           >
-            <h4 className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider mb-5 flex items-center gap-2">
+            <h4 className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider mb-4 flex items-center gap-2">
               <FaCode size={12} className="text-white" />
               Language Distribution
             </h4>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {(() => {
                 const totalLang = stats?.languages.reduce((acc, l) => acc + l.count, 0) || (stats?.user.public_repos || 1);
                 return stats?.languages.slice(0, 5).map((lang, i) => {
@@ -296,17 +283,17 @@ export default function GitHubShowcase() {
 
           {/* Recent Repos */}
           <motion.div 
-            variants={itemVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="p-6 rounded-[28px] border border-white/10 bg-zinc-950/40 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]"
+            transition={{ duration: 0.35, delay: 0.15 }}
+            className="p-4 sm:p-5 rounded-2xl border border-white/10 bg-zinc-950/40 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]"
           >
-            <h4 className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider mb-5 flex items-center gap-2">
+            <h4 className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider mb-4 flex items-center gap-2">
               <FaBookBookmark size={12} className="text-white" />
               Recent Activity
             </h4>
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               {stats?.recentActivity.slice(0, 5).map((repo) => (
                 <a 
                   key={repo.id}

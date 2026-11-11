@@ -21,18 +21,24 @@ const fadeUp: Variants = {
 
 export default function Education() {
   return (
-    <section id="education" className="relative py-16 px-5 sm:px-8 border-t border-zinc-800/80">
-      <div className="max-w-3xl mx-auto">
+    <section id="education" className="w-full px-5 sm:px-8">
+      <div className="max-w-3xl mx-auto border-t border-zinc-800/80 pt-8 sm:pt-9 pb-8 sm:pb-9">
 
-        {/* Header - Clean Serif */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-normal text-white font-serif tracking-wide">
-            Academic Background
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mb-7"
+        >
+          <h2 className="text-2xl font-normal text-white tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>
+            Education
           </h2>
-          <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest mt-1 block">
-            Foundational Engineering & Computer Science
-          </span>
-        </div>
+          <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest mt-1">
+            Where it all started
+          </p>
+        </motion.div>
 
         {/* Academic Card */}
         <motion.div
@@ -40,11 +46,16 @@ export default function Education() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="group relative rounded-2xl border border-zinc-800/80 bg-zinc-950/40 backdrop-blur-2xl overflow-hidden hover:border-zinc-700/80 transition-all duration-300 shadow-2xs"
+          className="group relative rounded-2xl overflow-hidden transition-all duration-300"
+          style={{
+            background: "rgba(255,255,255,0.02)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            backdropFilter: "blur(16px)",
+          }}
         >
-          {/* Top accent bar */}
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-          <div className="absolute top-0 left-0 w-64 h-64 bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
+          {/* Top shimmer line */}
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          <div className="absolute top-0 left-0 w-56 h-56 bg-white/[0.015] rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative p-6 md:p-8">
             <div className="flex flex-col md:flex-row md:items-start gap-6">
