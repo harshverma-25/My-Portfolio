@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { FiGithub, FiExternalLink, FiStar, FiFolder, FiCpu } from "react-icons/fi";
+import { FiGithub, FiExternalLink, FiArrowUpRight, FiCpu } from "react-icons/fi";
 import { Project } from "@/data/projects";
 
 interface Props {
@@ -16,16 +16,16 @@ export default function ProjectCard({ project, badge, onSelectProject }: Props) 
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Mouse tracking for dynamic spotlight & 3D tilt
+  // Mouse tracking for subtle spotlight
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
 
-  const springConfig = { damping: 20, stiffness: 250, mass: 0.6 };
+  const springConfig = { damping: 25, stiffness: 280, mass: 0.5 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
-  const rotateX = useTransform(smoothY, [0, 1], [6, -6]);
-  const rotateY = useTransform(smoothX, [0, 1], [-6, 6]);
+  const rotateX = useTransform(smoothY, [0, 1], [3, -3]);
+  const rotateY = useTransform(smoothX, [0, 1], [-3, 3]);
 
   const [coords, setCoords] = useState({ x: 0, y: 0 });
 
@@ -48,9 +48,9 @@ export default function ProjectCard({ project, badge, onSelectProject }: Props) 
   };
 
   const handleCardClick = (e: React.MouseEvent) => {
-    // Avoid triggering card click if clicking on links or buttons
     const target = e.target as HTMLElement;
-    if (target.closest("a") || target.closest("button")) return;
+    // Allow clicking specific external links without opening modal
+    if (target.closest("a[data-external='true']")) return;
 
     if (onSelectProject) {
       onSelectProject(project);
@@ -59,8 +59,18 @@ export default function ProjectCard({ project, badge, onSelectProject }: Props) 
     }
   };
 
+  // Split title and subtitle if formatted as "Name — Subtitle"
+  const titleParts = project.title.split("—");
+  const mainTitle = titleParts[0].trim();
+  const subtitle = titleParts[1]?.trim();
+
+  // Extract clean domain for top bar
+  const domainSlug = project.live
+    ? project.live.replace(/^https?:\/\//, "").replace(/\/$/, "")
+    : `${mainTitle.toLowerCase().replace(/\s+/g, "")}.app`;
+
   return (
-    <div style={{ perspective: 1000 }} className="h-full">
+    <div style={{ perspective: 1000 }} className="w-full">
       <motion.div
         ref={cardRef}
         onClick={handleCardClick}
@@ -72,174 +82,145 @@ export default function ProjectCard({ project, badge, onSelectProject }: Props) 
           rotateY: isHovered ? rotateY : 0,
           transformStyle: "preserve-3d",
         }}
-        whileHover={{ y: -6 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        className="group relative flex flex-col justify-between rounded-[30px] border border-white/10 bg-zinc-950/40 p-5 md:p-6 backdrop-blur-xl transition-all duration-300 hover:border-white/30 hover:bg-zinc-900/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.08)] h-full overflow-hidden cursor-pointer"
+        whileHover={{ y: -3 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        className="group relative w-full rounded-2xl border border-white/[0.08] bg-zinc-950/40 p-4 sm:p-5 backdrop-blur-xl transition-all duration-300 hover:border-white/20 hover:bg-zinc-900/30 hover:shadow-[0_16px_40px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.06)] overflow-hidden cursor-pointer"
       >
-        {/* Cursor Spotlight Gradient inside card (Monochrome) */}
+        {/* Subtle Cursor Spotlight */}
         <div
-          className="pointer-events-none absolute -inset-px rounded-[30px] opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
+          className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
           style={{
-            background: `radial-gradient(400px circle at ${coords.x}px ${coords.y}px, rgba(255, 255, 255, 0.06), transparent 80%)`,
+            background: `radial-gradient(400px circle at ${coords.x}px ${coords.y}px, rgba(255, 255, 255, 0.04), transparent 80%)`,
           }}
         />
 
-        {/* Subtle border spotlight */}
-        <div
-          className="pointer-events-none absolute -inset-px rounded-[30px] opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
-          style={{
-            background: `radial-gradient(250px circle at ${coords.x}px ${coords.y}px, rgba(255, 255, 255, 0.25), transparent 70%)`,
-            mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-            maskComposite: "exclude",
-            WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-            WebkitMaskComposite: "xor",
-            padding: "1px",
-          }}
-        />
+        {/* ── Minimal Horizontal Split ── */}
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6 items-center">
+          
+          {/* ════ LEFT: Clean Image Preview ════ */}
+          <div className="md:col-span-5 flex-shrink-0">
+            {project.image ? (
+              <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-white/[0.08] bg-zinc-900/60 shadow-sm transition-all duration-300 group-hover:border-white/20">
+                {/* Subtle macOS Dot Bar */}
+                <div className="absolute top-0 left-0 right-0 h-5 bg-zinc-950/80 backdrop-blur-sm flex items-center justify-between px-2.5 z-10 border-b border-white/[0.05]">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 group-hover:bg-zinc-400 transition-colors" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 group-hover:bg-zinc-400 transition-colors" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 group-hover:bg-zinc-400 transition-colors" />
+                  </div>
+                  <span className="text-[9px] font-mono text-zinc-500 truncate max-w-[130px]">
+                    {domainSlug}
+                  </span>
+                  <div className="w-3" />
+                </div>
 
-        <div className="relative z-10">
-          {/* Top Header / Actions */}
-          <div className="mb-4 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03] text-zinc-300 group-hover:border-white/20 group-hover:bg-white/[0.06] group-hover:text-white group-hover:scale-105 transition-all duration-300 shadow-sm">
-                <FiFolder size={18} />
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 360px"
+                  className="object-cover object-top pt-5 transition-transform duration-500 ease-out group-hover:scale-105"
+                />
+
+                {/* Subtle Hover Action Pill */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center p-2 z-20 backdrop-blur-[1px]">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-black text-[11px] font-medium shadow-md">
+                    <span>View Architecture</span>
+                    <FiArrowUpRight size={13} />
+                  </span>
+                </div>
               </div>
-              {badge && (
-                <span className="rounded-full bg-white/[0.06] border border-white/15 px-2.5 py-0.5 text-[10px] font-mono font-medium text-zinc-300 shadow-sm">
-                  {badge}
-                </span>
-              )}
-              {project.featured && !badge && (
-                <span className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/[0.05] px-2.5 py-0.5 text-[10px] font-medium text-zinc-300">
-                  <FiStar size={10} className="fill-white text-white" />
-                  Featured
-                </span>
-              )}
-            </div>
-
-            <div className="flex items-center gap-2 text-zinc-400">
-              {project.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/5 bg-white/[0.02] hover:border-white/30 hover:text-white hover:bg-white/[0.08] hover:scale-105 transition-all duration-200"
-                  aria-label={`${project.title} GitHub repository`}
-                  title="View Source Code"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <FiGithub size={15} />
-                </a>
-              )}
-              {project.live && (
-                <a
-                  href={project.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/5 bg-white/[0.02] hover:border-white/30 hover:text-white hover:bg-white/[0.08] hover:scale-105 transition-all duration-200"
-                  aria-label={`${project.title} Live Preview`}
-                  title="Open Live Preview"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <FiExternalLink size={15} />
-                </a>
-              )}
-            </div>
+            ) : (
+              <div className="relative w-full aspect-[16/10] rounded-xl border border-white/[0.08] bg-zinc-900/40 flex items-center justify-center text-zinc-600">
+                <FiCpu size={28} />
+              </div>
+            )}
           </div>
 
-          {/* Thumbnail Image with Live & Architecture Quick Actions */}
-          {project.image && (
-            <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden mb-4 border border-white/10 bg-zinc-950/80 shadow-lg group-hover:border-white/20 transition-all duration-300">
-              {/* macOS window title bar */}
-              <div className="absolute top-0 left-0 right-0 h-6 bg-zinc-900/90 backdrop-blur-md flex items-center justify-between px-3 z-10 border-b border-white/5">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2 h-2 rounded-full bg-zinc-600 group-hover:bg-zinc-400 transition-colors" />
-                  <div className="w-2 h-2 rounded-full bg-zinc-600 group-hover:bg-zinc-400 transition-colors" />
-                  <div className="w-2 h-2 rounded-full bg-zinc-600 group-hover:bg-zinc-400 transition-colors" />
-                </div>
-                <span className="text-[9px] font-mono text-zinc-500 truncate max-w-[140px]">
-                  {project.title.split("—")[0].trim().toLowerCase().replace(/\s+/g, "")}.app
+          {/* ════ RIGHT: Minimal Project Details ════ */}
+          <div className="md:col-span-7 flex flex-col justify-between min-h-[140px]">
+            <div>
+              {/* Header: Badge & Quick External Links */}
+              <div className="mb-2 flex items-center justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 font-medium">
+                  {badge || "Project"}
                 </span>
-                <div className="w-6" />
+
+                <div className="flex items-center gap-1.5">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-external="true"
+                      className="p-1.5 rounded-lg text-zinc-500 hover:text-white hover:bg-white/[0.06] transition-colors"
+                      aria-label={`${project.title} GitHub`}
+                      title="GitHub Repository"
+                    >
+                      <FiGithub size={14} />
+                    </a>
+                  )}
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-external="true"
+                      className="p-1.5 rounded-lg text-zinc-500 hover:text-white hover:bg-white/[0.06] transition-colors"
+                      aria-label={`${project.title} Live Preview`}
+                      title="Live Preview"
+                    >
+                      <FiExternalLink size={14} />
+                    </a>
+                  )}
+                </div>
               </div>
 
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover object-top pt-6 transition-transform duration-700 ease-out group-hover:scale-105"
-              />
-              
-              {/* Dark Hover Overlay */}
-              <div className="absolute inset-0 bg-black/65 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2.5 p-4 z-20 backdrop-blur-[2px]">
-                {project.live && (
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-black text-[11px] font-bold shadow-lg hover:bg-zinc-200 transition-all hover:scale-105"
-                  >
-                    <span>Live Demo</span>
-                    <FiExternalLink size={12} />
-                  </a>
-                )}
-                {onSelectProject && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelectProject(project);
-                    }}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 text-white text-[11px] font-medium border border-white/20 hover:bg-white/20 transition-all hover:scale-105 backdrop-blur-md"
-                  >
-                    <FiCpu size={12} className="text-zinc-300" />
-                    <span>Deep Dive</span>
-                  </button>
+              {/* Title & Subtitle */}
+              <div className="mb-2">
+                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white group-hover:text-zinc-200 transition-colors flex items-center gap-1.5">
+                  <span>{mainTitle}</span>
+                  <FiArrowUpRight className="text-zinc-500 group-hover:text-white transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" size={16} />
+                </h3>
+                {subtitle && (
+                  <p className="text-xs text-zinc-400 font-normal">
+                    {subtitle}
+                  </p>
                 )}
               </div>
+
+              {/* Concise 1-2 Line Overview */}
+              <p className="text-xs text-zinc-400 font-light leading-relaxed line-clamp-2 mb-3">
+                {project.description}
+              </p>
             </div>
-          )}
 
-          {/* Title with link hover */}
-          <h3 className="mb-2 text-lg font-bold text-white group-hover:text-zinc-200 transition-colors duration-200 line-clamp-1 flex items-center justify-between">
-            <span>{project.title}</span>
-            <span className="text-xs font-normal text-zinc-500 group-hover:text-white transition-all duration-200">
-              →
-            </span>
-          </h3>
+            {/* Bottom: Minimal Tech Stack & Inspect Link */}
+            <div className="pt-2.5 border-t border-white/[0.04] flex items-center justify-between gap-3">
+              <div className="flex flex-wrap gap-1.5 items-center">
+                {project.tech.slice(0, 5).map((tech, index) => (
+                  <span
+                    key={index}
+                    className="rounded-md border border-white/[0.06] bg-white/[0.02] px-2 py-0.5 text-[10px] font-mono text-zinc-400"
+                  >
+                    {tech}
+                  </span>
+                ))}
+                {project.tech.length > 5 && (
+                  <span className="text-[10px] font-mono text-zinc-500">
+                    +{project.tech.length - 5}
+                  </span>
+                )}
+              </div>
 
-          {/* Description */}
-          <p className="mb-4 text-xs leading-relaxed text-zinc-400 font-light line-clamp-3">
-            {project.description}
-          </p>
+              <span className="text-[11px] font-mono text-zinc-500 group-hover:text-zinc-300 transition-colors flex-shrink-0 flex items-center gap-1">
+                <span>Details</span>
+                <span>→</span>
+              </span>
+            </div>
 
-          {/* Architecture trigger pill */}
-          {onSelectProject && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onSelectProject(project);
-              }}
-              className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-400 hover:text-white transition-colors mb-3 group/btn"
-            >
-              <FiCpu size={12} className="group-hover/btn:rotate-45 transition-transform" />
-              <span>Inspect Architecture & Stack</span>
-              <span className="group-hover/btn:translate-x-0.5 transition-transform">→</span>
-            </button>
-          )}
-        </div>
+          </div>
 
-        {/* Tech Tags */}
-        <div className="relative z-10 flex flex-wrap gap-1.5 pt-4 border-t border-white/5 mt-auto">
-          {project.tech.map((tech, index) => (
-            <span
-              key={index}
-              className="rounded-full border border-white/[0.06] bg-white/[0.03] px-2.5 py-0.5 text-[10px] font-mono text-zinc-400 transition-all duration-200 group-hover:border-white/20 group-hover:text-zinc-300"
-            >
-              {tech}
-            </span>
-          ))}
         </div>
       </motion.div>
     </div>

@@ -6,8 +6,7 @@ import Link from "next/link";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectDetailsModal from "@/components/ProjectDetailsModal";
 import { 
-  FiFolder, 
-  FiStar
+  FiFolder
 } from "react-icons/fi";
 import { HiArrowRight } from "react-icons/hi";
 import { Project } from "@/data/projects";
@@ -34,44 +33,38 @@ export default function Projects({ projects }: ProjectsProps) {
   return (
     <section
       id="projects"
-      className="relative overflow-hidden py-24 px-6 md:px-12 lg:px-24"
+      className="relative py-16 px-5 sm:px-8 border-t border-zinc-800/80"
     >
-      <div className="relative mx-auto max-w-6xl">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-14 text-center"
-        >
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 mb-4 shadow-[0_0_20px_rgba(255,255,255,0.05)]">
-            <FiStar className="text-white fill-white" size={12} />
-            <span className="text-xs uppercase tracking-[0.3em] text-zinc-300 font-medium">
-              Featured Work
+      <div className="relative mx-auto max-w-3xl">
+        {/* Header - Clean Serif & Monospace Link */}
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-normal text-white font-serif tracking-wide">
+              Selected Deployments
+            </h2>
+            <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest mt-1 block">
+              Full-Stack & Distributed Architecture
             </span>
           </div>
+          <Link
+            href="/projects"
+            className="text-xs font-mono text-zinc-400 hover:text-white transition-colors inline-flex items-center gap-1 group"
+          >
+            <span>View All ({projects.length})</span>
+            <HiArrowRight className="group-hover:translate-x-0.5 transition-transform" size={13} />
+          </Link>
+        </div>
 
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
-            Main{" "}
-            <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
-              Projects
-            </span>
-          </h2>
-          <p className="mt-3 text-sm text-zinc-400 max-w-lg mx-auto font-light">
-            A selection of my primary full-stack applications and distributed systems built for scale.
-          </p>
-        </motion.div>
-
-        {/* 3 Main Projects in a 3-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Main Projects List (Full-Width Horizontal Cards) */}
+        <div className="flex flex-col gap-6">
           {displayMain.map((project, idx) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="h-full"
+              transition={{ duration: 0.35, delay: idx * 0.08 }}
+              className="w-full"
             >
               <ProjectCard 
                 project={project} 
@@ -82,22 +75,19 @@ export default function Projects({ projects }: ProjectsProps) {
           ))}
         </div>
 
-        {/* More Projects Section / Button -> navigates to /projects */}
-        <div className="mt-14 flex flex-col items-center">
+        {/* More Projects Button */}
+        <div className="mt-10 flex justify-center">
           <Link
             href="/projects"
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-white/10 bg-white/[0.04] px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-white/30 hover:bg-white/[0.08] hover:shadow-[0_0_35px_rgba(255,255,255,0.1)] active:scale-95"
+            className="group inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.04] px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:border-white/30 hover:bg-white/[0.08]"
             id="more-projects-btn"
           >
-            <FiFolder className="text-zinc-300 group-hover:scale-110 group-hover:text-white transition-all" size={18} />
+            <FiFolder className="text-zinc-400 group-hover:text-white" size={15} />
             <span>More Projects</span>
-            <span className="rounded-full bg-white/[0.06] border border-white/15 px-2.5 py-0.5 font-mono text-xs text-zinc-300 font-medium">
-              View All ({projects.length})
+            <span className="rounded-full bg-white/[0.06] border border-white/10 px-2 py-0.5 font-mono text-[11px] text-zinc-300">
+              {projects.length}
             </span>
-            <HiArrowRight
-              className="text-zinc-400 group-hover:text-white group-hover:translate-x-1 transition-all duration-300"
-              size={16}
-            />
+            <HiArrowRight className="text-zinc-400 group-hover:text-white group-hover:translate-x-1 transition-all" size={14} />
           </Link>
         </div>
       </div>

@@ -9,8 +9,7 @@ import {
   FiTwitter, 
   FiSend, 
   FiCheck,
-  FiCopy,
-  FiMessageSquare
+  FiCopy
 } from "react-icons/fi";
 import { contact } from "../data/contact";
 
@@ -75,36 +74,35 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-24 px-6 md:px-12 lg:px-24 relative overflow-hidden">
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
+    <section id="contact" className="py-16 px-5 sm:px-8 border-t border-zinc-800/80 relative">
+      <div className="max-w-3xl mx-auto">
+        {/* Header - Matching Reference Style */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="mb-10"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 mb-4 shadow-[0_0_20px_rgba(255,255,255,0.05)]">
-            <FiMessageSquare className="text-zinc-300" size={13} />
-            <span className="text-xs uppercase tracking-[0.3em] text-zinc-300 font-medium">
-              Get In Touch
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md border border-emerald-900/40 bg-emerald-500/5 w-fit mb-4 cursor-default select-none">
+            <span className="relative flex h-1.5 w-1.5 items-center justify-center">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+            </span>
+            <span className="text-emerald-400 font-mono text-[11px] tracking-tight">
+              Available for opportunities & projects
             </span>
           </div>
-          
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-3">
-            Let&apos;s Build Something{" "}
-            <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
-              Exceptional
-            </span>
+
+          <h2 className="text-3xl sm:text-4xl text-white mb-3 font-serif tracking-tight">
+            Let&apos;s build something amazing.
           </h2>
-          
-          <p className="text-zinc-400 text-sm max-w-md mx-auto font-light">
-            {contact.description}
+          <p className="text-zinc-400 text-sm leading-relaxed max-w-xl font-sans">
+            I am always open to discussing open-source integrations, scalable backend architectures, full-stack opportunities, or engineering collaborations. Drop a note below.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
           {/* Left side - Contact Info */}
           <motion.div
             variants={fadeUp}

@@ -21,34 +21,18 @@ const fadeUp: Variants = {
 
 export default function Education() {
   return (
-    <section id="education" className="py-24 px-6 md:px-12 lg:px-24 relative overflow-hidden">
-      <div className="max-w-5xl mx-auto">
+    <section id="education" className="relative py-16 px-5 sm:px-8 border-t border-zinc-800/80">
+      <div className="max-w-3xl mx-auto">
 
-        {/* Header */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mb-14 text-center"
-        >
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 mb-4 shadow-[0_0_20px_rgba(255,255,255,0.05)]">
-            <PiGraduationCapBold className="text-zinc-300" size={14} />
-            <span className="text-xs uppercase tracking-[0.3em] text-zinc-300 font-medium">
-              Academic Background
-            </span>
-          </div>
-
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-3">
-            Education &{" "}
-            <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
-              Qualifications
-            </span>
+        {/* Header - Clean Serif */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-normal text-white font-serif tracking-wide">
+            Academic Background
           </h2>
-          <p className="text-zinc-400 text-sm max-w-md mx-auto font-light">
-            Formal computer science training, degree credentials, and foundational coursework.
-          </p>
-        </motion.div>
+          <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest mt-1 block">
+            Foundational Engineering & Computer Science
+          </span>
+        </div>
 
         {/* Academic Card */}
         <motion.div
@@ -56,7 +40,7 @@ export default function Education() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="group relative rounded-[32px] border border-white/10 bg-zinc-950/40 backdrop-blur-2xl overflow-hidden hover:border-white/25 transition-all duration-300 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.08)]"
+          className="group relative rounded-2xl border border-zinc-800/80 bg-zinc-950/40 backdrop-blur-2xl overflow-hidden hover:border-zinc-700/80 transition-all duration-300 shadow-2xs"
         >
           {/* Top accent bar */}
           <div className="h-px w-full bg-gradient-to-r from-transparent via-white/30 to-transparent" />

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 import Navbar from "../components/Navbar";
 import ScrollProgress from "../components/ScrollProgress";
@@ -8,9 +8,16 @@ import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/next";
 import { contact } from "../data/contact";
 
-const geist = Geist({
+const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const viewport: Viewport = {
@@ -176,7 +183,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} h-full antialiased`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <head>
         <script
           type="application/ld+json"
@@ -186,8 +193,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="min-h-full flex flex-col bg-[#080808] text-[#f4f4f5]"
-        style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif" }}
+        className="min-h-full flex flex-col bg-[#080808] text-[#f4f4f5] font-sans"
         suppressHydrationWarning
       >
         <AmbientBackground />

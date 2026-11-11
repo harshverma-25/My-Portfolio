@@ -70,51 +70,31 @@ export default function GitHubShowcase() {
   };
 
   return (
-    <section id="github" className="py-24 px-6 md:px-12 lg:px-24 relative overflow-hidden bg-gradient-to-b from-black via-zinc-950 to-black">
-      {/* Background Glow (Monochrome) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/[0.02] blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/[0.015] blur-[100px] rounded-full pointer-events-none" />
-
-      <div className="max-w-5xl mx-auto relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-14 text-center"
-        >
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 mb-4 shadow-[0_0_20px_rgba(255,255,255,0.04)] backdrop-blur-md">
-            <FaGithub className="text-white" size={13} />
-            <span className="text-xs uppercase tracking-[0.3em] text-zinc-300 font-medium">
-              Open Source
+    <section id="github" className="relative py-16 px-5 sm:px-8 border-t border-zinc-800/80">
+      <div className="max-w-3xl mx-auto relative z-10">
+        {/* Header - Clean Serif & Monospace Link */}
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-normal text-white font-serif tracking-wide">
+              Open Source Foundations
+            </h2>
+            <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest mt-1 block">
+              Public Activity & Contributions
             </span>
           </div>
-
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-3">
-            GitHub{" "}
-            <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
-              Activity & Metrics
-            </span>
-          </h2>
-          <p className="text-zinc-400 text-sm max-w-md mx-auto font-light">
-            Live contributions, repository metrics, and code activity on GitHub.
-          </p>
-          
           {stats?.user.html_url && (
-            <div className="flex justify-center mt-5">
-              <a
-                href={stats.user.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs text-zinc-400 hover:border-white/30 hover:text-white hover:bg-white/[0.06] transition-all duration-300 group"
-              >
-                <FaGithub size={14} className="text-white" />
-                <span className="font-mono">@{stats.user.login}</span>
-                <FaArrowUpRightFromSquare size={10} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
-            </div>
+            <a
+              href={stats.user.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/60 px-3.5 py-1.5 text-xs text-zinc-400 hover:border-zinc-700 hover:text-white transition-all group font-mono"
+            >
+              <FaGithub size={13} className="text-white" />
+              <span className="text-[11px]">@{stats.user.login}</span>
+              <FaArrowUpRightFromSquare size={9} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
           )}
-        </motion.div>
+        </div>
 
         {/* Stats Grid - 4 column layout */}
         <motion.div
@@ -122,7 +102,7 @@ export default function GitHubShowcase() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mb-6"
         >
           <motion.div variants={itemVariants} className="group p-5 rounded-[24px] border border-white/10 bg-zinc-950/40 backdrop-blur-xl hover:border-white/25 hover:bg-zinc-900/40 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]">
             <div className="flex items-center justify-between mb-3">

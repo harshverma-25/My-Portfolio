@@ -19,7 +19,7 @@ export default function AllProjectsClient({ projects }: AllProjectsClientProps) 
 
   return (
     <div className="min-h-screen flex flex-col justify-between pt-28 md:pt-32">
-      <main className="flex-1 px-6 md:px-12 lg:px-24 max-w-6xl mx-auto w-full pb-20">
+      <main className="flex-1 px-5 sm:px-8 max-w-3xl mx-auto w-full pb-20">
         
         {/* Navigation Back Link */}
         <motion.div
@@ -37,8 +37,8 @@ export default function AllProjectsClient({ projects }: AllProjectsClientProps) 
           </Link>
         </motion.div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Projects List */}
+        <div className="flex flex-col gap-6">
           {projects.map((project, idx) => {
             const mainFlag = isMain(project);
             return (
@@ -47,7 +47,7 @@ export default function AllProjectsClient({ projects }: AllProjectsClientProps) 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: idx * 0.05 }}
-                className="h-full"
+                className="w-full"
               >
                 <ProjectCard
                   project={project}
