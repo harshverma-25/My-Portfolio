@@ -6,8 +6,8 @@ export const siteConfig = {
   role: "Full Stack Developer",
   bio: "I build scalable backend systems and distributed architectures that power great products. Passionate about clean code, performance, and the full development lifecycle from database to UI.",
   stats: [
-    { value: "300+", label: "Commits" },
-    { value: "3+",  label: "Projects" },
+    { value: "500+", label: "Commits" },
+    { value: "6+",  label: "Projects" },
   ],
   resumeUrl: "https://drive.google.com/file/d/1NK8J7b2ZsK5BAcP_opKesxO-6Ityzf9g/view?usp=sharing",
 };

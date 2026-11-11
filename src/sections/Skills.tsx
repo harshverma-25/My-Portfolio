@@ -12,7 +12,7 @@ import {
   SiRedux, SiPostman, SiFirebase, SiSocketdotio,
 } from "react-icons/si";
 import { IconType } from "react-icons";
-import { FiCpu, FiLayers } from "react-icons/fi";
+import { FiCpu } from "react-icons/fi";
 
 /* ─── Variants ─── */
 const fadeUp: Variants = {
@@ -34,7 +34,7 @@ const pill: Variants = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.25 } },
 };
 
-/* ─── Icon map ─── */
+/* ─── Technology Brand Color Map (PRESERVED) ─── */
 const iconMap: Record<string, { Icon: IconType; color: string }> = {
   React:            { Icon: SiReact,          color: "#61DAFB" },
   "Next.js":        { Icon: SiNextdotjs,       color: "#ffffff" },
@@ -63,22 +63,7 @@ const iconMap: Record<string, { Icon: IconType; color: string }> = {
   Redux:            { Icon: SiRedux,           color: "#764ABC" },
   Postman:          { Icon: SiPostman,         color: "#FF6C37" },
   Firebase:         { Icon: SiFirebase,        color: "#FFCA28" },
-  WebSocket:        { Icon: SiSocketdotio,     color: "#010101" },
-};
-
-/* category accent colors */
-const categoryAccent: Record<string, string> = {
-  frontend: "from-cyan-500/20 to-blue-500/20",
-  backend:  "from-emerald-500/20 to-teal-500/20",
-  database: "from-amber-500/20 to-orange-500/20",
-  tools:    "from-teal-500/20 to-emerald-500/20",
-};
-
-const categoryDot: Record<string, string> = {
-  frontend: "bg-cyan-400",
-  backend:  "bg-emerald-400",
-  database: "bg-amber-400",
-  tools:    "bg-teal-400",
+  WebSocket:        { Icon: SiSocketdotio,     color: "#ffffff" },
 };
 
 export default function Skills() {
@@ -105,16 +90,16 @@ export default function Skills() {
           viewport={{ once: true }}
           className="mb-12 text-center"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 mb-4 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
-            <FiCpu className="text-emerald-400" size={13} />
-            <span className="text-xs uppercase tracking-[0.3em] text-emerald-400 font-medium">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 mb-4 shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+            <FiCpu className="text-zinc-300" size={13} />
+            <span className="text-xs uppercase tracking-[0.3em] text-zinc-300 font-medium">
               Technical Arsenal
             </span>
           </div>
 
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-3">
             Core{" "}
-            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
               Skills & Stack
             </span>
           </h2>
@@ -122,7 +107,7 @@ export default function Skills() {
             Production technologies, databases, and architectural frameworks I work with daily.
           </p>
 
-          {/* Category Filter Tabs */}
+          {/* Category Filter Tabs (Black & White) */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
             {categories.map((tab) => {
               const isActive = activeCategory === tab.key;
@@ -139,7 +124,7 @@ export default function Skills() {
                   {isActive && (
                     <motion.div
                       layoutId="active-skill-tab"
-                      className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+                      className="absolute inset-0 bg-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.25)]"
                       transition={{ type: "spring", stiffness: 350, damping: 30 }}
                     />
                   )}
@@ -161,20 +146,20 @@ export default function Skills() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.35, delay: i * 0.05 }}
-                className="group relative rounded-[28px] border border-white/[0.08] bg-zinc-950/70 backdrop-blur-xl p-6 md:p-7 hover:border-emerald-500/35 hover:bg-zinc-900/60 transition-all duration-300 shadow-xl overflow-hidden"
+                className="group relative rounded-[30px] border border-white/10 bg-zinc-950/40 backdrop-blur-xl p-6 md:p-7 hover:border-white/25 hover:bg-zinc-900/40 transition-all duration-300 shadow-[0_12px_40px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)] overflow-hidden"
               >
                 {/* Subtle corner accent glow */}
-                <div className={`absolute top-0 right-0 w-36 h-36 rounded-full blur-3xl opacity-20 bg-gradient-to-br ${categoryAccent[key]}`} />
+                <div className="absolute top-0 right-0 w-36 h-36 rounded-full blur-3xl opacity-10 bg-white" />
 
                 {/* Category header */}
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03] text-xl group-hover:scale-105 group-hover:border-emerald-500/30 transition-all duration-300 shadow-sm">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-xl group-hover:scale-105 group-hover:border-white/20 transition-all duration-300 shadow-sm text-zinc-300">
                     {icon}
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="text-base font-semibold text-white tracking-wide">{label}</h3>
-                      <span className={`h-2 w-2 rounded-full ${categoryDot[key]} shadow-[0_0_8px_currentColor]`} />
+                      <span className="h-2 w-2 rounded-full bg-zinc-400" />
                     </div>
                     {description && (
                       <p className="text-xs text-zinc-400 mt-0.5 font-light">{description}</p>
@@ -182,7 +167,7 @@ export default function Skills() {
                   </div>
                 </div>
 
-                {/* Pills with brand color glow */}
+                {/* Pills — original brand colors on icons with rounded pill shapes */}
                 <motion.div
                   variants={stagger}
                   initial="hidden"
@@ -191,7 +176,6 @@ export default function Skills() {
                 >
                   {(skills[key as keyof typeof skills] || []).map((skill: string) => {
                     const entry = iconMap[skill];
-                    const color = entry?.color || "#10b981";
 
                     return (
                       <motion.div
@@ -199,22 +183,9 @@ export default function Skills() {
                         variants={pill}
                         whileHover={{ y: -3, scale: 1.04 }}
                         whileTap={{ scale: 0.97 }}
-                        className="group/pill relative inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium
-                          bg-white/[0.03] border border-white/[0.06] text-zinc-300 backdrop-blur-md
-                          hover:text-white transition-all duration-200 cursor-default shadow-sm"
-                        style={{
-                          // dynamic hover shadow on mouseover via tailwind or inline
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = `${color}60`;
-                          e.currentTarget.style.boxShadow = `0 0 16px ${color}25`;
-                          e.currentTarget.style.backgroundColor = `${color}10`;
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.06)";
-                          e.currentTarget.style.boxShadow = "none";
-                          e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.03)";
-                        }}
+                        className="group/pill relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium
+                          bg-white/[0.03] border border-white/10 text-zinc-300 backdrop-blur-md
+                          hover:text-white hover:border-white/30 hover:bg-white/[0.07] transition-all duration-200 cursor-default shadow-sm"
                       >
                         {entry && (
                           <entry.Icon

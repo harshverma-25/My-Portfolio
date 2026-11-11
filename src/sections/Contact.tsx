@@ -40,8 +40,6 @@ export default function Contact() {
     setFormStatus("sending");
     
     const formData = new FormData(e.currentTarget);
-    
-    // Add Web3Forms access key
     formData.append("access_key", contact.web3FormsKey);
     formData.append("from_name", "Portfolio Contact Form");
     formData.append("subject", `New Message from ${formData.get("name")}`);
@@ -87,16 +85,16 @@ export default function Contact() {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 mb-4 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
-            <FiMessageSquare className="text-emerald-400" size={13} />
-            <span className="text-xs uppercase tracking-[0.3em] text-emerald-400 font-medium">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 mb-4 shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+            <FiMessageSquare className="text-zinc-300" size={13} />
+            <span className="text-xs uppercase tracking-[0.3em] text-zinc-300 font-medium">
               Get In Touch
             </span>
           </div>
           
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-3">
             Let&apos;s Build Something{" "}
-            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
               Exceptional
             </span>
           </h2>
@@ -116,16 +114,16 @@ export default function Contact() {
             className="space-y-5"
           >
             {/* Email Card */}
-            <div className="group relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-zinc-950/60 backdrop-blur-xl p-6 md:p-7 hover:border-emerald-500/40 transition-all duration-300 shadow-xl">
-              <div className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-20 bg-emerald-500/30 pointer-events-none" />
+            <div className="group relative overflow-hidden rounded-[30px] border border-white/10 bg-zinc-950/40 backdrop-blur-xl p-6 md:p-7 hover:border-white/25 transition-all duration-300 shadow-[0_12px_40px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]">
+              <div className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-10 bg-white pointer-events-none" />
               
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/[0.05] border border-white/10 text-white">
                     <FiMail className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="text-xs font-mono text-emerald-400 font-medium">Direct Inbox</span>
+                    <span className="text-xs font-mono text-zinc-300 font-medium">Direct Inbox</span>
                     <p className="text-[11px] text-zinc-500 font-light">Fast response time guaranteed</p>
                   </div>
                 </div>
@@ -137,12 +135,12 @@ export default function Contact() {
                   
                   <button
                     onClick={copyEmail}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium bg-white/[0.05] border border-white/10 text-zinc-300 hover:text-white hover:border-emerald-500/40 hover:bg-emerald-500/10 transition-all duration-200 active:scale-95"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium bg-white text-black hover:bg-zinc-200 transition-all duration-200 active:scale-95 shadow-sm"
                   >
                     {copied ? (
                       <>
-                        <FiCheck className="w-4 h-4 text-emerald-400" />
-                        <span className="text-emerald-400 font-semibold">Copied!</span>
+                        <FiCheck className="w-4 h-4 text-black" />
+                        <span className="text-black font-semibold">Copied!</span>
                       </>
                     ) : (
                       <>
@@ -168,18 +166,18 @@ export default function Contact() {
                   whileInView="visible"
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.05 }}
-                  className="flex items-center justify-between p-4 rounded-2xl border border-white/[0.08] bg-zinc-950/60 backdrop-blur-xl hover:border-emerald-500/40 hover:bg-emerald-500/[0.03] transition-all duration-300 group shadow-md"
+                  className="flex items-center justify-between p-4 rounded-[22px] border border-white/10 bg-zinc-950/40 backdrop-blur-xl hover:border-white/25 hover:bg-white/[0.04] transition-all duration-300 group shadow-md"
                 >
                   <div className="flex items-center gap-3.5">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.03] border border-white/5 text-zinc-400 group-hover:text-emerald-400 group-hover:border-emerald-500/20 group-hover:scale-105 transition-all">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/[0.03] border border-white/5 text-zinc-400 group-hover:text-white group-hover:border-white/20 group-hover:scale-105 transition-all">
                       <social.icon className="w-4 h-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-white group-hover:text-emerald-300 transition-colors">{social.name}</p>
+                      <p className="text-sm font-semibold text-white group-hover:text-zinc-200 transition-colors">{social.name}</p>
                       <p className="text-xs text-zinc-500 font-mono font-light">{social.username}</p>
                     </div>
                   </div>
-                  <FiSend className="w-4 h-4 text-zinc-600 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all duration-300" />
+                  <FiSend className="w-4 h-4 text-zinc-600 group-hover:text-white group-hover:translate-x-1 transition-all duration-300" />
                 </motion.a>
               ))}
             </div>
@@ -192,7 +190,7 @@ export default function Contact() {
             whileInView="visible"
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="rounded-[28px] border border-white/[0.08] bg-zinc-950/60 backdrop-blur-xl p-6 md:p-8 shadow-xl"
+            className="rounded-[30px] border border-white/10 bg-zinc-950/40 backdrop-blur-xl p-6 md:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.06)]"
           >
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -204,7 +202,7 @@ export default function Contact() {
                   id="name"
                   name="name"
                   required
-                  className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 text-white placeholder:text-zinc-600 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/30 transition-all duration-200 text-sm"
+                  className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 text-white placeholder:text-zinc-600 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all duration-200 text-sm"
                   placeholder="e.g. Alex Morgan"
                 />
               </div>
@@ -218,7 +216,7 @@ export default function Contact() {
                   id="email"
                   name="email"
                   required
-                  className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 text-white placeholder:text-zinc-600 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/30 transition-all duration-200 text-sm"
+                  className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 text-white placeholder:text-zinc-600 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all duration-200 text-sm"
                   placeholder="alex@company.com"
                 />
               </div>
@@ -232,7 +230,7 @@ export default function Contact() {
                   name="message"
                   required
                   rows={4}
-                  className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 text-white placeholder:text-zinc-600 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/30 transition-all duration-200 text-sm resize-none"
+                  className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 text-white placeholder:text-zinc-600 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all duration-200 text-sm resize-none"
                   placeholder="Tell me about your project, vision, or role..."
                 />
               </div>
@@ -240,10 +238,9 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={formStatus === "sending"}
-                className="w-full group relative overflow-hidden rounded-full p-px transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.3)] active:scale-[0.99] disabled:opacity-60"
+                className="w-full group relative overflow-hidden rounded-full transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.25)] active:scale-[0.99] disabled:opacity-60"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 rounded-full" />
-                <div className="relative px-6 py-3.5 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold text-sm flex items-center justify-center gap-2 group-hover:from-emerald-300 group-hover:to-teal-300 transition-colors">
+                <div className="relative px-6 py-3.5 rounded-full bg-white text-black font-bold text-sm flex items-center justify-center gap-2 hover:bg-zinc-200 transition-colors">
                   {formStatus === "sending" ? (
                     <>
                       <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />

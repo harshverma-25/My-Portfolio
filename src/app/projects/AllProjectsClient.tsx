@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import ProjectCard from "@/components/ProjectCard";
+import ProjectDetailsModal from "@/components/ProjectDetailsModal";
 import Footer from "@/components/Footer";
 import { FiArrowLeft } from "react-icons/fi";
 import { Project } from "@/data/projects";
@@ -12,6 +14,7 @@ interface AllProjectsClientProps {
 }
 
 export default function AllProjectsClient({ projects }: AllProjectsClientProps) {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const isMain = (p: Project) => p["main-project"] === true || p.mainProject === true;
 
   return (
@@ -27,7 +30,7 @@ export default function AllProjectsClient({ projects }: AllProjectsClientProps) 
         >
           <Link
             href="/#projects"
-            className="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-emerald-400 transition-colors group"
+            className="inline-flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white transition-colors group"
           >
             <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" />
             <span>Back to Overview</span>
@@ -49,6 +52,7 @@ export default function AllProjectsClient({ projects }: AllProjectsClientProps) 
                 <ProjectCard
                   project={project}
                   badge={mainFlag ? `Main 0${idx + 1}` : undefined}
+                  onSelectProject={setSelectedProject}
                 />
               </motion.div>
             );
@@ -56,9 +60,13 @@ export default function AllProjectsClient({ projects }: AllProjectsClientProps) 
         </div>
       </main>
 
+      {/* Deep Dive & Architecture Modal */}
+      <ProjectDetailsModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
+
       <Footer />
     </div>
   );
 }
-
-

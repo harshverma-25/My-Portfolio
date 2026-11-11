@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import ProjectCard from "@/components/ProjectCard";
+import ProjectDetailsModal from "@/components/ProjectDetailsModal";
 import { 
   FiFolder, 
   FiStar
@@ -19,6 +20,8 @@ interface ProjectsProps {
 }
 
 export default function Projects({ projects }: ProjectsProps) {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
   // Filter projects based on main-project flag
   const { displayMain } = useMemo(() => {
     const isMain = (p: Project) => p["main-project"] === true || p.mainProject === true;
@@ -41,16 +44,16 @@ export default function Projects({ projects }: ProjectsProps) {
           viewport={{ once: true }}
           className="mb-14 text-center"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 mb-4 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
-            <FiStar className="text-emerald-400 fill-emerald-400" size={12} />
-            <span className="text-xs uppercase tracking-[0.3em] text-emerald-400 font-medium">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 mb-4 shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+            <FiStar className="text-white fill-white" size={12} />
+            <span className="text-xs uppercase tracking-[0.3em] text-zinc-300 font-medium">
               Featured Work
             </span>
           </div>
 
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
             Main{" "}
-            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
               Projects
             </span>
           </h2>
@@ -70,7 +73,11 @@ export default function Projects({ projects }: ProjectsProps) {
               transition={{ duration: 0.4, delay: idx * 0.1 }}
               className="h-full"
             >
-              <ProjectCard project={project} badge={`Main 0${idx + 1}`} />
+              <ProjectCard 
+                project={project} 
+                badge={`Main 0${idx + 1}`}
+                onSelectProject={setSelectedProject}
+              />
             </motion.div>
           ))}
         </div>
@@ -79,21 +86,27 @@ export default function Projects({ projects }: ProjectsProps) {
         <div className="mt-14 flex flex-col items-center">
           <Link
             href="/projects"
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-white/10 bg-white/[0.04] px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-emerald-500/50 hover:bg-emerald-500/[0.08] hover:shadow-[0_0_35px_rgba(16,185,129,0.2)] active:scale-95"
+            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-white/10 bg-white/[0.04] px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-white/30 hover:bg-white/[0.08] hover:shadow-[0_0_35px_rgba(255,255,255,0.1)] active:scale-95"
             id="more-projects-btn"
           >
-            <FiFolder className="text-emerald-400 group-hover:scale-110 transition-transform" size={18} />
+            <FiFolder className="text-zinc-300 group-hover:scale-110 group-hover:text-white transition-all" size={18} />
             <span>More Projects</span>
-            <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 font-mono text-xs text-emerald-400 font-medium">
+            <span className="rounded-full bg-white/[0.06] border border-white/15 px-2.5 py-0.5 font-mono text-xs text-zinc-300 font-medium">
               View All ({projects.length})
             </span>
             <HiArrowRight
-              className="text-zinc-400 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all duration-300"
+              className="text-zinc-400 group-hover:text-white group-hover:translate-x-1 transition-all duration-300"
               size={16}
             />
           </Link>
         </div>
       </div>
+
+      {/* Deep Dive & Architecture Modal */}
+      <ProjectDetailsModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 }

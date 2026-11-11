@@ -8,6 +8,8 @@ export interface Project {
   featured?: boolean;
   "main-project"?: boolean;
   mainProject?: boolean;
+  architecture?: string[];
+  keyDecisions?: string[];
 }
 
 export const projects: Project[] = [
@@ -34,6 +36,16 @@ export const projects: Project[] = [
     image: "/projects/quizzy.png",
     featured: true,
     "main-project": true,
+    architecture: [
+      "Server-authoritative WebSocket room timers (1–4 players) ensuring synchronized zero-drift gameplay",
+      "Redis caching layer for sub-millisecond room state retrieval and live multiplayer leaderboards",
+      "AI quiz generator leveraging Google Gemini API with automated structured schema validation",
+      "JWT-based session authentication with Redis token blacklist and rate-limiting middleware",
+    ],
+    keyDecisions: [
+      "Mitigated client latency tampering by running all game loops and timer decrements strictly on the backend",
+      "Optimized WebSocket payloads using minimal JSON diffs for smooth 60fps countdown animations",
+    ],
   },
 
   {
@@ -56,6 +68,16 @@ export const projects: Project[] = [
     image: "/projects/devcircle.png",
     featured: true,
     "main-project": true,
+    architecture: [
+      "Low-latency multi-participant video interviews powered by LiveKit WebRTC SFU infrastructure",
+      "20+ modular REST API endpoints with role-based access control (RBAC) and Zod validation",
+      "AI resume parser & ATS scoring pipeline using OpenRouter LLM API integrations",
+      "Interactive resume builder generating PDF exports with real-time keyword match analytics",
+    ],
+    keyDecisions: [
+      "Decoupled heavy WebRTC media traffic from core application server using LiveKit Cloud SFU",
+      "Engineered streaming responses for AI interview feedback to eliminate user waiting latency",
+    ],
   },
 
   {
@@ -76,6 +98,16 @@ export const projects: Project[] = [
     image: "/projects/repo.png",
     featured: true,
     "main-project": true,
+    architecture: [
+      "Static TypeScript AST parser scanning GitHub repos without running untrusted code",
+      "Automated extraction of Express/Next API routes, middleware chains, and Mongoose schemas",
+      "AI-driven architectural summaries and security vulnerability detection with Google Gemini",
+      "Interactive SVG dependency diagrams generated dynamically from repository AST data",
+    ],
+    keyDecisions: [
+      "Implemented chunked file tree tokenization to analyze repositories exceeding 50,000 LOC within Gemini context limits",
+      "Built resilient caching on MongoDB to serve repeat repo inspections in <200ms",
+    ],
   },
 
   // ============================
@@ -99,6 +131,14 @@ export const projects: Project[] = [
     image: "/projects/itmconnect.png",
     featured: true,
     "main-project": false,
+    architecture: [
+      "Verified college roll-number validation ensuring private campus-only access",
+      "Cloudinary media pipeline with automated compression and responsive transformations",
+      "JWT-secured session storage with MongoDB index-optimized social feeds",
+    ],
+    keyDecisions: [
+      "Restricted signups using regex-enforced institutional roll numbers to ensure platform privacy",
+    ],
   },
 
   {
@@ -120,6 +160,14 @@ export const projects: Project[] = [
     image: "/projects/anime.png",
     featured: false,
     "main-project": false,
+    architecture: [
+      "AniList GraphQL API integration for real-time metadata, genre, and rating synchronization",
+      "YouTube Data API verification pipeline for authorized distributor video playback",
+      "Full-text search and language filtering with MongoDB indexing",
+    ],
+    keyDecisions: [
+      "Combined AniList GraphQL data with verified YouTube official distributor links to ensure 100% legal streaming",
+    ],
   },
 
   {
@@ -142,5 +190,13 @@ export const projects: Project[] = [
     image: "/projects/habit.png",
     featured: false,
     "main-project": false,
+    architecture: [
+      "Google OAuth 2.0 integration via NextAuth.js with secure JWT session tokens",
+      "Custom monthly calendar grid algorithm calculating dynamic streaks and completion rates",
+      "Real-time analytics dashboard with weekly completion velocity charts",
+    ],
+    keyDecisions: [
+      "Calculated habit streaks on-demand using date diff indexing to maintain instantaneous check-in speeds",
+    ],
   },
 ];

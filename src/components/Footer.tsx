@@ -41,7 +41,7 @@ export default function Footer() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: idx * 0.05 }}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/5 bg-white/[0.02] text-zinc-500 hover:text-emerald-400 hover:border-emerald-500/30 hover:bg-white/[0.05] transition-all duration-300"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/5 bg-white/[0.02] text-zinc-500 hover:text-white hover:border-white/30 hover:bg-white/[0.05] transition-all duration-300"
                 aria-label={social.label}
                 title={social.label}
               >
@@ -58,9 +58,9 @@ export default function Footer() {
             className="flex items-center gap-1.5 text-xs text-zinc-500 font-mono"
           >
             <span>Crafted with</span>
-            <FiHeart className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+            <FiHeart className="w-3.5 h-3.5 text-white animate-pulse" />
             <span>by</span>
-            <span className="text-emerald-400 font-semibold">{siteConfig.handle}</span>
+            <span className="text-white font-semibold">{siteConfig.handle}</span>
           </motion.div>
         </div>
       </div>

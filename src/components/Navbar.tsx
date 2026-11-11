@@ -17,16 +17,9 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState(
-    pathname === "/projects" ? "projects" : "home"
-  );
+  const [activeSection, setActiveSection] = useState("home");
 
-  // Sync active section when on /projects
-  useEffect(() => {
-    if (pathname === "/projects") {
-      setActiveSection("projects");
-    }
-  }, [pathname]);
+  const currentSection = pathname === "/projects" ? "projects" : activeSection;
 
   // Close mobile menu on scroll
   useEffect(() => {
@@ -91,7 +84,7 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-auto flex items-center justify-between w-full max-w-[680px] bg-black/65 backdrop-blur-2xl border border-white/10 rounded-full px-5 py-2.5 shadow-[0_15px_40px_rgba(0,0,0,0.6)]"
+        className="pointer-events-auto flex items-center justify-between w-full max-w-[680px] bg-black/75 backdrop-blur-2xl border border-white/10 rounded-full px-5 py-2.5 shadow-[0_15px_40px_rgba(0,0,0,0.7)]"
       >
         {/* Logo */}
         <Link 
@@ -100,15 +93,15 @@ export default function Navbar() {
           className="text-sm font-bold text-white tracking-tight flex items-center gap-1.5 group"
           aria-label="Harsh Verma Portfolio"
         >
-          <span className="flex h-2 w-2 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform" />
-          <span>harsh<span className="text-emerald-400">.dev</span></span>
+          <span className="flex h-2 w-2 rounded-full bg-white group-hover:scale-125 transition-transform" />
+          <span>harsh<span className="text-zinc-400">.dev</span></span>
         </Link>
 
         {/* Desktop Links with smooth gliding layoutId active pill */}
         <div className="hidden md:flex items-center gap-1 relative">
           {navLinks.map((link) => {
             const Icon = link.icon;
-            const isActive = activeSection === link.href.slice(1);
+            const isActive = currentSection === link.href.slice(1);
             
             return (
               <Link
@@ -117,7 +110,7 @@ export default function Navbar() {
                 onClick={(e) => handleSmoothScroll(e, link.href)}
                 className={cn(
                   "relative p-2.5 rounded-full transition-colors flex items-center justify-center text-sm",
-                  isActive ? "text-emerald-400" : "text-zinc-400 hover:text-white"
+                  isActive ? "text-white" : "text-zinc-400 hover:text-white"
                 )}
                 aria-label={link.name}
                 title={link.name}
@@ -125,7 +118,7 @@ export default function Navbar() {
                 {isActive && (
                   <motion.div
                     layoutId="navbar-active-pill"
-                    className="absolute inset-0 bg-emerald-500/10 border border-emerald-500/30 rounded-full"
+                    className="absolute inset-0 bg-white/[0.08] border border-white/20 rounded-full"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -142,7 +135,7 @@ export default function Navbar() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-zinc-500 hover:text-emerald-400 transition-colors rounded-full hover:bg-white/5"
+              className="p-2 text-zinc-500 hover:text-white transition-colors rounded-full hover:bg-white/5"
               aria-label={link.name}
               title={link.name}
             >
@@ -155,7 +148,7 @@ export default function Navbar() {
           <Link
             href="#contact"
             onClick={(e) => handleSmoothScroll(e, "#contact")}
-            className="flex items-center gap-1.5 px-4 py-1.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-black rounded-full text-[11px] font-bold uppercase tracking-wider hover:from-emerald-400 hover:to-teal-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-300"
+            className="flex items-center gap-1.5 px-4 py-1.5 bg-white text-black rounded-full text-[11px] font-bold uppercase tracking-wider hover:bg-zinc-200 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300"
           >
             Hire Me
             <HiArrowRight size={13} />
@@ -179,7 +172,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-[125%] left-0 right-0 p-3 bg-black/90 backdrop-blur-2xl border border-white/10 rounded-3xl md:hidden flex flex-col gap-1 shadow-2xl"
+              className="absolute top-[125%] left-0 right-0 p-3 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-3xl md:hidden flex flex-col gap-1 shadow-2xl"
             >
               {navLinks.map((link) => (
                 <Link
@@ -188,8 +181,8 @@ export default function Navbar() {
                   onClick={(e) => handleSmoothScroll(e, link.href)}
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-2xl transition-all",
-                    activeSection === link.href.slice(1)
-                      ? "bg-emerald-500/15 border border-emerald-500/30 text-emerald-300"
+                    currentSection === link.href.slice(1)
+                      ? "bg-white/10 border border-white/20 text-white"
                       : "text-zinc-400 hover:text-white hover:bg-white/5"
                   )}
                 >
@@ -207,7 +200,7 @@ export default function Navbar() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 text-zinc-400 hover:text-emerald-400 rounded-full hover:bg-white/5 transition-colors"
+                    className="p-2.5 text-zinc-400 hover:text-white rounded-full hover:bg-white/5 transition-colors"
                     aria-label={link.name}
                   >
                     <link.icon size={18} />
@@ -218,7 +211,7 @@ export default function Navbar() {
               <Link
                 href="#contact"
                 onClick={(e) => handleSmoothScroll(e, "#contact")}
-                className="mt-1 flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-black rounded-2xl text-sm font-bold uppercase tracking-wider shadow-lg"
+                className="mt-1 flex items-center justify-center gap-2 w-full py-3 bg-white text-black rounded-2xl text-sm font-bold uppercase tracking-wider shadow-lg hover:bg-zinc-200 transition-colors"
               >
                 Hire Me
                 <HiArrowRight size={16} />

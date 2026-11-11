@@ -19,7 +19,7 @@ export default function ScrollProgress() {
 
   return (
     <div
-      className="fixed top-0 left-0 z-[200] h-[2.5px] bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 shadow-[0_0_12px_rgba(16,185,129,0.6)] transition-all duration-75 ease-out"
+      className="fixed top-0 left-0 z-[200] h-[2px] bg-gradient-to-r from-zinc-600 via-zinc-200 to-white shadow-[0_0_12px_rgba(255,255,255,0.5)] transition-all duration-75 ease-out"
       style={{ width: `${progress}%` }}
       aria-hidden="true"
     />
