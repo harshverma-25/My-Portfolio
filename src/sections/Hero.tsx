@@ -61,20 +61,50 @@ export default function Hero() {
           {/* ── LEFT: Avatar Card + Name + Location ── */}
           <div className="flex flex-col items-center sm:items-start shrink-0 text-center sm:text-left">
             <motion.div
-              whileHover={{ scale: 1.025, y: -2 }}
-              transition={{ duration: 0.3 }}
-              className="relative w-28 h-36 sm:w-32 sm:h-40 rounded-2xl overflow-hidden mb-3 border border-white/10 bg-zinc-900/50 shadow-[0_12px_40px_rgba(0,0,0,0.65)]"
+              animate={{
+                y: [0, -4, 0],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              whileHover={{ scale: 1.03 }}
+              className="group relative w-28 h-36 sm:w-32 sm:h-40 rounded-2xl overflow-hidden mb-3 border border-white/15 bg-zinc-900/60 shadow-[0_12px_40px_rgba(0,0,0,0.7)]"
             >
+              {/* Subtle ambient pulse border on hover */}
+              <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
+
               <Image
                 src="/avatar.png"
                 alt={siteConfig.name}
                 fill
                 priority
                 sizes="(max-width: 640px) 112px, 128px"
-                className="object-cover object-top"
+                className="object-cover object-top grayscale contrast-115 brightness-95 transition-all duration-700 ease-out group-hover:contrast-125 group-hover:scale-105"
               />
-              {/* Subtle glass gradient sheen */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+
+              {/* Subtle dark bottom fade */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none z-10" />
+
+              {/* Smooth light-sweep shimmer animation */}
+              <motion.div
+                initial={{ x: "-120%", opacity: 0 }}
+                animate={{
+                  x: ["120%", "-120%"],
+                  opacity: [0, 0.35, 0],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 4,
+                  ease: "easeInOut",
+                  repeatDelay: 2.5,
+                }}
+                className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none z-20 -skew-x-12"
+              />
+
+              {/* Sleek inner ring */}
+              <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 pointer-events-none z-20" />
             </motion.div>
 
             {/* Name in Instrument Serif italic */}

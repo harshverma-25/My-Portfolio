@@ -156,7 +156,7 @@ export default function GitHubShowcase() {
                   alt={stats?.user.name || "GitHub Profile"} 
                   fill
                   sizes="56px"
-                  className="object-cover"
+                  className="object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-500"
                 />
               </div>
               <div className="flex-1 w-full">
